@@ -43,7 +43,7 @@ tasks.withType(Checkstyle) {
 }
 
 shadowJar {
-    relocate 'io.papermc.lib', 'com.snowypeaksystems.' + rootProject.name + '.paperlib'
+    archiveClassifier.set('dev')
     minimize()
 }
 
@@ -53,5 +53,5 @@ assemble.dependsOn(shadowJar)
 task release (type: Copy) {
     from(buildDir.toString() + '/libs/')
     destinationDir file(buildDir.toString() + '/libs/')
-    rename rootProject.name + '-' + version + '-all.jar', rootProject.name + '.jar'
+    rename rootProject.name + '-' + version + '-dev.jar', rootProject.name + '.jar'
 }
