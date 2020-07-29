@@ -1,0 +1,39 @@
+name: Build and Draft Release
+
+on:
+  push:
+    tags:
+      - 'v*' # For v1.0, v0.1.0, etc
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@2.1.0
+        with:
+          name: Compiled Jar(s)
+          path: ${{ github.workspace }}/build/libs/
+
+      - name: Draft Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: true

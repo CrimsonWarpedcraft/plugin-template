@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id 'checkstyle'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
+}
+
+version '0.1.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name 'papermc'
+        url 'https://papermc.io/repo/repository/maven-public/'
+    }
+}
+
+dependencies {
+    implementation "io.papermc:paperlib:1.0.5"
+    implementation group: 'com.destroystokyo.paper', name: 'paper-api', version: '1.16.1-R0.1-SNAPSHOT'
+}
+
+processResources {
+    filesMatching("**/plugin.yml") {
+        expand ( NAME: rootProject.name, VERSION: version )
+    }
+}
+
+checkstyle {
+    toolVersion '8.35'
+    maxWarnings = 0
+}
+
+tasks.withType(Checkstyle) {
+    reports {
+        xml.enabled false
+        html.enabled false
+    }
+}
+
+shadowJar {
+    relocate 'io.papermc.lib', 'com.snowypeaksystems.' + rootProject.name + '.paperlib'
+    minimize()
+}
+
+jar.enabled = false
+assemble.dependsOn(shadowJar)
