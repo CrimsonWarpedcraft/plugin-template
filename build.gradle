@@ -59,8 +59,11 @@ shadowJar {
 jar.enabled = false
 assemble.dependsOn(shadowJar)
 
-task release (type: Copy) {
-    from(buildDir.toString() + '/libs/')
-    destinationDir file(buildDir.toString() + '/libs/')
-    rename rootProject.name + '-' + version + '-dev.jar', rootProject.name + '.jar'
+task release {
+    doLast {
+        def dirStr = buildDir.toString() + '/libs/'
+
+        file(dirStr + rootProject.name + '-' + version + '-dev.jar')
+        .renameTo(dirStr + rootProject.name + '.jar')
+    }
 }
