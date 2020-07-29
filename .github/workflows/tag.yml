@@ -21,7 +21,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew build release
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2.1.1
@@ -30,6 +30,7 @@ jobs:
           path: ${{ github.workspace }}/build/libs/
 
       - name: Draft Release
+        id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -37,3 +38,13 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           draft: true
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ github.workspace }}/build/libs/plugin-template.jar
+          asset_name: plugin-template.jar
+          asset_content_type: application/java-archive
