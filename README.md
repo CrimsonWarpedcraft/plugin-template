@@ -25,12 +25,6 @@ ext {
 }
 ```
 
-You may want to set a new version number, but this will probably be more important when [Creating a Release](#creating-a-release).
-
-```groovy
-version '0.1.0-SNAPSHOT'
-```
-
 Add any required repositories for your dependencies in the following section.
 
 ```groovy
@@ -100,9 +94,9 @@ permissions:
 
 Below are the steps you should follow to create a release.
 
-1. Make sure to update the `version` in [build.gradle](#buildgradle)
-2. Create a tag at the desired commit on `master` and push it to `origin`
-3. Add a description to the release draft in the releases page
+1. Create a tag on `master` using semantic versioning (e.g. v0.1.0)
+2. Push the tag to `origin` and get some coffee
+3. Add a description to the release draft once it's been made
 
 ## Contributing
 

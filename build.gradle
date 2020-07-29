@@ -8,7 +8,11 @@ ext {
     packageName = "com.snowypeaksystems"
 }
 
-version '0.1.0-SNAPSHOT'
+if (hasProperty('ver')) {
+    version = ver
+} else {
+    version = 'SNAPSHOT'
+}
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8

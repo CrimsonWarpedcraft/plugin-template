@@ -21,7 +21,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: ./gradlew build release
+        run: ./gradlew -Pver=${GITHUB_REF/refs\/tags\//} build release
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2.1.1
