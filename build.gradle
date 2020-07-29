@@ -4,6 +4,10 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '6.0.0'
 }
 
+ext {
+    packageName = "com.snowypeaksystems"
+}
+
 version '0.1.0-SNAPSHOT'
 
 java {
@@ -26,7 +30,7 @@ dependencies {
 
 processResources {
     filesMatching("**/plugin.yml") {
-        expand ( NAME: rootProject.name, VERSION: version )
+        expand ( NAME: rootProject.name, VERSION: version, PACKAGE: packageName )
     }
 }
 
@@ -44,6 +48,7 @@ tasks.withType(Checkstyle) {
 
 shadowJar {
     archiveClassifier.set('dev')
+    relocate 'io.papermc.lib', packageName + rootProject.name + '.paperlib'
     minimize()
 }
 

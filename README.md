@@ -17,6 +17,14 @@ rootProject.name = 'plugin-template'
 
 ### build.gradle
 
+Make sure to update the `packageName` to your liking in the following section.
+
+```groovy
+ext {
+    packageName = "com.snowypeaksystems"
+}
+```
+
 You may want to set a new version number, but this will probably be more important when [Creating a Release](#creating-a-release).
 
 ```groovy
@@ -44,15 +52,6 @@ dependencies {
 }
 ```
 
-Lastly, you probably want to update your package names on the `relocate` line below.
-
-```groovy
-shadowJar {
-    relocate 'io.papermc.lib', 'com.snowypeaksystems.' + rootProject.name + '.paperlib'
-    minimize()
-}
-```
-
 ### .github/tag.yml
 
 In the following section, you will need to replace "plugin-template.jar" in `asset_path` and `asset_name` with the name of your plugin (see [settings.gradle](#settingsgradle)).
@@ -71,20 +70,14 @@ In the following section, you will need to replace "plugin-template.jar" in `ass
 
 ### src/main/resources/plugin.yml
 
-First, you'll need to replace `com.snowypeaksystems` on the line below with your package's name.
-
-```yml
-main: com.snowypeaksystems.${NAME}.${NAME}
-```
-
-Next, update the following with your information.
+First, update the following with your information.
 
 ```
 author: AUTHOR
 description: DESCRIPTION
 ```
 
-The `commands` and `permissions` sections below are provided as examples and should be updated according to your needs.
+Next, the `commands` and `permissions` sections below should be updated as needed.
 
 ```yml
 commands:
