@@ -41,7 +41,7 @@ Also, update your dependencies as needed (of course).
 
 ```groovy
 dependencies {
-    implementation "io.papermc:paperlib:1.0.5"
+    implementation group: 'io.papermc', name: 'paperlib', version: '1.0.5'
     implementation group: 'com.destroystokyo.paper', name: 'paper-api', version: '1.16.1-R0.1-SNAPSHOT'
 }
 ```
@@ -66,7 +66,7 @@ In the following section, you will need to replace "plugin-template.jar" in `ass
 
 First, update the following with your information.
 
-```
+```yml
 author: AUTHOR
 description: DESCRIPTION
 ```
@@ -95,8 +95,8 @@ permissions:
 Below are the steps you should follow to create a release.
 
 1. Create a tag on `master` using semantic versioning (e.g. v0.1.0)
-2. Push the tag to `origin` and get some coffee
-3. Add a description to the release draft once it's been made
+2. Push the tag to `origin` and get some coffee while the workflows run
+3. Add a description to the release draft once it's been automatically created
 
 ## Contributing
 
@@ -107,7 +107,7 @@ Below are the steps you should follow to create a release.
     * Give your branch a name that describes your change (e.g. add-scoreboard)
     * Focus on one change per branch
     * Keep your commits small, and write descriptive commit messages
-3. When you're ready, create a pull request to `master` with a descriptive title, and listing any changes made its description
+3. When you're ready, create a pull request to `master` with a descriptive title, and listing any changes made in its description
     * Link any issues that your pull request is related to as well
 
 #### Example:
