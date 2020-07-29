@@ -28,7 +28,7 @@ repositories {
 }
 
 dependencies {
-    implementation "io.papermc:paperlib:1.0.5"
+    implementation group: 'io.papermc', name: 'paperlib', version: '1.0.5'
     implementation group: 'com.destroystokyo.paper', name: 'paper-api', version: '1.16.1-R0.1-SNAPSHOT'
 }
 
@@ -60,6 +60,7 @@ jar.enabled = false
 assemble.dependsOn(shadowJar)
 
 task release {
+    dependsOn build
     doLast {
         def dirStr = buildDir.toString() + '/libs/'
 
