@@ -1,4 +1,4 @@
-main: ${PACKAGE}.${NAME}.${NAME}
+main: ${PACKAGE}.${NAME.toLowerCase()}.${NAME}
 name: ${NAME}
 version: ${VERSION}
 api-version: "1.16"
