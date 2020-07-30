@@ -52,7 +52,7 @@ tasks.withType(Checkstyle) {
 
 shadowJar {
     archiveClassifier.set('dev')
-    relocate 'io.papermc.lib', packageName + rootProject.name + '.paperlib'
+    relocate 'io.papermc.lib', packageName + '.' + rootProject.name + '.paperlib'
     minimize()
 }
 
@@ -64,7 +64,6 @@ task release {
     doLast {
         def dirStr = buildDir.toString() + '/libs/'
 
-        file(dirStr + rootProject.name + '-' + version + '-dev.jar')
-        .renameTo(dirStr + rootProject.name + '.jar')
+        file(dirStr + rootProject.name + '-' + version + '-dev.jar').renameTo(dirStr + rootProject.name + '.jar')
     }
 }
