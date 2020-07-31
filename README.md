@@ -17,12 +17,10 @@ rootProject.name = 'plugin-template'
 
 ### build.gradle
 
-Make sure to update the `packageName` to your liking in the following section.
+Make sure to update the `group` to your package's name in the following section.
 
 ```groovy
-ext {
-    packageName = "com.snowypeaksystems"
-}
+group = "com.snowypeaksystems.plugin-template"
 ```
 
 Add any required repositories for your dependencies in the following section.

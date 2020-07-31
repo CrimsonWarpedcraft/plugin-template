@@ -4,9 +4,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '6.0.0'
 }
 
-ext {
-    packageName = "com.snowypeaksystems"
-}
+group = "com.snowypeaksystems.plugin-template"
 
 if (hasProperty('ver')) {
     version = ver
@@ -34,7 +32,7 @@ dependencies {
 
 processResources {
     filesMatching("**/plugin.yml") {
-        expand ( NAME: rootProject.name, VERSION: version, PACKAGE: packageName )
+        expand ( NAME: rootProject.name, VERSION: version, PACKAGE: project.group.toString() )
     }
 }
 
