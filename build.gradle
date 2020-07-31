@@ -28,8 +28,8 @@ repositories {
 }
 
 dependencies {
+    compileOnly group: 'com.destroystokyo.paper', name: 'paper-api', version: '1.16.1-R0.1-SNAPSHOT'
     implementation group: 'io.papermc', name: 'paperlib', version: '1.0.5'
-    implementation group: 'com.destroystokyo.paper', name: 'paper-api', version: '1.16.1-R0.1-SNAPSHOT'
 }
 
 processResources {
@@ -52,7 +52,7 @@ tasks.withType(Checkstyle) {
 
 shadowJar {
     archiveClassifier.set('dev')
-    relocate 'io.papermc.lib', packageName + '.' + rootProject.name + '.paperlib'
+    relocate 'io.papermc.lib', 'shadow.io.papermc.lib'
     minimize()
 }
 

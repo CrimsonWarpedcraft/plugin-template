@@ -41,8 +41,8 @@ Also, update your dependencies as needed (of course).
 
 ```groovy
 dependencies {
+    compileOnly group: 'com.destroystokyo.paper', name: 'paper-api', version: '1.16.1-R0.1-SNAPSHOT'
     implementation group: 'io.papermc', name: 'paperlib', version: '1.0.5'
-    implementation group: 'com.destroystokyo.paper', name: 'paper-api', version: '1.16.1-R0.1-SNAPSHOT'
 }
 ```
 
