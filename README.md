@@ -1,6 +1,34 @@
 # plugin-template
 Template for building PaperMC plugins
 
+## Features
+**Github Actions** 🎬
+* Release drafting on tag push
+* Artifact build on pull requests
+* Compile and lint on branch push
+
+**Bots** 🤖
+* **Probot: Stale**
+    * Mark issues stale after 21 days
+    * Close issues after 30 days
+* **Dependabot**
+    * Update GitHub Actions workflows
+    * Update Gradle dependencies
+
+**Issue Templates** 📋
+* Bug report template
+* Feature request template
+
+**Gradle Builds** 🏗
+* Shadowed PaperLib build
+* Checkstyle Google style analysis
+
+**Config Files** 📁
+* Sample plugin.yml with auto-fill fields
+* Simple Gradle build config
+* Empty config.yml (just to make life \*that\* much easier)
+* Simple .gitignore for common Gradle files
+
 ## Setup
 
 In order to use this template for yourself, there are a few things that you will need to change.
