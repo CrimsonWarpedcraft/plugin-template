@@ -1,3 +1,5 @@
+import java.text.SimpleDateFormat
+
 plugins {
     id 'java'
     id 'checkstyle'
@@ -9,7 +11,7 @@ group = "com.snowypeaksystems.plugin-template"
 if (hasProperty('ver')) {
     version = ver
 } else {
-    version = 'SNAPSHOT'
+    version = new SimpleDateFormat("yyyy-MM-dd").format(new Date())
 }
 
 java {
@@ -49,7 +51,7 @@ tasks.withType(Checkstyle) {
 }
 
 shadowJar {
-    archiveClassifier.set('dev')
+    archiveClassifier.set('SNAPSHOT')
     relocate 'io.papermc.lib', 'shadow.io.papermc.lib'
     minimize()
 }
