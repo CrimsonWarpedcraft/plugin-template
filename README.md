@@ -40,7 +40,7 @@ I've broken the changes up by their files to make things a bit easier to find.
 Update the line below with the name of your plugin.
 
 ```groovy
-rootProject.name = 'plugin-template'
+rootProject.name = 'ExamplePlugin'
 ```
 
 ### build.gradle
@@ -48,7 +48,7 @@ rootProject.name = 'plugin-template'
 Make sure to update the `group` to your package's name in the following section.
 
 ```groovy
-group = "com.snowypeaksystems.plugin-template"
+group = "com.snowypeaksystems.exampleplugin"
 ```
 
 Add any required repositories for your dependencies in the following section.
@@ -83,8 +83,8 @@ In the following section, you will need to replace "plugin-template.jar" in `ass
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   with:
     upload_url: ${{ steps.create_release.outputs.upload_url }}
-    asset_path: ${{ github.workspace }}/build/libs/plugin-template.jar
-    asset_name: plugin-template.jar
+    asset_path: ${{ github.workspace }}/build/libs/ExamplePlugin.jar
+    asset_name: ExamplePlugin.jar
     asset_content_type: application/java-archive
 ```
 
