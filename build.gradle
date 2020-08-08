@@ -64,6 +64,6 @@ task release {
     doLast {
         def dirStr = buildDir.toString() + '/libs/'
 
-        file(dirStr + rootProject.name + '-' + version + '-dev.jar').renameTo(dirStr + rootProject.name + '.jar')
+        file(dirStr + rootProject.name + '-' + version + '-SNAPSHOT.jar').renameTo(dirStr + rootProject.name + '.jar')
     }
 }
