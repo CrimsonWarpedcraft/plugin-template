@@ -3,6 +3,7 @@ import java.text.SimpleDateFormat
 plugins {
     id 'java'
     id 'checkstyle'
+    id "com.github.spotbugs" version "4.5.0"
     id 'com.github.johnrengelman.shadow' version '6.0.0'
 }
 
@@ -28,6 +29,7 @@ repositories {
 }
 
 dependencies {
+    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.10.1'
     compileOnly group: 'com.destroystokyo.paper', name: 'paper-api', version: '1.16.1-R0.1-SNAPSHOT'
     implementation group: 'io.papermc', name: 'paperlib', version: '1.0.5'
 }
