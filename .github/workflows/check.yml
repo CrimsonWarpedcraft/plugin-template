@@ -1,9 +1,11 @@
-name: Build and Lint
+name: Build and Check
 
 on:
   push:
     branches:
       - '*'
+    branches-ignore:
+      - 'master'
 
 jobs:
   build:
