@@ -27,7 +27,7 @@ jobs:
         run: ./gradlew build
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2.1.2
+        uses: actions/upload-artifact@v2.1.3
         with:
           name: Compiled Jar(s)
           path: ${{ github.workspace }}/build/libs/
