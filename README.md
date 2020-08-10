@@ -1,13 +1,13 @@
 # plugin-template
-Template for building PaperMC plugins
+A template for building PaperMC plugins!
 
 ## Features
-**Github Actions** 🎬
-* Release drafting on tag push
-* Artifact build on pull requests
-* Compile and lint on branch push
+### Github Actions 🎬
+* Draft release on tag push
+* Build artifact on pull requests and pushes to master
+* Build and check on all other branches
 
-**Bots** 🤖
+### Bots 🤖
 * **Probot: Stale**
     * Mark issues stale after 21 days
     * Close issues after 30 days
@@ -15,28 +15,27 @@ Template for building PaperMC plugins
     * Update GitHub Actions workflows
     * Update Gradle dependencies
 
-**Issue Templates** 📋
+### Issue Templates 📋
 * Bug report template
 * Feature request template
 
-**Gradle Builds** 🏗
-* Shadowed PaperLib build
-* Checkstyle Google style analysis
+### Gradle Builds 🏗
+* Shadowed [PaperLib](https://github.com/PaperMC/PaperLib) build
+* [Checkstyle](https://checkstyle.org/) Google standard style check
+* [SpotBugs](https://spotbugs.github.io/) code analysis
 
-**Config Files** 📁
+### Config Files 📁
 * Sample plugin.yml with auto-fill fields
 * Simple Gradle build config
 * Empty config.yml (just to make life \*that\* much easier)
 * Simple .gitignore for common Gradle files
 
 ## Setup
-
 In order to use this template for yourself, there are a few things that you will need to change.
 
 I've broken the changes up by their files to make things a bit easier to find.
 
 ### settings.gradle
-
 Update the line below with the name of your plugin.
 
 ```groovy
@@ -44,7 +43,6 @@ rootProject.name = 'ExamplePlugin'
 ```
 
 ### build.gradle
-
 Make sure to update the `group` to your package's name in the following section.
 
 ```groovy
@@ -67,14 +65,14 @@ Also, update your dependencies as needed (of course).
 
 ```groovy
 dependencies {
+    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.10.1'
     compileOnly group: 'com.destroystokyo.paper', name: 'paper-api', version: '1.16.1-R0.1-SNAPSHOT'
     implementation group: 'io.papermc', name: 'paperlib', version: '1.0.5'
 }
 ```
 
-### .github/tag.yml
-
-In the following section, you will need to replace "plugin-template.jar" in `asset_path` and `asset_name` with the name of your plugin (see [settings.gradle](#settingsgradle)).
+### .github/draft.yml
+In the following section, you will need to replace "ExamplePlugin.jar" in `asset_path` and `asset_name` with the name of your plugin (see [settings.gradle](#settingsgradle)).
 
 ```yml
 - name: Upload Release Asset
@@ -89,7 +87,6 @@ In the following section, you will need to replace "plugin-template.jar" in `ass
 ```
 
 ### src/main/resources/plugin.yml
-
 First, update the following with your information.
 
 ```yml
@@ -117,17 +114,14 @@ permissions:
 ```
 
 ## Creating a Release
-
 Below are the steps you should follow to create a release.
 
 1. Create a tag on `master` using semantic versioning (e.g. v0.1.0)
-2. Push the tag to `origin` and get some coffee while the workflows run
+2. Push the tag and get some coffee while the workflows run
 3. Add a description to the release draft once it's been automatically created
 
 ## Contributing
-
 ### General workflow
-
 1. First, pull any changes from `master` to make sure you're up-to-date
 2. Create a branch from `master`
     * Give your branch a name that describes your change (e.g. add-scoreboard)
@@ -147,7 +141,6 @@ CHANGED - Updated `StorageManager` class to persist scoreboard data
 After the pull request is reviewed, approved, and passes all automated checks, it will be merged into master.
 
 ### Building locally
-
 Thanks to [Gradle](https://gradle.org/), building locally is easy no matter what platform you're on. Simply run the following command:
 
 #### macOS/Linux/Unix/
