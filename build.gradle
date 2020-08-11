@@ -12,7 +12,7 @@ group = "com.snowypeaksystems.exampleplugin"
 if (hasProperty('ver')) {
     version = ver.substring(1)
 } else {
-    version = new SimpleDateFormat("yyyy-MM-dd").format(new Date())
+    version = new SimpleDateFormat("yyyy-MM-dd").format(new Date()).toString()
 }
 
 java {
