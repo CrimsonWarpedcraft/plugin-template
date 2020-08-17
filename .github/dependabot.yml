@@ -5,12 +5,12 @@ updates:
     schedule:
       interval: "weekly"
     target-branch: "master"
-    default_reviewers:
+    reviewers:
       - "leviem1"
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
       interval: "weekly"
     target-branch: "master"
-    default_reviewers:
+    reviewers:
       - "leviem1"
