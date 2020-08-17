@@ -4,13 +4,13 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    target-branch: "master"
+    target-branch: "main"
     reviewers:
       - "leviem1"
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
       interval: "weekly"
-    target-branch: "master"
+    target-branch: "main"
     reviewers:
       - "leviem1"
