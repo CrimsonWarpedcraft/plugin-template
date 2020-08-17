@@ -113,6 +113,14 @@ permissions:
       example.test: true
 ```
 
+### .github/dependabot.yml
+You will need to change all instances of `leviem1`, such as the one below, with your GitHub username.
+
+```yml
+reviewers:
+  - "leviem1"
+```
+
 ## Creating a Release
 Below are the steps you should follow to create a release.
 
