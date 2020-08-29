@@ -38,6 +38,12 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           draft: true
+          body: |
+            # Recent Changes
+            ## Improvements 🏗️ 
+            * Item 1
+            ## Bug Fixes 🐞
+            * Item 2
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
