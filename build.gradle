@@ -10,7 +10,11 @@ plugins {
 group = "com.snowypeaksystems.exampleplugin"
 
 if (hasProperty('ver')) {
-    version = ver.substring(1)
+    if (ver.charAt(0) == "v") {
+        version = ver.substring(1)
+    } else {
+        version = ver
+    }
 } else {
     SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd-HHmm")
     sdf.setTimeZone(TimeZone.getTimeZone("UTC"))
