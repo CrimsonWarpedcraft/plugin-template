@@ -23,6 +23,7 @@ A template for building PaperMC plugins!
 * Shadowed [PaperLib](https://github.com/PaperMC/PaperLib) build
 * [Checkstyle](https://checkstyle.org/) Google standard style check
 * [SpotBugs](https://spotbugs.github.io/) code analysis
+* [JUnit](https://junit.org/) testing
 
 ### Config Files 📁
 * Sample plugin.yml with auto-fill fields
@@ -146,7 +147,7 @@ ADDED - Scoreboard displayed at in-game at game end
 CHANGED - Updated `StorageManager` class to persist scoreboard data
 ```
 
-After the pull request is reviewed, approved, and passes all automated checks, it will be merged into main.
+After the pull request has been reviewed, approved, and passes all automated checks, it will be merged into main.
 
 ### Building locally
 Thanks to [Gradle](https://gradle.org/), building locally is easy no matter what platform you're on. Simply run the following command:
