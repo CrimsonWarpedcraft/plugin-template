@@ -6,7 +6,7 @@ on:
       - 'v*' # For v1.0, v0.1.0, etc
 
 jobs:
-  build:
+  draft-release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
