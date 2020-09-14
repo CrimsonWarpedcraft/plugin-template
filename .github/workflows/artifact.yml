@@ -24,7 +24,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: ./gradlew -Pver=${GITHUB_RUN_ID} build
+        run: ./gradlew -Pver=${GITHUB_RUN_NUMBER} build
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2.1.4
