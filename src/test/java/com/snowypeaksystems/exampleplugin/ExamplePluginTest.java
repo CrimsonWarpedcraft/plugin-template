@@ -1,6 +1,6 @@
 package com.snowypeaksystems.exampleplugin;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for ExamplePlugin.
