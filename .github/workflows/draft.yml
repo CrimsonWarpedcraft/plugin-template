@@ -24,7 +24,7 @@ jobs:
         run: ./gradlew -Pver=${GITHUB_REF/refs\/tags\//} release
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2.1.4
+        uses: actions/upload-artifact@v2.2.1
         with:
           name: Compiled Jar(s)
           path: ${{ github.workspace }}/build/libs/
