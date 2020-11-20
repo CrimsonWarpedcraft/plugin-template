@@ -35,12 +35,12 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'com.destroystokyo.paper:paper-api:1.16.3-R0.1-SNAPSHOT'
+    compileOnly 'com.destroystokyo.paper:paper-api:1.16.4-R0.1-SNAPSHOT'
     compileOnly 'com.github.spotbugs:spotbugs-annotations:3.1.2'
     implementation 'io.papermc:paperlib:1.0.5'
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.10.1'
     testCompileOnly 'com.github.spotbugs:spotbugs-annotations:3.1.2'
-    testImplementation 'com.destroystokyo.paper:paper-api:1.16.2-R0.1-SNAPSHOT'
+    testImplementation 'com.destroystokyo.paper:paper-api:1.16.4-R0.1-SNAPSHOT'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
