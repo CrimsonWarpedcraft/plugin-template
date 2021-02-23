@@ -1,6 +1,9 @@
 # plugin-template
 A template for building PaperMC plugins!
 
+[![Build and Artifact](https://github.com/CrimsonWarpedcraft/plugin-template/actions/workflows/artifact.yml/badge.svg)](https://github.com/CrimsonWarpedcraft/plugin-template/actions/workflows/artifact.yml)
+[![Known Vulnerabilities](https://snyk.io/test/github/CrimsonWarpedcraft/plugin-template/badge.svg?targetFile=build.gradle)](https://snyk.io/test/github/CrimsonWarpedcraft/plugin-template?targetFile=build.gradle)
+
 ## Features
 ### Github Actions 🎬
 * Draft release on tag push
