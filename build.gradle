@@ -27,10 +27,22 @@ java {
 }
 
 repositories {
-    mavenCentral()
+    mavenCentral {
+        content {
+            excludeModule("com.destroystokyo.paper", "paper-api")
+            excludeModule("io.papermc", "paperlib")
+        }
+    }
+
     maven {
         name 'papermc'
         url 'https://papermc.io/repo/repository/maven-public/'
+        content {
+            excludeModule("com.github.spotbugs", "spotbugs-annotations")
+            excludeModule("com.h3xstream.findsecbugs", "findsecbugs-plugin")
+            excludeModule("org.junit.jupiter", "junit-jupiter-api")
+            excludeModule("org.junit.jupiter", "junit-jupiter-engine")
+        }
     }
 }
 
@@ -69,7 +81,7 @@ tasks.withType(Checkstyle) {
 
 shadowJar {
     archiveClassifier.set('SNAPSHOT')
-    relocate 'io.papermc.lib', 'shadow.io.papermc.lib'
+    relocate 'io.papermc.lib', 'shadow.io.papermc.paperlib'
     minimize()
 }
 
