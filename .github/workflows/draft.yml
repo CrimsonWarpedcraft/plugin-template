@@ -41,8 +41,10 @@ jobs:
           draft: true
           body: |
             # Recent Changes
-            ## Improvements 🏗️ 
+
+            ## Improvements 🏗️
             * Item 1
+
             ## Bug Fixes 🐞
             * Item 2
 

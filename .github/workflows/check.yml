@@ -12,7 +12,10 @@ on:
 
 jobs:
   check:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, windows-latest ]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -24,7 +27,8 @@ jobs:
           distribution: 'zulu'
 
       - name: Grant execute permission for gradlew
+        if: runner.os == 'Linux'
         run: chmod +x gradlew
 
       - name: Check with Gradle
-        run: ./gradlew check
+        run: ./gradlew check --info
