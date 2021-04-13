@@ -4,6 +4,8 @@ on:
   push:
     branches-ignore:
       - 'main'
+      - 'wip/*'
+
   pull_request:
     branches-ignore:
       - 'main'
