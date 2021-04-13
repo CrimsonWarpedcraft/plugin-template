@@ -91,7 +91,7 @@ assemble.dependsOn(shadowJar)
 task release {
     dependsOn build
     doLast {
-        def dirStr = buildDir.toString() + '/libs/'
+        def dirStr = buildDir.toString() + File.separator + 'libs' + File.separator
 
         file(dirStr + rootProject.name + '-' + version + '-SNAPSHOT.jar').renameTo(dirStr + rootProject.name + '.jar')
     }
