@@ -7,7 +7,8 @@ A template for building PaperMC plugins!
 ### Github Actions 🎬
 * Draft release on tag push
 * Build artifact on pull requests and pushes to main
-* Build and check on all other branches
+* Build and check on all other branches (except those prefixed with "wip/")
+* Weekly builds to ensure your code is up to date
 
 ### Bots 🤖
 * **Probot: Stale**
@@ -145,7 +146,7 @@ Below are the steps you should follow to create a release.
 ```
 Create scoreboard for total points
 
-ADDED - Scoreboard displayed at in-game at game end  
+ADDED - Scoreboard displayed in-game at game end  
 CHANGED - Updated `StorageManager` class to persist scoreboard data
 ```
 
