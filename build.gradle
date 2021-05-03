@@ -48,7 +48,7 @@ repositories {
 
 dependencies {
     compileOnly 'com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT'
-    compileOnly 'com.github.spotbugs:spotbugs-annotations:3.1.2'
+    compileOnly 'com.github.spotbugs:spotbugs-annotations:4.2.3'
     implementation 'io.papermc:paperlib:1.0.6'
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.11.0'
     testCompileOnly 'com.github.spotbugs:spotbugs-annotations:3.1.2'
