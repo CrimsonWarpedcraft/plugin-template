@@ -47,7 +47,7 @@ jobs:
           path: ${{ github.workspace }}/build/libs/
 
       - name: Notify on success
-        if: ${{ success() }}
+        if: ${{ success() }} && runner.os != 'Windows'
         uses: appleboy/discord-action@0.0.3
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
@@ -55,11 +55,11 @@ jobs:
           color: "#00FF00"
           username: "CW Build Status Bot"
           message: >
-            Build ${{ github.run_id }} successfully completed:
+            Build ${{ github.run_number }} successfully completed:
             https://github.com/sebs-scholarship/Blog/actions/runs/${{ github.run_id }}
 
       - name: Notify on failure
-        if: ${{ failure() }}
+        if: ${{ failure() }} && runner.os != 'Windows'
         uses: appleboy/discord-action@0.0.3
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
@@ -67,5 +67,5 @@ jobs:
           color: "#FF0000"
           username: "CW Build Status Bot"
           message: >
-            Build ${{ github.run_id }} failed:
+            Build ${{ github.run_number }} failed:
             https://github.com/sebs-scholarship/Blog/actions/runs/${{ github.run_id }}
