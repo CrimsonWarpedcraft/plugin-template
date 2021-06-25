@@ -45,3 +45,27 @@ jobs:
         with:
           name: Compiled Jar(s)
           path: ${{ github.workspace }}/build/libs/
+
+      - name: Notify on success
+        if: ${{ success() }}
+        uses: appleboy/discord-action@0.0.3
+        with:
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          color: "#00FF00"
+          username: "CW Build Status Bot"
+          message: >
+            Build ${{ github.run_id }} successfully completed:
+            https://github.com/sebs-scholarship/Blog/actions/runs/${{ github.run_id }}
+
+      - name: Notify on failure
+        if: ${{ failure() }}
+        uses: appleboy/discord-action@0.0.3
+        with:
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          color: "#FF0000"
+          username: "CW Build Status Bot"
+          message: >
+            Build ${{ github.run_id }} failed:
+            https://github.com/sebs-scholarship/Blog/actions/runs/${{ github.run_id }}
