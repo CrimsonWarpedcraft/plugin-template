@@ -55,8 +55,8 @@ jobs:
           color: "#00FF00"
           username: "CW Build Status Bot"
           message: >
-            Build ${{ github.run_number }} successfully completed:
-            https://github.com/sebs-scholarship/Blog/actions/runs/${{ github.run_id }}
+            ${{ github.repository }} build ${{ github.run_number }} successfully completed:
+            https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
       - name: Notify on failure
         if: ${{ failure() && runner.os != 'Windows' }}
@@ -67,5 +67,5 @@ jobs:
           color: "#FF0000"
           username: "CW Build Status Bot"
           message: >
-            Build ${{ github.run_number }} failed:
-            https://github.com/sebs-scholarship/Blog/actions/runs/${{ github.run_id }}
+            ${{ github.repository }} build ${{ github.run_number }} failed:
+            https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
