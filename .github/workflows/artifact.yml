@@ -47,7 +47,7 @@ jobs:
           path: ${{ github.workspace }}/build/libs/
 
       - name: Notify on success
-        if: ${{ success() }} && runner.os != 'Windows'
+        if: ${{ success() && runner.os != 'Windows' }}
         uses: appleboy/discord-action@0.0.3
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
@@ -59,7 +59,7 @@ jobs:
             https://github.com/sebs-scholarship/Blog/actions/runs/${{ github.run_id }}
 
       - name: Notify on failure
-        if: ${{ failure() }} && runner.os != 'Windows'
+        if: ${{ failure() && runner.os != 'Windows' }}
         uses: appleboy/discord-action@0.0.3
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
