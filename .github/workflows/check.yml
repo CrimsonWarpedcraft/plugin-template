@@ -9,9 +9,6 @@ on:
     branches-ignore:
       - 'main'
 
-  schedule:
-    - cron:  '0 0 * * 6'
-
 jobs:
   check:
     runs-on: ${{ matrix.os }}
