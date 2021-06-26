@@ -52,7 +52,7 @@ jobs:
     env:
       DISCORD_WEBHOOK_ID: ${{ secrets.DISCORD_WEBHOOK_ID }}
       DISCORD_WEBHOOK_TOKEN: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-    if: always() && env.DISCORD_WEBHOOK_ID != null && env.DISCORD_WEBHOOK_TOKEN != null
+    if: ${{ always() && env.DISCORD_WEBHOOK_ID != null && env.DISCORD_WEBHOOK_TOKEN != null }}
     steps:
       - name: Notify on success
         if: ${{ needs.artifact.result == 'success' }}
