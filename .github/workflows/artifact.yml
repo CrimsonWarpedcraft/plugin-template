@@ -46,8 +46,13 @@ jobs:
           name: Compiled Jar(s)
           path: ${{ github.workspace }}/build/libs/
 
+  notify:
+    needs: artifact
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
       - name: Notify on success
-        if: ${{ success() && runner.os != 'Windows' }}
+        if: ${{ needs.artifact.result == 'success' }}
         uses: appleboy/discord-action@0.0.3
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
@@ -59,7 +64,7 @@ jobs:
             https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
       - name: Notify on failure
-        if: ${{ failure() && runner.os != 'Windows' }}
+        if: ${{ needs.artifact.result == 'failure' }}
         uses: appleboy/discord-action@0.0.3
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
