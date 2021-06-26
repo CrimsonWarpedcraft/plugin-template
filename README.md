@@ -9,6 +9,7 @@ A template for building PaperMC/Spigot Minecraft server plugins!
 * Build artifact on pull requests and pushes to main
 * Build and check on all other branches (except those prefixed with "wip/")
 * Weekly builds to ensure your code is up to date
+* [Discord notifcations](https://github.com/marketplace/actions/discord-message-notify) for main branch build results
 
 ### Bots 🤖
 * **Probot: Stale**
@@ -37,7 +38,20 @@ A template for building PaperMC/Spigot Minecraft server plugins!
 ## Setup
 In order to use this template for yourself, there are a few things that you will need to change.
 
-I've broken the changes up by their files to make things a bit easier to find.
+## Discord Notifications
+In order to use Discord notifications, you will need to create two GitHub secrets. `DISCORD_WEBHOOK_ID` 
+should be set to the id of your Discord webhook. `DISCORD_WEBHOOK_TOKEN` will be the token for the webhook.
+
+You can find these values by copying the Discord Webhook URL:  
+`https://discord.com/api/webhooks/<DISCORD_WEBHOOK_ID>/<DISCORD_WEBHOOK_TOKEN>`
+
+For more information, see [Discord Message Notify](https://github.com/marketplace/actions/discord-message-notify).
+
+---
+
+I've broken the rest of the changes up by their files to make things a bit easier to find.
+
+---
 
 ### settings.gradle
 Update the line below with the name of your plugin.
