@@ -55,7 +55,8 @@ jobs:
     if: ${{ always() }}
     steps:
       - name: Notify on success
-        if: ${{ env.DISCORD_WEBHOOK_ID != null \
+        if: >
+          ${{ env.DISCORD_WEBHOOK_ID != null \
           && env.DISCORD_WEBHOOK_TOKEN != null \
           && needs.artifact.result == 'success' }}
         uses: appleboy/discord-action@0.0.3
