@@ -59,9 +59,9 @@ jobs:
     steps:
       - name: Notify on success
         if: |
-          ${{ env.DISCORD_WEBHOOK_ID != null
-          && env.DISCORD_WEBHOOK_TOKEN != null
-          && needs.artifact.result == 'success' }}
+          ${{ env.DISCORD_WEBHOOK_ID != null }}
+          && ${{ env.DISCORD_WEBHOOK_TOKEN != null }}
+          && ${{ needs.artifact.result == 'success' }}
         uses: appleboy/discord-action@0.0.3
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
@@ -74,9 +74,9 @@ jobs:
 
       - name: Notify on failure
         if: |
-          ${{ env.DISCORD_WEBHOOK_ID != null
-          && env.DISCORD_WEBHOOK_TOKEN != null
-          && needs.artifact.result == 'failure' }}
+          ${{ env.DISCORD_WEBHOOK_ID != null }}
+          && ${{ env.DISCORD_WEBHOOK_TOKEN != null }}
+          && ${{ needs.artifact.result == 'failure' }}
         uses: appleboy/discord-action@0.0.3
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
