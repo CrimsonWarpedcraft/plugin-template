@@ -36,7 +36,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: ./gradlew "-Pver=${GITHUB_RUN_NUMBER}" build --info
+        run: ./gradlew "-Pver="${GITHUB_RUN_NUMBER} build --info
 
       - name: Upload artifact
         if: ${{ always() }}
