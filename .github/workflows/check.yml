@@ -15,14 +15,15 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest ]
+        java: [ 11, 16 ]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up JDK 16
+      - name: Set up JDK
         uses: actions/setup-java@v2
         with:
-          java-version: 16
+          java-version: ${{ matrix.os }}
           distribution: 'zulu'
 
       - name: Grant execute permission for gradlew
