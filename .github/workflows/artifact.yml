@@ -36,9 +36,10 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: ./gradlew -Pver=${GITHUB_RUN_NUMBER} build --info
+        run: ./gradlew "-Pver=${GITHUB_RUN_NUMBER}" build --info
 
       - name: Upload artifact
+        if: ${{ always() }}
         uses: actions/upload-artifact@v2.2.4
         with:
           name: ${{ matrix.os }} Java ${{ matrix.java }} build
