@@ -43,8 +43,8 @@ jobs:
         with:
           name: ${{ matrix.os }} Java ${{ matrix.os }} build
           path: |
-          ${{ github.workspace }}/build/libs/
-          ${{ github.workspace }}/build
+            ${{ github.workspace }}/build/libs/
+            ${{ github.workspace }}/build
 
   notify:
     needs: artifact
