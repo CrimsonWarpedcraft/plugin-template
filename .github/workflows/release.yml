@@ -39,9 +39,6 @@ jobs:
   release:
     needs: build
     runs-on: ubuntu-latest
-    env:
-      SPS_MVN_USER: ${{ secrets.SPS_MVN_USER }}
-      SPS_MVN_PASS: ${{ secrets.SPS_MVN_PASS }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
