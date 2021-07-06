@@ -1,0 +1,95 @@
+name: Build Snapshot
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, windows-latest ]
+        java: [ 11, 16 ]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: ${{ matrix.java }}
+          distribution: 'zulu'
+
+      - name: Grant execute permission for gradlew
+        if: runner.os == 'Linux'
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build --info
+
+      - name: Upload build results
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2.2.4
+        with:
+          name: ${{ matrix.os }} Java ${{ matrix.java }} build results
+          path: ${{ github.workspace }}/build/
+
+  artifact:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: 11
+          distribution: 'zulu'
+
+      - name: Grant execute permission for gradlew
+        if: runner.os == 'Linux'
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build --info
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2.2.4
+        with:
+          name: Snapshot Jar(s)
+          path: ${{ github.workspace }}/build/libs/
+
+  notify:
+    needs: artifact
+    runs-on: ubuntu-latest
+    env:
+      DISCORD_WEBHOOK_ID: ${{ secrets.DISCORD_WEBHOOK_ID }}
+      DISCORD_WEBHOOK_TOKEN: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+    if: ${{ always() }}
+    steps:
+      - name: Notify on success
+        if: ${{ env.DISCORD_WEBHOOK_ID != null && env.DISCORD_WEBHOOK_TOKEN != null && needs.artifact.result == 'success' }}
+        uses: appleboy/discord-action@0.0.3
+        with:
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          color: "#00FF00"
+          username: "CW Build Status Bot"
+          message: >
+            ${{ github.repository }} build ${{ github.run_number }} successfully completed:
+            https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+      - name: Notify on failure
+        if: ${{ env.DISCORD_WEBHOOK_ID != null && env.DISCORD_WEBHOOK_TOKEN != null && needs.artifact.result == 'failure' }}
+        uses: appleboy/discord-action@0.0.3
+        with:
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          color: "#FF0000"
+          username: "CW Build Status Bot"
+          message: >
+            ${{ github.repository }} build ${{ github.run_number }} failed:
+            https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}

@@ -1,4 +1,4 @@
-package com.snowypeaksystems.exampleplugin;
+package com.crimsonwarpedcraft.exampleplugin;
 
 import io.papermc.lib.PaperLib;
 import org.bukkit.plugin.java.JavaPlugin;
