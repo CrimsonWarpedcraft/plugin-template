@@ -1,25 +1,43 @@
 import java.text.SimpleDateFormat
 
 plugins {
-    id 'java'
     id 'checkstyle'
     id "com.github.spotbugs" version "4.7.1"
     id 'com.github.johnrengelman.shadow' version '7.0.0'
+    id 'java'
 }
 
-group = "com.snowypeaksystems.exampleplugin"
+group = "com.crimsonwarpedcraft.exampleplugin"
 
-if (hasProperty('ver')) {
-    if (ver.charAt(0) == "v") {
-        version = ver.substring(1)
-    } else {
-        version = ver
-    }
-} else {
+static def getTime() {
     SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd-HHmm")
     sdf.setTimeZone(TimeZone.getTimeZone("UTC"))
-    version = sdf.format(new Date()).toString()
+    return sdf.format(new Date()).toString()
 }
+
+// Load version from string
+String shortVersion = null
+try {
+    shortVersion = rootProject.file('version.txt').getText('UTF-8').trim()
+} catch (FileNotFoundException ignored) {
+}
+
+// If no version file found or was empty, use blank string
+if (shortVersion == null || shortVersion == "") {
+    shortVersion = getTime()
+}
+
+// Set version to version property if supplied
+if (hasProperty('ver')) {
+    if (ver.charAt(0) == "v") {
+        shortVersion = ver.substring(1)
+    } else {
+        shortVersion = ver
+    }
+}
+
+// Add snapshot identifier to version
+version = shortVersion + "-SNAPSHOT"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_11
@@ -94,19 +112,33 @@ spotbugsTest {
 }
 
 shadowJar {
-    archiveClassifier.set('SNAPSHOT')
+    archiveClassifier.set('')
     relocate 'io.papermc.lib', 'shadow.io.papermc.paperlib'
     minimize()
 }
 
+// Disable jar and replace with shadowJar
 jar.enabled = false
 assemble.dependsOn(shadowJar)
 
+task configureRelease {
+    doLast {
+        // Trim the "-SNAPSHOT" extension from version
+        version = shortVersion
+    }
+}
+
+// Make sure configuration runs in the correct order
+build.mustRunAfter(configureRelease)
+
 task release {
     dependsOn build
-    doLast {
-        def dirStr = buildDir.toString() + File.separator + 'libs' + File.separator
+    dependsOn configureRelease
 
-        file(dirStr + rootProject.name + '-' + version + '-SNAPSHOT.jar').renameTo(dirStr + rootProject.name + '.jar')
+    doLast {
+        // Rename final JAR to trim off version information
+        shadowJar.archiveFile.get().getAsFile()
+                .renameTo(buildDir.toString() + File.separator + 'libs' + File.separator
+                        + rootProject.name + '.jar')
     }
 }

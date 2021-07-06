@@ -5,10 +5,11 @@ A template for building PaperMC/Spigot Minecraft server plugins!
 
 ## Features
 ### Github Actions 🎬
-* Draft release on tag push
-* Build artifact on pull requests and pushes to main
-* Build and check on all other branches (except those prefixed with "wip/")
-* Weekly builds to ensure your code is up to date
+* Draft release on version tag push
+* Increment project version with a [PR](https://github.com/marketplace/actions/create-pull-request) on version tag push
+* Build artifacts on pull requests
+* Build snapshots on pushes to main
+* Weekly artifact builds to ensure your code is up to date
 * [Discord notifcations](https://github.com/marketplace/actions/discord-message-notify) for main branch build results
 
 ### Bots 🤖
@@ -38,6 +39,15 @@ A template for building PaperMC/Spigot Minecraft server plugins!
 ## Setup
 In order to use this template for yourself, there are a few things that you will need to change.
 
+## Automatic version incrementing
+In order to use automatic version incrementing, you will need to create a GitHub secrets.
+`PR_PAT` should be set to a `repo` scoped Personal Access Token (PAT).
+
+For more information, see:
+- [Creating a personal access token](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token)
+- [Triggering new workflows using a personal access token](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#triggering-new-workflows-using-a-personal-access-token)
+- [Create Pull Request Action](https://github.com/marketplace/actions/create-pull-request)
+
 ## Discord Notifications
 In order to use Discord notifications, you will need to create two GitHub secrets. `DISCORD_WEBHOOK_ID` 
 should be set to the id of your Discord webhook. `DISCORD_WEBHOOK_TOKEN` will be the token for the webhook.
@@ -49,7 +59,7 @@ For more information, see [Discord Message Notify](https://github.com/marketplac
 
 ---
 
-I've broken the rest of the changes up by their files to make things a bit easier to find.
+**I've broken the rest of the changes up by their files to make things a bit easier to find.**
 
 ---
 
@@ -64,7 +74,7 @@ rootProject.name = 'ExamplePlugin'
 Make sure to update the `group` to your package's name in the following section.
 
 ```groovy
-group = "com.snowypeaksystems.exampleplugin"
+group = "com.crimsonwarpedcraft.exampleplugin"
 ```
 
 Add any required repositories for your dependencies in the following section.
@@ -89,7 +99,7 @@ dependencies {
 }
 ```
 
-### .github/draft.yml
+### .github/release.yml
 In the following section, you will need to replace "ExamplePlugin.jar" in `asset_path` and `asset_name` with the name of your plugin (see [settings.gradle](#settingsgradle)).
 
 ```yml
@@ -102,6 +112,23 @@ In the following section, you will need to replace "ExamplePlugin.jar" in `asset
     asset_path: ${{ github.workspace }}/build/libs/ExamplePlugin.jar
     asset_name: ExamplePlugin.jar
     asset_content_type: application/java-archive
+```
+
+Additionally, make sure update the following information as you see fit.
+
+```yml
+      - name: Create Pull Request
+        if: ${{ env.PR_PAT != null }}
+        uses: peter-evans/create-pull-request@v3
+        with:
+          assignees: leviem1
+          base: main
+          body: Bumps the project's Gradle version in version.txt
+          branch: bump-version
+          commit-message: Bump project version
+          delete-branch: true
+          labels: enhancement, low priority
+          title: Bump project version
 ```
 
 ### src/main/resources/plugin.yml
