@@ -83,7 +83,7 @@ jobs:
             https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
       - name: Notify on failure
-        if: ${{ env.DISCORD_WEBHOOK_ID != null && env.DISCORD_WEBHOOK_TOKEN != null && needs.artifact.result == 'failure' }}
+        if: ${{ env.DISCORD_WEBHOOK_ID != null && env.DISCORD_WEBHOOK_TOKEN != null && (needs.build.result == 'failure' || needs.artifact.result == 'failure') }}
         uses: appleboy/discord-action@0.0.3
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
