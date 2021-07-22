@@ -10,6 +10,7 @@ staleLabel: stale
 # Issues or Pull Requests with these labels will never be considered stale. Set to `[]` to disable
 exemptLabels:
   - "low priority"
+  - "accepted"
 
 # Comment to post when marking an issue as stale. Set to `false` to disable
 markComment: >
