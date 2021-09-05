@@ -113,6 +113,7 @@ jobs:
           base: main
           body: Bumps the project's Gradle version in version.txt
           branch: bump-version
+          committer: Levi Muniz <levi.muniz17@gmail.com>
           commit-message: Bump project version
           delete-branch: true
           labels: enhancement, low priority
