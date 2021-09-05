@@ -9,13 +9,12 @@ A template for building PaperMC/Spigot Minecraft server plugins!
 * Increment project version with a [PR](https://github.com/marketplace/actions/create-pull-request) on version tag push
 * Build artifacts on pull requests
 * Build snapshots on pushes to main
-* Weekly artifact builds to ensure your code is up to date
+* Weekly artifact builds to ensure your code is up-to-date
 * [Discord notifcations](https://github.com/marketplace/actions/discord-message-notify) for main branch build results
 
 ### Bots 🤖
 * **Probot: Stale**
-    * Mark issues stale after 21 days
-    * Close issues after 30 days
+    * Mark issues stale after 30 days
 * **Dependabot**
     * Update GitHub Actions workflows
     * Update Gradle dependencies
@@ -47,6 +46,9 @@ For more information, see:
 - [Creating a personal access token](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token)
 - [Triggering new workflows using a personal access token](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#triggering-new-workflows-using-a-personal-access-token)
 - [Create Pull Request Action](https://github.com/marketplace/actions/create-pull-request)
+
+Additionally, you should change the `committer` and `assignee` settings in the `release.yml` 
+file to your user.
 
 ## Discord Notifications
 In order to use Discord notifications, you will need to create two GitHub secrets. `DISCORD_WEBHOOK_ID` 
