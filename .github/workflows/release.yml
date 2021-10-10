@@ -110,6 +110,7 @@ jobs:
         uses: peter-evans/create-pull-request@v3
         with:
           assignees: leviem1
+          author: Levi Muniz <levi.muniz17@gmail.com>
           base: main
           body: Bumps the project's Gradle version in version.txt
           branch: bump-version
