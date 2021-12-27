@@ -36,7 +36,7 @@ jobs:
 
       - name: Upload build results
         if: ${{ always() }}
-        uses: actions/upload-artifact@v2.2.4
+        uses: actions/upload-artifact@v2.3.1
         with:
           name: ${{ matrix.os }} Java ${{ matrix.java }} build results
           path: ${{ github.workspace }}/build/
