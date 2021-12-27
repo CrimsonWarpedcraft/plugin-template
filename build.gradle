@@ -70,7 +70,7 @@ dependencies {
     implementation 'io.papermc:paperlib:1.0.7'
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.11.0'
     testCompileOnly 'com.github.spotbugs:spotbugs-annotations:4.4.2'
-    testImplementation 'io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT'
+    testImplementation 'io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 }
