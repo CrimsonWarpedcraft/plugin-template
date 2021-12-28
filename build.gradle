@@ -2,8 +2,8 @@ import java.text.SimpleDateFormat
 
 plugins {
     id 'checkstyle'
-    id "com.github.spotbugs" version "5.0.3"
-    id 'com.github.johnrengelman.shadow' version '7.1.0'
+    id "com.github.spotbugs" version "5.0.+"
+    id 'com.github.johnrengelman.shadow' version '7.1.+'
     id 'java'
 }
 
@@ -45,23 +45,16 @@ java {
 }
 
 repositories {
-    mavenCentral {
-        content {
-            excludeModule("com.destroystokyo.paper", "paper-api")
-            excludeModule("io.papermc", "paperlib")
-        }
-    }
-
     maven {
         name 'papermc'
         url 'https://papermc.io/repo/repository/maven-public/'
         content {
-            excludeModule("com.github.spotbugs", "spotbugs-annotations")
-            excludeModule("com.h3xstream.findsecbugs", "findsecbugs-plugin")
-            excludeModule("org.junit.jupiter", "junit-jupiter-api")
-            excludeModule("org.junit.jupiter", "junit-jupiter-engine")
+            includeModule("io.papermc.paper", "paper-api")
+            includeModule("io.papermc", "paperlib")
         }
     }
+
+    mavenCentral()
 }
 
 dependencies {
@@ -86,7 +79,7 @@ processResources {
 }
 
 checkstyle {
-    toolVersion '9.0+'
+    toolVersion '9.2+'
     maxWarnings = 0
 }
 
