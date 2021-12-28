@@ -1,3 +1,4 @@
+import com.github.spotbugs.snom.SpotBugsTask
 import java.text.SimpleDateFormat
 
 plugins {
@@ -15,14 +16,14 @@ static def getTime() {
     return sdf.format(new Date()).toString()
 }
 
-// Load version from string
+// Load version string from file
 String shortVersion = null
 try {
     shortVersion = rootProject.file('version.txt').getText('UTF-8').trim()
 } catch (FileNotFoundException ignored) {
 }
 
-// If no version file found or was empty, use blank string
+// If no version file found or was empty, use time
 if (shortVersion == null || shortVersion == "") {
     shortVersion = getTime()
 }
@@ -90,17 +91,14 @@ tasks.withType(Checkstyle) {
     }
 }
 
-spotbugsMain {
+tasks.withType(SpotBugsTask) {
     reports {
-        xml.required = false
-        html.required = true
-    }
-}
-
-spotbugsTest {
-    reports {
-        xml.required = false
-        html.required = true
+        xml {
+            required.set(false)
+        }
+        html {
+            required.set(true)
+        }
     }
 }
 
