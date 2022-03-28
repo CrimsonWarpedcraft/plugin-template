@@ -107,7 +107,7 @@ jobs:
 
       - name: Create Pull Request
         if: ${{ env.PR_PAT != null }}
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@v4
         with:
           assignees: leviem1
           author: Levi Muniz <levi.muniz17@gmail.com>
