@@ -31,7 +31,7 @@ jobs:
 
       - name: Upload build results
         if: ${{ always() }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.os }} Java ${{ matrix.java }} build results
           path: ${{ github.workspace }}/build/
@@ -57,7 +57,7 @@ jobs:
         run: ./gradlew build --info
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: Snapshot Jar(s)
           path: ${{ github.workspace }}/build/libs/
