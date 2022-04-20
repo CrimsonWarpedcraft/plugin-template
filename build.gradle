@@ -16,19 +16,8 @@ static def getTime() {
     return sdf.format(new Date()).toString()
 }
 
-// Load version string from file
-String shortVersion = null
-try {
-    shortVersion = rootProject.file('version.txt').getText('UTF-8').trim()
-} catch (FileNotFoundException ignored) {
-}
-
-// If no version file found or was empty, use time
-if (shortVersion == null || shortVersion == "") {
-    shortVersion = getTime()
-}
-
 // Set version to version property if supplied
+String shortVersion = null
 if (hasProperty('ver')) {
     if (ver.charAt(0) == "v") {
         shortVersion = ver.substring(1)

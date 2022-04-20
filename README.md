@@ -126,23 +126,6 @@ In the following section, you will need to replace "ExamplePlugin.jar" in `asset
     asset_content_type: application/java-archive
 ```
 
-Additionally, make sure update the following information as you see fit.
-
-```yaml
-      - name: Create Pull Request
-        if: ${{ env.PR_PAT != null }}
-        uses: peter-evans/create-pull-request@v3
-        with:
-          assignees: leviem1
-          base: main
-          body: Bumps the project's Gradle version in version.txt
-          branch: bump-version
-          commit-message: Bump project version
-          delete-branch: true
-          labels: enhancement, low priority
-          title: Bump project version
-```
-
 ### src/main/resources/plugin.yml
 First, update the following with your information.
 
