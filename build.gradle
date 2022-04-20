@@ -26,6 +26,10 @@ if (hasProperty('ver')) {
     }
 }
 
+if (shortVersion == null || shortVersion == "") {
+    shortVersion = getTime()
+}
+
 // Add snapshot identifier to version
 version = shortVersion + "-SNAPSHOT"
 
