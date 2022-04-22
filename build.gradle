@@ -49,15 +49,6 @@ repositories {
         }
     }
 
-    maven {
-        name 'papermc'
-        url 'https://papermc.io/repo/repository/maven-public/'
-        content {
-            includeModule("io.papermc.paper", "paper-api")
-            includeModule("io.papermc", "paperlib")
-        }
-    }
-
     mavenCentral()
 }
 
