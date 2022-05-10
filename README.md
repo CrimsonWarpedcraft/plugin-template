@@ -38,18 +38,6 @@ A template for building PaperMC/Spigot Minecraft server plugins!
 ## Setup
 In order to use this template for yourself, there are a few things that you will need to change.
 
-### Automatic version incrementing
-In order to use automatic version incrementing, you will need to create a GitHub secrets.
-`PR_PAT` should be set to a `repo` scoped Personal Access Token (PAT).
-
-For more information, see:
-- [Creating a personal access token](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token)
-- [Triggering new workflows using a personal access token](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#triggering-new-workflows-using-a-personal-access-token)
-- [Create Pull Request Action](https://github.com/marketplace/actions/create-pull-request)
-
-Additionally, you should change the `committer` and `assignee` settings in the `release.yml` 
-file to your user.
-
 ### Discord Notifications
 In order to use Discord notifications, you will need to create two GitHub secrets. `DISCORD_WEBHOOK_ID` 
 should be set to the id of your Discord webhook. `DISCORD_WEBHOOK_TOKEN` will be the token for the webhook.
@@ -89,6 +77,7 @@ repositories {
         content {
             includeModule("io.papermc.paper", "paper-api")
             includeModule("io.papermc", "paperlib")
+            includeModule("net.md-5", "bungeecord-chat")
         }
     }
 
