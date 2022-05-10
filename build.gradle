@@ -74,7 +74,7 @@ processResources {
 }
 
 checkstyle {
-    toolVersion '9.3+'
+    toolVersion '10.2'
     maxWarnings = 0
 }
 
