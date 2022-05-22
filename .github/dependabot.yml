@@ -4,6 +4,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    commit-message:
+      prefix: "build:"
     target-branch: "main"
     reviewers:
       - "leviem1"
@@ -11,6 +13,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    commit-message:
+      prefix: "deps:"
     target-branch: "main"
     reviewers:
       - "leviem1"
