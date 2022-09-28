@@ -108,8 +108,10 @@ assemble.dependsOn(shadowJar)
 
 task configureRelease {
     doLast {
-        // Trim the "-SNAPSHOT" extension from version
-        version = shortVersion
+        if (!version.endsWith("-rc")) {
+            // Trim the "-SNAPSHOT" extension from version
+            version = shortVersion
+        }
     }
 }
 
@@ -122,8 +124,10 @@ task release {
 
     doLast {
         // Rename final JAR to trim off version information
-        shadowJar.archiveFile.get().getAsFile()
-                .renameTo(buildDir.toString() + File.separator + 'libs' + File.separator
-                        + rootProject.name + '.jar')
+        if (!version.endsWith("-rc")) {
+            shadowJar.archiveFile.get().getAsFile()
+                    .renameTo(buildDir.toString() + File.separator + 'libs' + File.separator
+                            + rootProject.name + '.jar')
+        }
     }
 }
