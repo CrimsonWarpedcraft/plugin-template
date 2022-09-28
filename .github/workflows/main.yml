@@ -142,7 +142,7 @@ jobs:
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
           webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-          color: "#DC143C"
+          color: "#00FF00"
           username: "ExamplePlugin Release Bot"
           message: >
             An ExamplePlugin ${{ env.RELEASE_TYPE }} was deployed:
@@ -154,7 +154,7 @@ jobs:
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
           webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-          color: "#DC143C"
+          color: "#FF0000"
           username: "ExamplePlugin Release Bot"
           message: >
             An ExamplePlugin ${{ env.RELEASE_TYPE }} failed:
