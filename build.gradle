@@ -20,18 +20,21 @@ static def getTime() {
 String shortVersion = null
 if (hasProperty('ver')) {
     if (ver.charAt(0) == "v") {
-        shortVersion = ver.substring(1)
+        shortVersion = ver.substring(1).toUpperCase()
     } else {
-        shortVersion = ver
+        shortVersion = ver.toUpperCase()
     }
 }
 
+// If the tag includes "-RC-" or no tag is supplied, append "-SNAPSHOT"
+int rcIdx = -1
 if (shortVersion == null || shortVersion == "") {
-    shortVersion = getTime()
+    version = getTime() + "-SNAPSHOT"
+} else if ((rcIdx = shortVersion.indexOf("-RC-")) != -1) {
+    version = shortVersion.substring(0, rcIdx) + "-SNAPSHOT"
+} else {
+    version = shortVersion
 }
-
-// Add snapshot identifier to version
-version = shortVersion + "-SNAPSHOT"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -106,25 +109,12 @@ shadowJar {
 jar.enabled = false
 assemble.dependsOn(shadowJar)
 
-task configureRelease {
-    doLast {
-        if (!version.endsWith("-rc")) {
-            // Trim the "-SNAPSHOT" extension from version
-            version = shortVersion
-        }
-    }
-}
-
-// Make sure configuration runs in the correct order
-build.mustRunAfter(configureRelease)
-
 task release {
     dependsOn build
-    dependsOn configureRelease
 
     doLast {
-        // Rename final JAR to trim off version information
-        if (!version.endsWith("-rc")) {
+        if (!version.endsWith("-SNAPSHOT")) {
+            // Rename final JAR to trim off version information
             shadowJar.archiveFile.get().getAsFile()
                     .renameTo(buildDir.toString() + File.separator + 'libs' + File.separator
                             + rootProject.name + '.jar')

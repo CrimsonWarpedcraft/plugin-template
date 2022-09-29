@@ -87,8 +87,18 @@ jobs:
       - build
       - test
     runs-on: ubuntu-latest
-    if: github.ref_type == 'tag'
+    if: github.ref_type == 'tag' || github.ref_name == 'main'
     steps:
+      - name: Set snapshot environment
+        if: github.ref_name == 'main'
+        run: |
+          echo "RELEASE_TAG=0.0.0-RC-1" >> $GITHUB_ENV
+
+      - name: Set release environment
+        if: github.ref_type == 'tag'
+        run: |
+          echo "RELEASE_TAG=${{ github.ref_name }}" >> $GITHUB_ENV
+
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -102,15 +112,16 @@ jobs:
         run: chmod +x gradlew
 
       - name: Publish with Gradle
-        run: ./gradlew -Pver=${{ github.ref_name }} release
+        run: ./gradlew -Pver=${{ env.RELEASE_TAG }} release
 
-      - name: Upload artifact
+      - name: Create Release
         uses: softprops/action-gh-release@v1
+        if: github.ref_type == 'tag'
         with:
           files: ${{ github.workspace }}/build/libs/*
           generate_release_notes: true
           name: ${{ format('Release {0}', github.ref_name) }}
-          prerelease: ${{ endsWith(github.ref_name, '-rc') }}
+          prerelease: ${{ contains(github.ref_name, '-rc-') }}
           fail_on_unmatched_files: true
           draft: true
 
@@ -124,7 +135,7 @@ jobs:
     # Run if on main or tag
     if: always() && (github.ref_name == 'main' || github.ref_type == 'tag')
     steps:
-      - name: Set build environment
+      - name: Set snapshot environment
         if: github.ref_name == 'main'
         run: |
           echo "RELEASE_TYPE=snapshot" >> $GITHUB_ENV
