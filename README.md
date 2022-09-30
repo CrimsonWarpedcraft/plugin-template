@@ -1,7 +1,7 @@
 # PaperMC/Spigot Minecraft Server Plugin Template
 A template for building PaperMC/Spigot Minecraft server plugins!
 
-[![Build and Artifact](https://github.com/CrimsonWarpedcraft/plugin-template/actions/workflows/artifact.yml/badge.svg)](https://github.com/CrimsonWarpedcraft/plugin-template/actions/workflows/artifact.yml)
+[![Build, Test, and Release](https://github.com/CrimsonWarpedcraft/plugin-template/actions/workflows/main.yml/badge.svg)](https://github.com/CrimsonWarpedcraft/plugin-template/actions/workflows/main.yml)
 
 ## Features
 ### Github Actions 🎬
