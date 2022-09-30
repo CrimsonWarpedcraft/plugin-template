@@ -87,7 +87,7 @@ jobs:
       - build
       - test
     runs-on: ubuntu-latest
-    if: github.ref_type == 'tag' || github.ref_name == 'main'
+    if: github.ref_type == 'tag' || (github.ref_name == 'main' && github.event_name != 'schedule')
     steps:
       - name: Set snapshot environment
         if: github.ref_name == 'main'
