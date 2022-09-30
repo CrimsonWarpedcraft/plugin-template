@@ -148,7 +148,7 @@ jobs:
           echo "RELEASE_ADDR=https://github.com/CrimsonWarpedcraft/plugin-template/releases/tag/${{ github.ref_name }}" >> $GITHUB_ENV
 
       - name: Notify on success
-        if: needs.build.result == 'success' && needs.test.result == 'success' && (github.ref_name == 'main' || needs.release.result == 'success')
+        if: needs.build.result == 'success' && needs.test.result == 'success' && (needs.release.result == 'success' || github.event_name == 'schedule')
         uses: appleboy/discord-action@0.0.3
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
