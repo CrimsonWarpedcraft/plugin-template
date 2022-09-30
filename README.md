@@ -5,12 +5,8 @@ A template for building PaperMC/Spigot Minecraft server plugins!
 
 ## Features
 ### Github Actions 🎬
-* Draft release on version tag push
-* Increment project version with a [PR](https://github.com/marketplace/actions/create-pull-request) on version tag push
-* Build artifacts on pull requests
-* Build snapshots on pushes to main
-* Weekly artifact builds to ensure your code is up-to-date
-* [Discord notifcations](https://github.com/marketplace/actions/discord-message-notify) for main branch build results
+* Automated builds, testing, and release drafting
+* [Discord notifcations](https://github.com/marketplace/actions/discord-message-notify) for snapshots and releases
 
 ### Bots 🤖
 * **Probot: Stale**
@@ -29,10 +25,19 @@ A template for building PaperMC/Spigot Minecraft server plugins!
 * [SpotBugs](https://spotbugs.github.io/) code analysis
 * [JUnit](https://junit.org/) testing
 
+### Release and Versioning Strategy
+| Event             | Version Format       | CI Action                        | GitHub Release Draft? |
+|-------------------|----------------------|----------------------------------|-----------------------|
+| PR                | yyMMdd-HHmm-SNAPSHOT | Build and test                   | No                    |
+| Schedule          | yyMMdd-HHmm-SNAPSHOT | Build, test, and notify          | No                    |
+| Push on `main`    | 0.0.0-SNAPSHOT       | Build, test, release, and notify | No                    |
+| Tag `vX.Y.Z-RC-N` | X.Y.Z-SNAPSHOT       | Build, test, release, and notify | Pre-release           |
+| Tag `vX.Y.Z`      | X.Y.Z                | Build, test, release, and notify | Release               |
+
 ### Config Files 📁
-* Sample plugin.yml with auto-fill fields
-* Simple Gradle build config
+* Sample plugin.yml with autofill name, version, and main class.
 * Empty config.yml (just to make life \*that\* much easier)
+* Gradle build config
 * Simple .gitignore for common Gradle files
 
 ## Setup
@@ -100,21 +105,6 @@ dependencies {
 }
 ```
 
-### .github/release.yml
-In the following section, you will need to replace "ExamplePlugin.jar" in `asset_path` and `asset_name` with the name of your plugin (see [settings.gradle](#settingsgradle)).
-
-```yaml
-- name: Upload Release Asset
-  uses: actions/upload-release-asset@v1
-  env:
-    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  with:
-    upload_url: ${{ steps.create_release.outputs.upload_url }}
-    asset_path: ${{ github.workspace }}/build/libs/ExamplePlugin.jar
-    asset_name: ExamplePlugin.jar
-    asset_content_type: application/java-archive
-```
-
 ### src/main/resources/plugin.yml
 First, update the following with your information.
 
@@ -170,7 +160,7 @@ Below are the steps you should follow to create a release.
 
 1. Create a tag on `main` using semantic versioning (e.g. v0.1.0)
 2. Push the tag and get some coffee while the workflows run
-3. Add a description to the release draft once it's been automatically created and publish
+3. Publish the release draft once it's been automatically created
 
 ## Contributing
 ### General workflow
