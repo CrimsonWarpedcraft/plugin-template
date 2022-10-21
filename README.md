@@ -40,8 +40,15 @@ A template for building PaperMC/Spigot Minecraft server plugins!
 * Gradle build config
 * Simple .gitignore for common Gradle files
 
-## Setup
-In order to use this template for yourself, there are a few things that you will need to change.
+## Usage
+In order to use this template for yourself, there are a few things that you will need to keep in mind.
+
+### Release Info
+Stable version of this repo are tagged `vX.Y.Z` and have an associated [release](https://github.com/CrimsonWarpedcraft/plugin-template/releases).
+
+Testing versions of this repo are tagged `vX.Y.Z-RC-N` and have an associated [pre-release](https://github.com/CrimsonWarpedcraft/plugin-template/releases).
+
+Development versions of this repo are pushed to the master branch and are **not** tagged.
 
 ### Discord Notifications
 In order to use Discord notifications, you will need to create two GitHub secrets. `DISCORD_WEBHOOK_ID` 
