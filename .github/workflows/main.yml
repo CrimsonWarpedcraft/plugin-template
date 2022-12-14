@@ -169,4 +169,4 @@ jobs:
           username: "ExamplePlugin Release Bot"
           message: >
             An ExamplePlugin ${{ env.RELEASE_TYPE }} failed:
-            https://github.com/sebs-scholarship/Blog/actions/runs/${{ github.run_id }}
+            https://github.com/CrimsonWarpedcraft/plugin-template/actions/runs/${{ github.run_id }}
