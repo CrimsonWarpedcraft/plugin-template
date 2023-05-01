@@ -27,7 +27,6 @@ if (hasProperty('ver')) {
 }
 
 // If the tag includes "-RC-" or no tag is supplied, append "-SNAPSHOT"
-int rcIdx = -1
 if (shortVersion == null || shortVersion == "") {
     version = getTime() + "-SNAPSHOT"
 } else if ((rcIdx = shortVersion.indexOf("-RC-")) != -1) {
@@ -81,14 +80,14 @@ checkstyle {
     maxWarnings = 0
 }
 
-tasks.withType(Checkstyle) {
+tasks.withType(Checkstyle).configureEach {
     reports {
         xml.required = false
         html.required = true
     }
 }
 
-tasks.withType(SpotBugsTask) {
+tasks.withType(SpotBugsTask).configureEach {
     reports {
         xml {
             required.set(false)
@@ -109,7 +108,7 @@ shadowJar {
 jar.enabled = false
 assemble.dependsOn(shadowJar)
 
-task release {
+tasks.register('release') {
     dependsOn build
 
     doLast {
