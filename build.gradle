@@ -27,6 +27,7 @@ if (hasProperty('ver')) {
 }
 
 // If the tag includes "-RC-" or no tag is supplied, append "-SNAPSHOT"
+int rcIdx
 if (shortVersion == null || shortVersion == "") {
     version = getTime() + "-SNAPSHOT"
 } else if ((rcIdx = shortVersion.indexOf("-RC-")) != -1) {
