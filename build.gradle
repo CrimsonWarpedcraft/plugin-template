@@ -109,6 +109,12 @@ shadowJar {
 jar.enabled = false
 assemble.dependsOn(shadowJar)
 
+tasks.register('printProjectName') {
+    doLast {
+        println rootProject.name
+    }
+}
+
 tasks.register('release') {
     dependsOn build
 
@@ -116,7 +122,7 @@ tasks.register('release') {
         if (!version.endsWith("-SNAPSHOT")) {
             // Rename final JAR to trim off version information
             shadowJar.archiveFile.get().getAsFile()
-                    .renameTo(buildDir.toString() + File.separator + 'libs' + File.separator
+                    .renameTo(layout.buildDirectory.toString() + File.separator + 'libs' + File.separator
                             + rootProject.name + '.jar')
         }
     }
