@@ -14,8 +14,6 @@ on:
   workflow_dispatch:
 
 concurrency:
-  # Allow concurrent run for main, MR, and tag
-  # Disallow concurrent runs on same MRs, tags, and main (triggered by dispatch, schedule, or push)
   group: ${{ format('{0}-{1}', github.job, github.ref) }}
   cancel-in-progress: true
 
@@ -30,15 +28,27 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up JDK
-        uses: actions/setup-java@v3
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Retrieve Project Name
+        run: echo "::set-output name=PROJECT_NAME::$(${{github.workspace}}/gradlew -q printProjectName)"
+        id: project_name
+
+      - name: Get Project Name
+        run: echo "PROJECT_NAME=${{steps.project_name.outputs.PROJECT_NAME}}" >> $GITHUB_ENV
+
+      - name: Common Setup
+        uses: ./.github/actions/common-setup
         with:
           java-version: ${{ matrix.java }}
-          distribution: 'zulu'
-
-      - name: Grant execute permission for gradlew
-        if: runner.os == 'Linux'
-        run: chmod +x gradlew
 
       - name: Build with Gradle
         run: ./gradlew assemble --info
@@ -48,6 +58,9 @@ jobs:
         with:
           name: ${{ matrix.os }} Java ${{ matrix.java }} build results
           path: ${{ github.workspace }}/build/libs/
+
+    outputs:
+      project_name: ${{ steps.project_name.outputs.PROJECT_NAME }}
 
   test:
     name: Run unit tests
@@ -61,6 +74,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
 
       - name: Set up JDK
         uses: actions/setup-java@v3
@@ -134,18 +157,20 @@ jobs:
       - release
     # Run if on main or tag
     if: always() && (github.ref_name == 'main' || github.ref_type == 'tag')
+    env:
+      PROJECT_NAME: ${{ needs.build.outputs.project_name }}
     steps:
       - name: Set snapshot environment
         if: github.ref_name == 'main'
         run: |
           echo "RELEASE_TYPE=snapshot" >> $GITHUB_ENV
-          echo "RELEASE_ADDR=https://github.com/CrimsonWarpedcraft/plugin-template/actions/runs/${{ github.run_id }}" >> $GITHUB_ENV
+          echo "RELEASE_ADDR=https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_ENV
 
       - name: Set release environment
         if: github.ref_type == 'tag'
         run: |
           echo "RELEASE_TYPE=release" >> $GITHUB_ENV
-          echo "RELEASE_ADDR=https://github.com/CrimsonWarpedcraft/plugin-template/releases/tag/${{ github.ref_name }}" >> $GITHUB_ENV
+          echo "RELEASE_ADDR=https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}" >> $GITHUB_ENV
 
       - name: Notify on success
         if: needs.build.result == 'success' && needs.test.result == 'success' && (needs.release.result == 'success' || github.event_name == 'schedule')
@@ -154,9 +179,9 @@ jobs:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
           webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
           color: "#00FF00"
-          username: "ExamplePlugin Release Bot"
+          username: "${{ env.PROJECT_NAME }} Release Bot"
           message: >
-            An ExamplePlugin ${{ env.RELEASE_TYPE }} was deployed:
+            An ${{ env.PROJECT_NAME }} ${{ env.RELEASE_TYPE }} was deployed by ${{ github.actor }}:
             ${{ env.RELEASE_ADDR }}
 
       - name: Notify on failure
@@ -166,7 +191,7 @@ jobs:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
           webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
           color: "#FF0000"
-          username: "ExamplePlugin Release Bot"
+          username: "${{ env.PROJECT_NAME }} Release Bot"
           message: >
-            An ExamplePlugin ${{ env.RELEASE_TYPE }} failed:
-            https://github.com/CrimsonWarpedcraft/plugin-template/actions/runs/${{ github.run_id }}
+            An ${{ env.PROJECT_NAME }} ${{ env.RELEASE_TYPE }} ran by ${{ github.actor }} failed:
+            https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
