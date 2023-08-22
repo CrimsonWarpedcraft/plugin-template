@@ -122,7 +122,7 @@ tasks.register('release') {
         if (!version.endsWith("-SNAPSHOT")) {
             // Rename final JAR to trim off version information
             shadowJar.archiveFile.get().getAsFile()
-                    .renameTo(layout.buildDirectory.toString() + File.separator + 'libs' + File.separator
+                    .renameTo(layout.buildDirectory.get().toString() + File.separator + 'libs' + File.separator
                             + rootProject.name + '.jar')
         }
     }
