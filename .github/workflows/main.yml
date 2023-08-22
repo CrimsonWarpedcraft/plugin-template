@@ -39,7 +39,7 @@ jobs:
             ${{ runner.os }}-gradle-
 
       - name: Retrieve Project Name
-        run: echo "::set-output name=PROJECT_NAME::$(${{github.workspace}}/gradlew -q printProjectName)"
+        run: echo "PROJECT_NAME=$(${{github.workspace}}/gradlew -q printProjectName)" >> $GITHUB_OUTPUT
         id: project_name
 
       - name: Get Project Name
