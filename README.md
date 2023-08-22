@@ -187,7 +187,7 @@ This build step will also run all checks and tests, making sure your code is cle
 JARs can be found in `build/libs/`.
 
 ## Contributing
-See [CONTRIBUTORS.md](https://github.com/CrimsonWarpedcraft/plugin-template/blob/main/CONTRIBUTING.md).
+See [CONTRIBUTING.md](https://github.com/CrimsonWarpedcraft/plugin-template/blob/main/CONTRIBUTING.md).
 
 ---
 
