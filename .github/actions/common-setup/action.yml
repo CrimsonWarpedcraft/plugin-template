@@ -1,0 +1,21 @@
+name: 'Common Setup'
+description: 'Set up JDK and grant execute permissions for gradlew'
+
+inputs:
+  java-version:
+    description: 'Java version'
+    required: true
+    default: '17'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: ${{ inputs.java-version }}
+        distribution: 'zulu'
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+      shell: bash
