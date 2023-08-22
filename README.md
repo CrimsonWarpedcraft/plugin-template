@@ -25,15 +25,6 @@ A template for building PaperMC/Spigot Minecraft server plugins!
 * [SpotBugs](https://spotbugs.github.io/) code analysis
 * [JUnit](https://junit.org/) testing
 
-### Release and Versioning Strategy
-| Event             | Version Format       | CI Action                        | GitHub Release Draft? |
-|-------------------|----------------------|----------------------------------|-----------------------|
-| PR                | yyMMdd-HHmm-SNAPSHOT | Build and test                   | No                    |
-| Schedule          | yyMMdd-HHmm-SNAPSHOT | Build, test, and notify          | No                    |
-| Push on `main`    | 0.0.0-SNAPSHOT       | Build, test, release, and notify | No                    |
-| Tag `vX.Y.Z-RC-N` | X.Y.Z-SNAPSHOT       | Build, test, release, and notify | Pre-release           |
-| Tag `vX.Y.Z`      | X.Y.Z                | Build, test, release, and notify | Release               |
-
 ### Config Files 📁
 * Sample plugin.yml with autofill name, version, and main class.
 * Empty config.yml (just to make life \*that\* much easier)
@@ -44,11 +35,20 @@ A template for building PaperMC/Spigot Minecraft server plugins!
 In order to use this template for yourself, there are a few things that you will need to keep in mind.
 
 ### Release Info
-Stable version of this repo are tagged `vX.Y.Z` and have an associated [release](https://github.com/CrimsonWarpedcraft/plugin-template/releases).
+Stable versions of this repo are tagged `vX.Y.Z` and have an associated [release](https://github.com/CrimsonWarpedcraft/plugin-template/releases).
 
 Testing versions of this repo are tagged `vX.Y.Z-RC-N` and have an associated [pre-release](https://github.com/CrimsonWarpedcraft/plugin-template/releases).
 
 Development versions of this repo are pushed to the master branch and are **not** tagged.
+
+#### Release and Versioning Strategy
+| Event             | Version Format       | CI Action                        | GitHub Release Draft? |
+|-------------------|----------------------|----------------------------------|-----------------------|
+| PR                | yyMMdd-HHmm-SNAPSHOT | Build and test                   | No                    |
+| Schedule          | yyMMdd-HHmm-SNAPSHOT | Build, test, and notify          | No                    |
+| Push to `main`    | 0.0.0-SNAPSHOT       | Build, test, release, and notify | No                    |
+| Tag `vX.Y.Z-RC-N` | X.Y.Z-SNAPSHOT       | Build, test, release, and notify | Pre-release           |
+| Tag `vX.Y.Z`      | X.Y.Z                | Build, test, release, and notify | Release               |
 
 ### Discord Notifications
 In order to use Discord notifications, you will need to create two GitHub secrets. `DISCORD_WEBHOOK_ID` 
@@ -101,14 +101,14 @@ Also, update your dependencies as needed (of course).
 
 ```groovy
 dependencies {
-    compileOnly 'io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT'
-    compileOnly 'com.github.spotbugs:spotbugs-annotations:4.5.2'
-    implementation 'io.papermc:paperlib:1.0.7'
-    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.11.0'
-    testCompileOnly 'com.github.spotbugs:spotbugs-annotations:4.5.2'
-    testImplementation 'io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    compileOnly 'io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT'
+    compileOnly 'com.github.spotbugs:spotbugs-annotations:4.7.3'
+    implementation 'io.papermc:paperlib:1.0.8'
+    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.12.0'
+    testCompileOnly 'com.github.spotbugs:spotbugs-annotations:4.7.3'
+    testImplementation 'io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
 }
 ```
 
@@ -156,11 +156,17 @@ You will need to replace `leviem1`, with your GitHub username.
 ```
 
 ### .github/FUNDING.yml
-Update this file with whatever applies to you.
+Update or delete this file, whatever applies to you.
 
 ```yaml
 github: leviem1
 ```
+
+For more information see: [Displaying a sponsor button in your repository](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/displaying-a-sponsor-button-in-your-repository)
+
+### CODE_OF_CONDUCT.md
+If you chose to adopt a Code of Conduct for your project, please update line 63 with your preferred
+contact method.
 
 ## Creating a Release
 Below are the steps you should follow to create a release.
@@ -169,28 +175,7 @@ Below are the steps you should follow to create a release.
 2. Push the tag and get some coffee while the workflows run
 3. Publish the release draft once it's been automatically created
 
-## Contributing
-### General workflow
-0. (External contributors only) Create a fork of the repository
-1. Pull any changes from `main` to make sure you're up-to-date
-2. Create a branch from `main`
-    * Give your branch a name that describes your change (e.g. add-scoreboard)
-    * Focus on one change per branch
-    * Keep your commits small (<300 LOC), and write descriptive commit messages
-3. When you're ready, create a pull request to `main` with a descriptive title, and listing any changes made in its description
-    * Link any issues that your pull request is related to as well
-
-#### Example:
-```text
-Create scoreboard for total points
-
-ADDED - Scoreboard displayed in-game at game end  
-CHANGED - Updated `StorageManager` class to persist scoreboard data
-```
-
-After the pull request has been reviewed, approved, and passes all automated checks, it will be merged into main.
-
-### Building locally
+## Building locally
 Thanks to [Gradle](https://gradle.org/), building locally is easy no matter what platform you're on. Simply run the following command:
 
 ```text
@@ -201,6 +186,9 @@ This build step will also run all checks and tests, making sure your code is cle
 
 JARs can be found in `build/libs/`.
 
+## Contributing
+See [CONTRIBUTORS.md](https://github.com/CrimsonWarpedcraft/plugin-template/blob/main/CONTRIBUTING.md).
+
 ---
 
-I think that's all... phew!
+I think that's all... phew! Oh, and update this README! ;)
