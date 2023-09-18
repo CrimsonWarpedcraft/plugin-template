@@ -13,10 +13,9 @@ jobs:
       PROJECT_NAME: ${{ needs.build.outputs.project_name }}
     steps:
       - name: Set release environment
-        if: github.ref_type == 'tag'
         run: |
-          echo "RELEASE_TYPE='release'" >> $GITHUB_ENV
-          echo "RELEASE_ADDR='https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}'" >> $GITHUB_ENV
+          echo "RELEASE_TYPE=release" >> $GITHUB_ENV
+          echo "RELEASE_ADDR=https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}" >> $GITHUB_ENV
 
       - name: Notify
         uses: appleboy/discord-action@0.0.3

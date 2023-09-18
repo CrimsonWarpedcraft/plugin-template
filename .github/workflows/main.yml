@@ -163,14 +163,14 @@ jobs:
       - name: Set snapshot environment
         if: github.ref_name == 'main'
         run: |
-          echo "RELEASE_TYPE='snapshot'" >> $GITHUB_ENV
+          echo "RELEASE_TYPE=snapshot" >> $GITHUB_ENV
           echo "RELEASE_ADDR='https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'" >> $GITHUB_ENV
 
       - name: Set release draft environment
         if: github.ref_type == 'tag'
         run: |
-          echo "RELEASE_TYPE='release draft'" >> $GITHUB_ENV
-          echo "RELEASE_ADDR='https://github.com/${{ github.repository }}/releases/'" >> $GITHUB_ENV
+          echo "RELEASE_TYPE=release draft" >> $GITHUB_ENV
+          echo "RELEASE_ADDR=https://github.com/${{ github.repository }}/releases/" >> $GITHUB_ENV
 
       - name: Notify on success
         if: needs.build.result == 'success' && needs.test.result == 'success' && (needs.release.result == 'success' || github.event_name == 'schedule')
