@@ -1,0 +1,30 @@
+name: Release Notify
+
+on:
+  release:
+    types:
+    - published
+
+jobs:
+  notify:
+    name: Send job complete notification
+    runs-on: ubuntu-latest
+    env:
+      PROJECT_NAME: ${{ needs.build.outputs.project_name }}
+    steps:
+      - name: Set release environment
+        if: github.ref_type == 'tag'
+        run: |
+          echo "RELEASE_TYPE='release'" >> $GITHUB_ENV
+          echo "RELEASE_ADDR='https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}'" >> $GITHUB_ENV
+
+      - name: Notify
+        uses: appleboy/discord-action@0.0.3
+        with:
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          color: "#00FF00"
+          username: "${{ env.PROJECT_NAME }} Release Bot"
+          message: >
+            An ${{ env.PROJECT_NAME }} ${{ env.RELEASE_TYPE }} was deployed by ${{ github.actor }}:
+            ${{ env.RELEASE_ADDR }}
