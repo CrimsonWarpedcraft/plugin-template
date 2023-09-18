@@ -174,7 +174,7 @@ jobs:
         if: github.ref_type == 'tag'
         run: |
           echo "RELEASE_TYPE=release draft" >> $GITHUB_ENV
-          echo "RELEASE_ADDR=${{ steps.release.outputs.url }}" >> $GITHUB_ENV
+          echo "RELEASE_ADDR=${{ needs.release.outputs.url }}" >> $GITHUB_ENV
 
       - name: Notify on success
         if: needs.build.result == 'success' && needs.test.result == 'success' && (needs.release.result == 'success' || github.event_name == 'schedule')
