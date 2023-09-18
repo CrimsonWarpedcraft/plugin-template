@@ -9,9 +9,19 @@ jobs:
   notify:
     name: Send job complete notification
     runs-on: ubuntu-latest
-    env:
-      PROJECT_NAME: ${{ needs.build.outputs.project_name }}
+
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Common Setup
+        uses: ./.github/actions/common-setup
+        with:
+          java-version: ${{ matrix.java }}
+
+      - name: Retrieve Project Name
+        run: echo "PROJECT_NAME=$(${{github.workspace}}/gradlew -q printProjectName)" >> $GITHUB_ENV
+        id: project_name
       - name: Set release environment
         run: |
           echo "RELEASE_TYPE=release" >> $GITHUB_ENV
