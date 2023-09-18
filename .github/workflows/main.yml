@@ -164,7 +164,7 @@ jobs:
         if: github.ref_name == 'main'
         run: |
           echo "RELEASE_TYPE=snapshot" >> $GITHUB_ENV
-          echo "RELEASE_ADDR='https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'" >> $GITHUB_ENV
+          echo "RELEASE_ADDR=https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_ENV
 
       - name: Set release draft environment
         if: github.ref_type == 'tag'
