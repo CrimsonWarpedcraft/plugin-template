@@ -28,7 +28,7 @@ jobs:
           echo "RELEASE_ADDR=https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}" >> $GITHUB_ENV
 
       - name: Notify
-        uses: appleboy/discord-action@0.0.3
+        uses: appleboy/discord-action@v1.0.0
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
           webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
