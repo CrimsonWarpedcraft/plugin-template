@@ -85,15 +85,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Set up JDK
-        uses: actions/setup-java@v3
+      - name: Common Setup
+        uses: ./.github/actions/common-setup
         with:
           java-version: ${{ matrix.java }}
-          distribution: 'zulu'
-
-      - name: Grant execute permission for gradlew
-        if: runner.os == 'Linux'
-        run: chmod +x gradlew
 
       - name: Test with Gradle
         run: ./gradlew check --debug
@@ -125,14 +120,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up JDK
-        uses: actions/setup-java@v3
+      - name: Common Setup
+        uses: ./.github/actions/common-setup
         with:
           java-version: 17
-          distribution: 'zulu'
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
 
       - name: Publish with Gradle
         run: ./gradlew -Pver=${{ env.RELEASE_TAG }} release
