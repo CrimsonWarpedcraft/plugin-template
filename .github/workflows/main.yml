@@ -54,7 +54,7 @@ jobs:
         run: ./gradlew assemble --info
 
       - name: Upload build results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.os }} Java ${{ matrix.java }} build results
           path: ${{ github.workspace }}/build/libs/
@@ -95,7 +95,7 @@ jobs:
 
       - name: Upload test results
         if: ${{ always() }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.os }} Java ${{ matrix.java }} test results
           path: ${{ github.workspace }}/build/reports/
