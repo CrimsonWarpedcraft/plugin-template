@@ -77,8 +77,14 @@ processResources {
 }
 
 checkstyle {
-    toolVersion '10.12.5'
+    toolVersion '10.12.6'
     maxWarnings = 0
+}
+
+configurations.checkstyle {
+    resolutionStrategy.capabilitiesResolution.withCapability("com.google.collections:google-collections") {
+        select("com.google.guava:guava:0")
+    }
 }
 
 tasks.withType(Checkstyle).configureEach {
