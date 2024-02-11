@@ -95,13 +95,11 @@ tasks.withType(Checkstyle).configureEach {
 }
 
 tasks.withType(SpotBugsTask).configureEach {
-    reports {
-        xml {
-            required.set(false)
-        }
-        html {
-            required.set(true)
-        }
+    reports.create("html") {
+        required = true
+    }
+    reports.create("xml") {
+        required = false
     }
 }
 
