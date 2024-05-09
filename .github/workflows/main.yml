@@ -23,7 +23,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest ]
-        java: [ 17 ]
+        java: [ 21 ]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -68,7 +68,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest ]
-        java: [ 17 ]
+        java: [ 21 ]
     needs:
       - build
     steps:
@@ -123,7 +123,7 @@ jobs:
       - name: Common Setup
         uses: ./.github/actions/common-setup
         with:
-          java-version: 17
+          java-version: 21
 
       - name: Publish with Gradle
         run: ./gradlew -Pver=${{ env.RELEASE_TAG }} release

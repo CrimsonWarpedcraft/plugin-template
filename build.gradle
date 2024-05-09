@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat
 plugins {
     id 'checkstyle'
     id "com.github.spotbugs" version "6.0.14"
-    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id 'io.github.goooler.shadow' version '8.1.7'
     id 'java'
 }
 
@@ -37,8 +37,8 @@ if (shortVersion == null || shortVersion == "") {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 repositories {
