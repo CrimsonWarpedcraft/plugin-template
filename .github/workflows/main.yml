@@ -91,7 +91,7 @@ jobs:
           java-version: ${{ matrix.java }}
 
       - name: Test with Gradle
-        run: ./gradlew check --debug
+        run: ./gradlew check --info
 
       - name: Upload test results
         if: ${{ always() }}
