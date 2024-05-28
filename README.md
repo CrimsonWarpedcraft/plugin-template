@@ -35,20 +35,40 @@ A template for building PaperMC/Spigot Minecraft server plugins!
 In order to use this template for yourself, there are a few things that you will need to keep in mind.
 
 ### Release Info
+#### PaperMC Version Mapping
+Here's a list of the PaperMC versions and the versions of this project they were built with.
+
+| PaperMC | ExamplePlugin |
+|---------|---------------|
+| 1.20.6  | 3.10.0+       |
+| 1.20.4  | 3.9.3         |
+| 1.20.2  | 3.8.4         |
+| 1.20.1  | 3.7.1         |
+| 1.19.4  | 3.2.1         |
+| 1.18.2  | 3.0.2         |
+| 1.17.1  | 2.2.0         |
+| 1.16.5  | 2.1.2         |
+
+This chart would make more sense if this plugin actually did anything and people would have a reason
+to be looking for older releases to run on older servers.
+
+To use this as a template, just use the latest version of this project and update the PaperMC
+version as needed. See more info on release stability below.
+
+#### Release and Versioning Strategy
 Stable versions of this repo are tagged `vX.Y.Z` and have an associated [release](https://github.com/CrimsonWarpedcraft/plugin-template/releases).
 
 Testing versions of this repo are tagged `vX.Y.Z-RC-N` and have an associated [pre-release](https://github.com/CrimsonWarpedcraft/plugin-template/releases).
 
 Development versions of this repo are pushed to the master branch and are **not** tagged.
 
-#### Release and Versioning Strategy
-| Event             | Version Format       | CI Action                        | GitHub Release Draft? |
-|-------------------|----------------------|----------------------------------|-----------------------|
-| PR                | yyMMdd-HHmm-SNAPSHOT | Build and test                   | No                    |
-| Schedule          | yyMMdd-HHmm-SNAPSHOT | Build, test, and notify          | No                    |
-| Push to `main`    | 0.0.0-SNAPSHOT       | Build, test, release, and notify | No                    |
-| Tag `vX.Y.Z-RC-N` | X.Y.Z-SNAPSHOT       | Build, test, release, and notify | Pre-release           |
-| Tag `vX.Y.Z`      | X.Y.Z                | Build, test, release, and notify | Release               |
+| Event             | Plugin Version Format | CI Action                        | GitHub Release Draft? |
+|-------------------|-----------------------|----------------------------------|-----------------------|
+| PR                | yyMMdd-HHmm-SNAPSHOT  | Build and test                   | No                    |
+| Cron              | yyMMdd-HHmm-SNAPSHOT  | Build, test, and notify          | No                    |
+| Push to `main`    | 0.0.0-SNAPSHOT        | Build, test, release, and notify | No                    |
+| Tag `vX.Y.Z-RC-N` | X.Y.Z-SNAPSHOT        | Build, test, release, and notify | Pre-release           |
+| Tag `vX.Y.Z`      | X.Y.Z                 | Build, test, release, and notify | Release               |
 
 ### Discord Notifications
 In order to use Discord notifications, you will need to create two GitHub secrets. `DISCORD_WEBHOOK_ID` 
