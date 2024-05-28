@@ -10,6 +10,8 @@ on:
     branches:
       - 'main'
   schedule:
+    # PaperMC doesn't change version numbers for latest releases meaning the build may break
+    #   unexpectedly. Build every so often so that we know if a breaking change has been published
     - cron: '0 0 * * 6'
   workflow_dispatch:
 
@@ -27,16 +29,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Cache Gradle dependencies
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
 
       - name: Common Setup
         uses: ./.github/actions/common-setup
@@ -75,16 +67,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Cache Gradle dependencies
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-
       - name: Common Setup
         uses: ./.github/actions/common-setup
         with:
@@ -122,8 +104,6 @@ jobs:
 
       - name: Common Setup
         uses: ./.github/actions/common-setup
-        with:
-          java-version: 21
 
       - name: Publish with Gradle
         run: ./gradlew -Pver=${{ env.RELEASE_TAG }} release
