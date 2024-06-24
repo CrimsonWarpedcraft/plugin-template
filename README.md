@@ -36,11 +36,12 @@ In order to use this template for yourself, there are a few things that you will
 
 ### Release Info
 #### PaperMC Version Mapping
-Here's a list of the PaperMC versions and the versions of this project they were built with.
+Here's a list of the PaperMC versions and the versions of this latest compatible version.
 
 | PaperMC | ExamplePlugin |
 |---------|---------------|
-| 1.20.6  | 3.10.0+       |
+| 1.21    | 3.12.0+       |
+| 1.20.6  | 3.11.0        |
 | 1.20.4  | 3.9.3         |
 | 1.20.2  | 3.8.4         |
 | 1.20.1  | 3.7.1         |
