@@ -3,7 +3,7 @@ import java.text.SimpleDateFormat
 
 plugins {
     id 'checkstyle'
-    id "com.github.spotbugs" version "6.0.18"
+    id "com.github.spotbugs" version "6.0.19"
     id 'io.github.goooler.shadow' version '8.1.7'
     id 'java'
 }
