@@ -40,7 +40,8 @@ Here's a list of the PaperMC versions and the versions of this latest compatible
 
 | PaperMC | ExamplePlugin |
 |---------|---------------|
-| 1.21    | 3.12.0+       |
+| 1.21.1  | 3.12.2+       |
+| 1.21    | 3.12.0        |
 | 1.20.6  | 3.11.0        |
 | 1.20.4  | 3.9.3         |
 | 1.20.2  | 3.8.4         |
