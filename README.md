@@ -1,7 +1,11 @@
 # PaperMC/Spigot Minecraft Server Plugin Template
 A template for building PaperMC/Spigot Minecraft server plugins!
 
+<!-- TODO: CHANGE ME -->
 [![Build, Test, and Release](https://github.com/CrimsonWarpedcraft/plugin-template/actions/workflows/main.yml/badge.svg)](https://github.com/CrimsonWarpedcraft/plugin-template/actions/workflows/main.yml)
+
+<!-- TODO: CHANGE ME -->
+[![](https://dcbadge.limes.pink/api/server/5XMmeV6EtJ)](https://discord.gg/5XMmeV6EtJ)
 
 ## Features
 ### Github Actions 🎬
@@ -40,7 +44,8 @@ Here's a list of the PaperMC versions and the versions of this latest compatible
 
 | PaperMC | ExamplePlugin |
 |---------|---------------|
-| 1.21    | 3.12.0+       |
+| 1.21.1  | 3.12.2+       |
+| 1.21    | 3.12.0        |
 | 1.20.6  | 3.11.0        |
 | 1.20.4  | 3.9.3         |
 | 1.20.2  | 3.8.4         |
@@ -77,6 +82,9 @@ should be set to the id of your Discord webhook. `DISCORD_WEBHOOK_TOKEN` will be
 
 You can find these values by copying the Discord Webhook URL:  
 `https://discord.com/api/webhooks/<DISCORD_WEBHOOK_ID>/<DISCORD_WEBHOOK_TOKEN>`
+
+Optionally, you can also configure `DISCORD_RELEASE_WEBHOOK_ID` and `DISCORD_RELEASE_WEBHOOK_TOKEN`
+to send release announcements to a separate channel.
 
 For more information, see [Discord Message Notify](https://github.com/marketplace/actions/discord-message-notify).
 
