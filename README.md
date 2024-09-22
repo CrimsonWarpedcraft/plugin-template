@@ -79,6 +79,9 @@ should be set to the id of your Discord webhook. `DISCORD_WEBHOOK_TOKEN` will be
 You can find these values by copying the Discord Webhook URL:  
 `https://discord.com/api/webhooks/<DISCORD_WEBHOOK_ID>/<DISCORD_WEBHOOK_TOKEN>`
 
+Optionally, you can also configure `DISCORD_RELEASE_WEBHOOK_ID` and `DISCORD_RELEASE_WEBHOOK_TOKEN`
+to send release announcements to a separate channel.
+
 For more information, see [Discord Message Notify](https://github.com/marketplace/actions/discord-message-notify).
 
 ---
