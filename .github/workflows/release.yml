@@ -22,12 +22,12 @@ jobs:
         id: project_name
 
       - name: Set pre-release environment
-        if: github.event.release.prerelease == 'true'
+        if: ${{ github.event.release.prerelease }}
         run: |
           echo "RELEASE_TYPE=pre-release" >> $GITHUB_ENV
 
       - name: Set release environment
-        if: github.event.release.prerelease == 'false'
+        if: ${{ !github.event.release.prerelease }}
         run: |
           echo "RELEASE_TYPE=release" >> $GITHUB_ENV
 
