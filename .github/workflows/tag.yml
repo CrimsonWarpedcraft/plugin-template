@@ -1,66 +1,26 @@
-name: Test and Release
+name: Release
 
 on:
   push:
-    branches:
-      - 'main'
-  schedule:
-    # PaperMC doesn't change version numbers for latest releases meaning the build may break
-    #   unexpectedly. Build every so often so that we know if a breaking change has been published
-    - cron: '0 0 * * 6'
+    tags:
+      - 'v*' # For v1.0, v0.1.0, etc
 
 concurrency:
   group: ${{ format('{0}-{1}', github.workflow, github.ref) }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
-  test:
-    name: Run unit tests
-    strategy:
-      matrix:
-        os: [ ubuntu-latest, windows-latest ]
-        java: [ 21 ]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Common Setup
-        uses: ./.github/actions/common-setup
-        with:
-          java-version: ${{ matrix.java }}
-
-      - name: Build with Gradle
-        run: ./gradlew build --info
-
-      - name: Upload build results
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ matrix.os }} Java ${{ matrix.java }} build results
-          path: ${{ github.workspace }}/build/libs/
-
-      - name: Upload test results
-        if: ${{ always() }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ matrix.os }} Java ${{ matrix.java }} test results
-          path: ${{ github.workspace }}/build/reports/
-
   release:
     runs-on: ubuntu-latest
-    needs:
-      - test
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Common Setup
         uses: ./.github/actions/common-setup
-        with:
-          java-version: 21
 
       - name: Publish with Gradle
-        run: ./gradlew -Pver="0.0.0-RC-1" release
+        run: ./gradlew -Pver=${{ github.ref_name }} release
 
       - name: Upload build results
         uses: actions/upload-artifact@v4
@@ -68,12 +28,25 @@ jobs:
           name: Release Build
           path: ${{ github.workspace }}/build/libs/
 
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        id: release
+        with:
+          files: ${{ github.workspace }}/build/libs/*
+          generate_release_notes: true
+          name: ${{ format('Release {0}', github.ref_name) }}
+          prerelease: ${{ contains(github.ref_name, '-rc-') }}
+          fail_on_unmatched_files: true
+          draft: true
+    outputs:
+      url: ${{ steps.release.outputs.url }}
+
   notify:
     name: Send job complete notification
     runs-on: ubuntu-latest
     needs:
-      - test
       - release
+    # Run if on main or tag
     if: always()
     steps:
       - name: Checkout code
@@ -96,8 +69,8 @@ jobs:
           color: "#00FF00"
           username: "${{ env.PROJECT_NAME }} Release Bot"
           message: >
-            An ${{ env.PROJECT_NAME }} snapshot was deployed by ${{ github.actor }}:
-            https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            An ${{ env.PROJECT_NAME }} release draft was deployed by ${{ github.actor }}:
+            ${{ needs.release.outputs.url }}
 
       - name: Notify on failure
         if: failure()
@@ -108,5 +81,5 @@ jobs:
           color: "#FF0000"
           username: "${{ env.PROJECT_NAME }} Release Bot"
           message: >
-            An ${{ env.PROJECT_NAME }} snapshot deployment ran by ${{ github.actor }} failed:
+            An ${{ env.PROJECT_NAME }} release draft ran by ${{ github.actor }} failed:
             https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}

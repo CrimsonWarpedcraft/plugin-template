@@ -1,0 +1,46 @@
+name: Test
+
+on:
+  pull_request:
+    branches:
+      - 'main'
+  merge_group:
+    types:
+      - checks_requested
+
+concurrency:
+  group: ${{ format('{0}-{1}', github.workflow, github.ref) }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Run unit tests
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, windows-latest ]
+        java: [ 21 ]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Common Setup
+        uses: ./.github/actions/common-setup
+        with:
+          java-version: ${{ matrix.java }}
+
+      - name: Build with Gradle
+        run: ./gradlew build --info
+
+      - name: Upload build results
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.os }} Java ${{ matrix.java }} build results
+          path: ${{ github.workspace }}/build/libs/
+
+      - name: Upload test results
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.os }} Java ${{ matrix.java }} test results
+          path: ${{ github.workspace }}/build/reports/
