@@ -20,6 +20,7 @@ jobs:
       - name: Retrieve Project Name
         run: echo "PROJECT_NAME=$(${{github.workspace}}/gradlew -q printProjectName)" >> $GITHUB_ENV
         id: project_name
+
       - name: Set release environment
         run: |
           echo "RELEASE_TYPE=release" >> $GITHUB_ENV
@@ -28,7 +29,7 @@ jobs:
       - name: Notify
         uses: appleboy/discord-action@v1.0.0
         with:
-          webhook_id: ${{ secrets.DISCORD_RELEASE_WEBHOOK_ID || secrets.DISCORD_WEBHOOK_ID }}
+          webhook_id: ${{ github.event.prerelease == 'false' && secrets.DISCORD_RELEASE_WEBHOOK_ID || secrets.DISCORD_WEBHOOK_ID }}
           webhook_token: ${{ secrets.DISCORD_RELEASE_WEBHOOK_TOKEN || secrets.DISCORD_WEBHOOK_TOKEN }}
           color: "#00FF00"
           username: "${{ env.PROJECT_NAME }} Release Bot"
