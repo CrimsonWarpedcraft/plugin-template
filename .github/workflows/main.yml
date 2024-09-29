@@ -25,6 +25,7 @@ concurrency:
 jobs:
   build:
     runs-on: ${{ matrix.os }}
+    if: github.ref_type != 'tag'
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest ]
@@ -60,6 +61,7 @@ jobs:
   test:
     name: Run unit tests
     runs-on: ${{ matrix.os }}
+    if: github.ref_type != 'tag'
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest ]
