@@ -22,12 +22,12 @@ jobs:
         id: project_name
 
       - name: Set pre-release environment
-        if: github.event.prerelease == 'true'
+        if: github.event.release.prerelease == 'true'
         run: |
           echo "RELEASE_TYPE=pre-release" >> $GITHUB_ENV
 
       - name: Set release environment
-        if: github.event.prerelease == 'false'
+        if: github.event.release.prerelease == 'false'
         run: |
           echo "RELEASE_TYPE=release" >> $GITHUB_ENV
 
@@ -40,4 +40,4 @@ jobs:
           username: "${{ env.PROJECT_NAME }} Release Bot"
           message: >
             An ${{ env.PROJECT_NAME }} ${{ env.RELEASE_TYPE }} was deployed by ${{ github.actor }}:
-            https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}" >> $GITHUB_ENV
+            https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}"
