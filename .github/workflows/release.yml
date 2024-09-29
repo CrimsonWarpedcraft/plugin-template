@@ -40,4 +40,4 @@ jobs:
           username: "${{ env.PROJECT_NAME }} Release Bot"
           message: >
             An ${{ env.PROJECT_NAME }} ${{ env.RELEASE_TYPE }} was deployed by ${{ github.actor }}:
-            https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}"
+            https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}
