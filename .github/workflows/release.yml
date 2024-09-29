@@ -1,4 +1,4 @@
-name: Release Notify
+name: Notify on Release
 
 on:
   release:
@@ -21,18 +21,23 @@ jobs:
         run: echo "PROJECT_NAME=$(${{github.workspace}}/gradlew -q printProjectName)" >> $GITHUB_ENV
         id: project_name
 
+      - name: Set pre-release environment
+        if: github.event.prerelease == 'true'
+        run: |
+          echo "RELEASE_TYPE=pre-release" >> $GITHUB_ENV
+
       - name: Set release environment
+        if: github.event.prerelease == 'false'
         run: |
           echo "RELEASE_TYPE=release" >> $GITHUB_ENV
-          echo "RELEASE_ADDR=https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}" >> $GITHUB_ENV
 
       - name: Notify
         uses: appleboy/discord-action@v1.0.0
         with:
           webhook_id: ${{ github.event.prerelease == 'false' && secrets.DISCORD_RELEASE_WEBHOOK_ID || secrets.DISCORD_WEBHOOK_ID }}
-          webhook_token: ${{ secrets.DISCORD_RELEASE_WEBHOOK_TOKEN || secrets.DISCORD_WEBHOOK_TOKEN }}
+          webhook_token: ${{ github.event.prerelease == 'false' && secrets.DISCORD_RELEASE_WEBHOOK_TOKEN || secrets.DISCORD_WEBHOOK_TOKEN }}
           color: "#00FF00"
           username: "${{ env.PROJECT_NAME }} Release Bot"
           message: >
             An ${{ env.PROJECT_NAME }} ${{ env.RELEASE_TYPE }} was deployed by ${{ github.actor }}:
-            ${{ env.RELEASE_ADDR }}
+            https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}" >> $GITHUB_ENV
