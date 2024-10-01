@@ -46,8 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - release
-    # Run if on main or tag
-    if: always()
+    if: always() && secrets.DISCORD_WEBHOOK_ID && secrets.DISCORD_WEBHOOK_TOKEN
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
