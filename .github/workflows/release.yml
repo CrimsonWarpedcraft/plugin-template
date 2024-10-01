@@ -9,7 +9,7 @@ jobs:
   notify:
     name: Send job complete notification
     runs-on: ubuntu-latest
-
+    if: (secrets.DISCORD_RELEASE_WEBHOOK_ID && secrets.DISCORD_RELEASE_WEBHOOK_TOKEN) || (secrets.DISCORD_WEBHOOK_ID && secrets.DISCORD_WEBHOOK_TOKEN)
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
