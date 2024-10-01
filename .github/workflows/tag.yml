@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - release
-    if: always() && secrets.DISCORD_WEBHOOK_ID && secrets.DISCORD_WEBHOOK_TOKEN
+    if: ${{ always() && secrets.DISCORD_WEBHOOK_ID && secrets.DISCORD_WEBHOOK_TOKEN }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
