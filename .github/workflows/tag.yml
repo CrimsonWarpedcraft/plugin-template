@@ -63,7 +63,7 @@ jobs:
         if: success()
         uses: appleboy/discord-action@v1.0.0
         with:
-          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_id: ${{ vars.DISCORD_WEBHOOK_ID }}
           webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
           color: "#00FF00"
           username: "${{ env.PROJECT_NAME }} Release Bot"
@@ -75,7 +75,7 @@ jobs:
         if: failure()
         uses: appleboy/discord-action@v1.0.0
         with:
-          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_id: ${{ vars.DISCORD_WEBHOOK_ID }}
           webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
           color: "#FF0000"
           username: "${{ env.PROJECT_NAME }} Release Bot"
