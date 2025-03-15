@@ -32,7 +32,7 @@ jobs:
           echo "RELEASE_TYPE=release" >> $GITHUB_ENV
 
       - name: Notify
-        uses: appleboy/discord-action@v1.1.0
+        uses: appleboy/discord-action@v1.2.0
         with:
           webhook_id: ${{ !github.event.release.prerelease && vars.DISCORD_RELEASE_WEBHOOK_ID || vars.DISCORD_WEBHOOK_ID }}
           webhook_token: ${{ !github.event.release.prerelease && secrets.DISCORD_RELEASE_WEBHOOK_TOKEN || secrets.DISCORD_WEBHOOK_TOKEN }}

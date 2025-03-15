@@ -61,7 +61,7 @@ jobs:
 
       - name: Notify on success
         if: success()
-        uses: appleboy/discord-action@v1.1.0
+        uses: appleboy/discord-action@v1.2.0
         with:
           webhook_id: ${{ vars.DISCORD_WEBHOOK_ID }}
           webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
@@ -73,7 +73,7 @@ jobs:
 
       - name: Notify on failure
         if: failure()
-        uses: appleboy/discord-action@v1.1.0
+        uses: appleboy/discord-action@v1.2.0
         with:
           webhook_id: ${{ vars.DISCORD_WEBHOOK_ID }}
           webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
