@@ -49,6 +49,7 @@ repositories {
             includeModule("io.papermc.paper", "paper-api")
             includeModule("io.papermc", "paperlib")
             includeModule("net.md-5", "bungeecord-chat")
+            includeGroup("io.papermc.adventure")
         }
     }
 
