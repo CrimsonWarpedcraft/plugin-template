@@ -1,5 +1,8 @@
 name: Test and Release
 
+permissions:
+  contents: read
+
 on:
   push:
     branches:
@@ -21,6 +24,8 @@ jobs:
         os: [ ubuntu-latest, windows-latest ]
         java: [ 21 ]
     runs-on: ${{ matrix.os }}
+    permissions:
+      contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -48,6 +53,8 @@ jobs:
 
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     needs:
       - test
     steps:

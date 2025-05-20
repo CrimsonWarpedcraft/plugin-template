@@ -1,5 +1,8 @@
 name: Notify on Release
 
+permissions:
+  contents: read
+
 on:
   release:
     types:

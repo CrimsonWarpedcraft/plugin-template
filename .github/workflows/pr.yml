@@ -1,5 +1,8 @@
 name: Test
 
+permissions:
+  contents: read
+
 on:
   pull_request:
     branches:
@@ -20,6 +23,8 @@ jobs:
         os: [ ubuntu-latest, windows-latest ]
         java: [ 21 ]
     runs-on: ${{ matrix.os }}
+    permissions:
+      contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
