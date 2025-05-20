@@ -19,13 +19,13 @@ concurrency:
 jobs:
   test:
     name: Run unit tests
-    permissions:
-      contents: read
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest ]
         java: [ 21 ]
     runs-on: ${{ matrix.os }}
+    permissions:
+      contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -77,9 +77,6 @@ jobs:
 
   notify:
     name: Send job complete notification
-    permissions:
-      contents: read
-      id-token: write
     runs-on: ubuntu-latest
     needs:
       - test
