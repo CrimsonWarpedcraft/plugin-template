@@ -1,5 +1,8 @@
 name: Test and Release
 
+permissions:
+  contents: read
+
 on:
   push:
     branches:
@@ -16,6 +19,8 @@ concurrency:
 jobs:
   test:
     name: Run unit tests
+    permissions:
+      contents: read
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest ]
@@ -48,6 +53,8 @@ jobs:
 
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     needs:
       - test
     steps:
@@ -70,6 +77,9 @@ jobs:
 
   notify:
     name: Send job complete notification
+    permissions:
+      contents: read
+      id-token: write
     runs-on: ubuntu-latest
     needs:
       - test
