@@ -44,7 +44,8 @@ Here's a list of the PaperMC versions and the versions of this latest compatible
 
 | PaperMC | ExamplePlugin |
 |---------|---------------|
-| 1.21.5  | 4.0.8+        |
+| 1.21.6  | 4.0.13+       |
+| 1.21.5  | 4.0.12        |
 | 1.21.4  | 4.0.7         |        
 | 1.21.3  | 4.0.3         |
 | 1.21.1  | 4.0.2         |
@@ -130,14 +131,14 @@ Also, update your dependencies as needed (of course).
 
 ```groovy
 dependencies {
-    compileOnly 'io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT'
-    compileOnly 'com.github.spotbugs:spotbugs-annotations:4.7.3'
+    compileOnly 'io.papermc.paper:paper-api:1.21.6-R0.1-SNAPSHOT'
+    compileOnly 'com.github.spotbugs:spotbugs-annotations:4.9.3'
     implementation 'io.papermc:paperlib:1.0.8'
-    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.12.0'
-    testCompileOnly 'com.github.spotbugs:spotbugs-annotations:4.7.3'
-    testImplementation 'io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0'
+    testCompileOnly 'com.github.spotbugs:spotbugs-annotations:4.9.3'
+    testImplementation 'io.papermc.paper:paper-api:1.21.6-R0.1-SNAPSHOT'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.13.1'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.13.1'
 }
 ```
 
