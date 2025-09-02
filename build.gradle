@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat
 plugins {
     id 'checkstyle'
     id "com.github.spotbugs" version "6.2.6"
-    id 'com.gradleup.shadow' version '9.0.2'
+    id 'com.gradleup.shadow' version '9.1.0'
     id 'java'
 }
 
