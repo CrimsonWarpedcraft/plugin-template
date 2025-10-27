@@ -28,7 +28,7 @@ jobs:
         run: ./gradlew -Pver=${{ github.ref_name }} release
 
       - name: Upload build results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: Release Build
           path: ${{ github.workspace }}/build/libs/

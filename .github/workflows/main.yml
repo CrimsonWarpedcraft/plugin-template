@@ -39,14 +39,14 @@ jobs:
         run: ./gradlew build --info
 
       - name: Upload build results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: ${{ matrix.os }} Java ${{ matrix.java }} build results
           path: ${{ github.workspace }}/build/libs/
 
       - name: Upload test results
         if: ${{ always() }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: ${{ matrix.os }} Java ${{ matrix.java }} test results
           path: ${{ github.workspace }}/build/reports/
@@ -70,7 +70,7 @@ jobs:
         run: ./gradlew -Pver="0.0.0-RC-1" release
 
       - name: Upload build results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: Release Build
           path: ${{ github.workspace }}/build/libs/
