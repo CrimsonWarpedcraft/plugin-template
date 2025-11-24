@@ -19,7 +19,7 @@ jobs:
       contents: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Common Setup
         uses: ./.github/actions/common-setup
@@ -54,7 +54,7 @@ jobs:
     if: always() && vars.DISCORD_WEBHOOK_ID
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Common Setup
         uses: ./.github/actions/common-setup
