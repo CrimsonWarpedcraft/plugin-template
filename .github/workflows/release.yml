@@ -15,7 +15,7 @@ jobs:
     if: vars.DISCORD_RELEASE_WEBHOOK_ID || vars.DISCORD_WEBHOOK_ID
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Common Setup
         uses: ./.github/actions/common-setup
