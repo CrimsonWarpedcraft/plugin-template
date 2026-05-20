@@ -1,7 +1,7 @@
 main: ${PACKAGE}.${NAME}
 name: ${NAME}
 version: "${VERSION}"
-api-version: "1.21.11"
+api-version: "26.1.2"
 author: AUTHOR
 description: DESCRIPTION
 commands:
