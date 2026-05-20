@@ -61,11 +61,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Common Setup
-        uses: ./.github/actions/common-setup
-        with:
-          java-version: 21
-
       - name: Publish with Gradle
         run: ./gradlew -Pver="0.0.0-RC-1" release
 
