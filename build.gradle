@@ -37,8 +37,8 @@ if (shortVersion == null || shortVersion == "") {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
 }
 
 repositories {
@@ -65,12 +65,12 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'io.papermc.paper:paper-api:26.1.2.build.64-stable'
+    compileOnly 'io.papermc.paper:paper-api:26.1.2.build.+'
     compileOnly 'com.github.spotbugs:spotbugs-annotations:4.9.8'
     implementation 'io.papermc:paperlib:1.0.8'
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0'
     testCompileOnly 'com.github.spotbugs:spotbugs-annotations:4.9.8'
-    testImplementation 'io.papermc.paper:paper-api:26.1.2.build.64-stable'
+    testImplementation 'io.papermc.paper:paper-api:26.1.2.build.+'
     testImplementation 'org.junit.jupiter:junit-jupiter:6.0.3'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher:6.0.3'
 }
