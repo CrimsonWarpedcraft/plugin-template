@@ -5,12 +5,12 @@ updates:
     schedule:
       interval: "weekly"
     commit-message:
-      prefix: "build:"
+      prefix: "chore(deps):"
     target-branch: "main"
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
       interval: "weekly"
     commit-message:
-      prefix: "deps:"
+      prefix: "chore(deps):"
     target-branch: "main"
