@@ -40,20 +40,12 @@ In order to use this template for yourself, there are a few things that you will
 
 ### Release Info
 #### PaperMC Version Mapping
-Here's a list of the PaperMC versions and the versions of this latest compatible version.
+Here's a list of the PaperMC versions and their respective compatible version.
 
 | PaperMC | ExamplePlugin |
 |---------|---------------|
-| 1.21.11 | 4.0.18+       |
-| 1.21.10 | 4.0.17        |
-| 1.21.8  | 4.0.16        |
-| 1.21.7  | 4.0.15        |
-| 1.21.6  | 4.0.14        |
-| 1.21.5  | 4.0.12        |
-| 1.21.4  | 4.0.7         |        
-| 1.21.3  | 4.0.3         |
-| 1.21.1  | 4.0.2         |
-| 1.21    | 3.12.1        |
+| 26.1.2  | 5.0.0+        |
+| 1.21.11 | 4.0.18        |
 | 1.20.6  | 3.11.0        |
 | 1.19.4  | 3.2.1         |
 | 1.18.2  | 3.0.2         |
@@ -63,7 +55,7 @@ Here's a list of the PaperMC versions and the versions of this latest compatible
 This chart would make more sense if this plugin actually did anything and people would have a reason
 to be looking for older releases to run on older servers.
 
-To use this as a template, just use the latest version of this project and update the PaperMC
+To use this template for yourself, just use the latest tagged version of this project and update the PaperMC
 version as needed. See more info on release stability below.
 
 #### Release and Versioning Strategy
