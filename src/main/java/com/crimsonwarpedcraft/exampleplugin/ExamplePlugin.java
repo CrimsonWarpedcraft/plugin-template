@@ -1,5 +1,8 @@
 package com.crimsonwarpedcraft.exampleplugin;
 
+import com.crimsonwarpedcraft.exampleplugin.command.ExampleCommand;
+import dev.jorel.commandapi.CommandAPI;
+import dev.jorel.commandapi.CommandAPIPaperConfig;
 import io.papermc.lib.PaperLib;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -11,9 +14,20 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class ExamplePlugin extends JavaPlugin {
 
   @Override
-  public void onEnable() {
-    PaperLib.suggestPaper(this);
+  public void onLoad() {
+    CommandAPI.onLoad(new CommandAPIPaperConfig(this));
+  }
 
+  @Override
+  public void onEnable() {
+    CommandAPI.onEnable();
+    PaperLib.suggestPaper(this);
     saveDefaultConfig();
+    new ExampleCommand().register();
+  }
+
+  @Override
+  public void onDisable() {
+    CommandAPI.onDisable();
   }
 }

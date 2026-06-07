@@ -27,7 +27,13 @@ A template for building PaperMC/Spigot Minecraft server plugins!
 * Shadowed [PaperLib](https://github.com/PaperMC/PaperLib) build
 * [Checkstyle](https://checkstyle.org/) Google standard style check
 * [SpotBugs](https://spotbugs.github.io/) code analysis
-* [JUnit](https://junit.org/) testing
+
+### Testing 🧪
+* [JUnit 5](https://junit.org/) unit tests
+* [Mockito](https://site.mockito.org/) for mocking dependencies in unit tests
+
+### Example Plugin Code 🔌
+* `/example` command via [CommandAPI](https://commandapi.jorel.dev) demonstrating subcommands, tab completion, and permissions
 
 ### Config Files 📁
 * Sample plugin.yml with autofill name, version, and main class.
