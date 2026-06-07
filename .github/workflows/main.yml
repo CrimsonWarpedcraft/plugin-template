@@ -7,10 +7,6 @@ on:
   push:
     branches:
       - 'main'
-  schedule:
-    # PaperMC doesn't change version numbers for latest releases meaning the build may break
-    #   unexpectedly. Build every so often so that we know if a breaking change has been published
-    - cron: '0 0 * * 6'
 
 concurrency:
   group: ${{ format('{0}-{1}', github.workflow, github.ref) }}
