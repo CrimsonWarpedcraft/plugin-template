@@ -68,7 +68,6 @@ Development versions of this repo are pushed to the master branch and are **not*
 | Event             | Plugin Version Format | CI Action                        | GitHub Release Draft? |
 |-------------------|-----------------------|----------------------------------|-----------------------|
 | PR                | yyMMdd-HHmm-SNAPSHOT  | Build and test                   | No                    |
-| Cron              | yyMMdd-HHmm-SNAPSHOT  | Build, test, and notify          | No                    |
 | Push to `main`    | 0.0.0-SNAPSHOT        | Build, test, release, and notify | No                    |
 | Tag `vX.Y.Z-RC-N` | X.Y.Z-SNAPSHOT        | Build, test, release, and notify | Pre-release           |
 | Tag `vX.Y.Z`      | X.Y.Z                 | Build, test, release, and notify | Release               |
@@ -127,7 +126,7 @@ Also, update your dependencies as needed (of course).
 
 ```groovy
 dependencies {
-    compileOnly 'io.papermc.paper:paper-api:1.21.6-R0.1-SNAPSHOT'
+    compileOnly 'io.papermc.paper:paper-api:26.1.2.build.69-stable'
     compileOnly 'com.github.spotbugs:spotbugs-annotations:4.9.3'
     implementation 'io.papermc:paperlib:1.0.8'
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0'
