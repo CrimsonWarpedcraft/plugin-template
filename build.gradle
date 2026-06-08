@@ -68,10 +68,14 @@ dependencies {
     compileOnly 'io.papermc.paper:paper-api:26.1.2.build.69-stable'
     compileOnly 'com.github.spotbugs:spotbugs-annotations:4.9.8'
     implementation 'io.papermc:paperlib:1.0.8'
+    // Example command implementation via CommandAPI — remove if not needed
+    // https://commandapi.jorel.dev
+    implementation 'dev.jorel:commandapi-paper-shade:11.2.0'
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0'
     testCompileOnly 'com.github.spotbugs:spotbugs-annotations:4.9.8'
     testImplementation 'io.papermc.paper:paper-api:26.1.2.build.69-stable'
     testImplementation 'org.junit.jupiter:junit-jupiter:6.1.0'
+    testImplementation 'org.mockito:mockito-core:5.20.0'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher:6.1.0'
 }
 
@@ -115,7 +119,12 @@ tasks.withType(SpotBugsTask).configureEach {
 shadowJar {
     archiveClassifier.set('')
     relocate 'io.papermc.lib', 'shadow.io.papermc.paperlib'
-    minimize()
+    // Update the destination package to match your group when renaming the plugin
+    relocate 'dev.jorel.commandapi', 'com.crimsonwarpedcraft.exampleplugin.commandapi'
+    // CommandAPI is excluded from minimization because it loads classes via reflection
+    minimize {
+        exclude(dependency('dev.jorel:commandapi-paper-shade:.*'))
+    }
 }
 
 // Disable jar and replace with shadowJar

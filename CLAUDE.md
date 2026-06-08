@@ -4,6 +4,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Commands
 
+**OneDrive locking**: If the project resides in OneDrive, the build fails with `Unable to delete directory '...\build\test-results\test\binary'`, delete that directory manually before retrying — OneDrive holds a sync lock on it.
+
 ```bash
 # Build (runs Checkstyle, SpotBugs, and tests)
 ./gradlew build
@@ -12,10 +14,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ./gradlew test
 
 # Run a single test class
-./gradlew test --tests "com.crimsonwarpedcraft.exampleplugin.ExamplePluginTest"
+./gradlew test --tests "com.crimsonwarpedcraft.exampleplugin.command.PingTest"
 
 # Run a single test method
-./gradlew test --tests "com.crimsonwarpedcraft.exampleplugin.ExamplePluginTest.onEnable"
+./gradlew test --tests "com.crimsonwarpedcraft.exampleplugin.command.GreetTest.greetsTarget"
 
 # Build a release JAR (strips version from filename for stable tags)
 ./gradlew -Pver="X.Y.Z" release
@@ -31,7 +33,7 @@ This is a **PaperMC/Spigot Minecraft plugin template**. The intent is that users
 
 **Entry point**: `ExamplePlugin extends JavaPlugin` — Bukkit/Paper calls `onEnable()` and `onDisable()` on the plugin lifecycle. The main class is referenced in `plugin.yml` via the `${PACKAGE}.${NAME}` substitution, which is filled at build time by `processResources` from `group` (build.gradle) and `rootProject.name` (settings.gradle).
 
-**JAR packaging**: The standard `jar` task is disabled. `shadowJar` is the sole output — it shades PaperLib (relocated to `shadow.io.papermc.paperlib`) and calls `minimize()` to strip unused classes. `assemble` depends on `shadowJar`.
+**JAR packaging**: The standard `jar` task is disabled. `shadowJar` is the sole output — it shades PaperLib (relocated to `shadow.io.papermc.paperlib`) and CommandAPI (relocated to `<group>.commandapi`). CommandAPI is excluded from `minimize()` because it loads classes via reflection. `assemble` depends on `shadowJar`.
 
 **Versioning logic** (in `build.gradle`):
 - No `-Pver` supplied → `yyMMdd-HHmm-SNAPSHOT`
@@ -42,6 +44,10 @@ This is a **PaperMC/Spigot Minecraft plugin template**. The intent is that users
 - `pr.yml` — builds and tests on Ubuntu + Windows for PRs and merge queue
 - `main.yml` — builds, tests, and cuts a snapshot release on push to `main`
 - `tag.yml` / `release.yml` — handle tagged releases and Discord notifications
+
+## Testing
+
+Command executor unit tests (`Ping`, `Greet`, etc.) use Mockito directly — mock `CommandArguments` and `CommandSender`/`Player`, then call `run()`. No server or plugin lifecycle needed. Mockito must be declared explicitly as `testImplementation 'org.mockito:mockito-core:...'` — it is not provided transitively.
 
 ## Template Customization Checklist
 

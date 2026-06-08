@@ -5,16 +5,15 @@ api-version: "26.1.2"
 author: AUTHOR
 description: DESCRIPTION
 commands:
-  ex:
+  example:
     description: Base command for EXAMPLE
-    usage: "For a list of commands, type /ex help"
-    aliases: example
+    usage: /example <ping|greet>
 permissions:
-  example.test:
-    description: DESCRIPTION
+  example.use:
+    description: Allows use of the /example command
     default: true
   example.*:
     description: Grants all other permissions
     default: false
     children:
-      example.test: true
+      example.use: true
