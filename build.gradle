@@ -120,6 +120,7 @@ tasks.withType(SpotBugsTask).configureEach {
 
 shadowJar {
     archiveClassifier.set('')
+    mergeServiceFiles()
     relocate 'io.papermc.lib', 'shadow.io.papermc.paperlib'
     // Update the destination package to match your group when renaming the plugin
     relocate 'dev.jorel.commandapi', 'com.crimsonwarpedcraft.exampleplugin.commandapi'
