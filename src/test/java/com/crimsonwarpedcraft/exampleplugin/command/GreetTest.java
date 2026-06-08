@@ -23,9 +23,9 @@ class GreetTest {
     when(args.get("target")).thenReturn(target);
     CommandSender sender = mock(CommandSender.class);
 
-    new Greet().run(sender, args);
+    new Greet("Hello, {player}!").run(sender, args);
 
-    verify(sender).sendMessage("Hello, Alex!");
+    verify(sender).sendRichMessage("Hello, Alex!");
   }
 
   @Test
@@ -35,8 +35,8 @@ class GreetTest {
     when(args.get("target")).thenReturn(null);
 
     assertThrows(WrapperCommandSyntaxException.class,
-        () -> new Greet().run(sender, args));
+        () -> new Greet("Hello, {player}!").run(sender, args));
 
-    verify(sender, never()).sendMessage(anyString());
+    verify(sender, never()).sendRichMessage(anyString());
   }
 }

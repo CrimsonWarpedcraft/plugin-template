@@ -12,9 +12,19 @@ import org.bukkit.command.CommandSender;
  */
 public class Ping implements CommandExecutor {
 
+  private final String message;
+
+  /**
+   * Creates a Ping executor with the given response message.
+   *
+   * @param message the MiniMessage-formatted reply sent to the command sender
+   */
+  public Ping(String message) {
+    this.message = message;
+  }
+
   @Override
-  public void run(CommandSender sender, CommandArguments args)
-      throws WrapperCommandSyntaxException {
-    sender.sendMessage("Pong!");
+  public void run(CommandSender sender, CommandArguments args) {
+    sender.sendRichMessage(message);
   }
 }

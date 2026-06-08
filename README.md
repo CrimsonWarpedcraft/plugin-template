@@ -34,15 +34,32 @@ A template for building PaperMC/Spigot Minecraft server plugins!
 
 ### Example Plugin Code 🔌
 * `/example` command via [CommandAPI](https://commandapi.jorel.dev) demonstrating subcommands, tab completion, and permissions
+* Example config loading using [Jackson](https://github.com/fasterxml/jackson) and [Hibernate Validator](https://hibernate.org/validator/)
 
 ### Config Files 📁
 * Sample plugin.yml with autofill name, version, and main class.
-* Empty config.yml (just to make life \*that\* much easier)
+* Example config.yml
 * Gradle build config
 * Simple .gitignore for common Gradle files
 
 ## Usage
 In order to use this template for yourself, there are a few things that you will need to keep in mind.
+
+### Adding new top-level commands
+To add an entirely new command (e.g. `/fly`), follow the `ExampleCommand` pattern:
+
+1. Create a class extending `AbstractCommand`; build the full `CommandAPICommand` tree in the constructor and pass it to `super(...)`
+2. Call `.register()` on an instance of it in `ExamplePlugin.onEnable()`, alongside the existing `new ExampleCommand(config).register()`
+3. Add the command and its permissions to `plugin.yml`
+4. Write unit tests for each executor class following the `PingTest`/`GreetTest` pattern
+
+### Adding subcommands
+To add a subcommand to `/example`, follow the `Ping`/`Greet` pattern:
+
+1. Create a class implementing CommandAPI's `CommandExecutor`; inject any config values via the constructor
+2. Add a `.withSubcommand(...)` call in `ExampleCommand`'s constructor
+3. Write a unit test following `PingTest` or `GreetTest` — mock `CommandSender` and `CommandArguments`, call `run()`, verify `sendRichMessage()`
+4. If the subcommand needs a config value, add it to `PluginConfig` and `config.yml`
 
 ### Release Info
 #### PaperMC Version Mapping
@@ -96,6 +113,10 @@ For more information, see [Discord Message Notify](https://github.com/marketplac
 
 ---
 
+### README.md
+
+This file contains a badge for build status and one for Discord. Be sure to replace these.
+
 ### settings.gradle
 Update the line below with the name of your plugin.
 
@@ -133,13 +154,19 @@ Also, update your dependencies as needed (of course).
 ```groovy
 dependencies {
     compileOnly 'io.papermc.paper:paper-api:26.1.2.build.69-stable'
-    compileOnly 'com.github.spotbugs:spotbugs-annotations:4.9.3'
+    compileOnly 'com.github.spotbugs:spotbugs-annotations:4.9.8'
     implementation 'io.papermc:paperlib:1.0.8'
+    // CommandAPI — remove if you don't need the example command
+    implementation 'dev.jorel:commandapi-paper-shade:11.2.0'
+    // Jackson + Hibernate Validator for typed, validated config — remove if unused
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.18.3'
+    implementation 'org.hibernate.validator:hibernate-validator:8.0.2.Final'
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0'
-    testCompileOnly 'com.github.spotbugs:spotbugs-annotations:4.9.3'
-    testImplementation 'io.papermc.paper:paper-api:1.21.6-R0.1-SNAPSHOT'
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.13.1'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.13.1'
+    testCompileOnly 'com.github.spotbugs:spotbugs-annotations:4.9.8'
+    testImplementation 'io.papermc.paper:paper-api:26.1.2.build.69-stable'
+    testImplementation 'org.junit.jupiter:junit-jupiter:6.1.0'
+    testImplementation 'org.mockito:mockito-core:5.20.0'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:6.1.0'
 }
 ```
 
@@ -170,6 +197,30 @@ permissions:
       example.test: true
 ```
 
+### src/main/java/.../config/PluginConfig.java
+This project provides an example of loading config files using Jackson with Hibernate Validator.
+
+To define your own config, add fields annotated with a Bean Validation constraint and a `@JsonProperty` YAML key:
+
+```java
+@NotBlank
+@JsonProperty("my-message")
+private String myMessage = "default";
+```
+
+Then add a getter. The config is validated upfront on every startup. If any constraint fails, the plugin logs the offending fields and disables itself cleanly.
+
+### src/main/resources/config.yml
+Add a matching entry for every field you add to `PluginConfig`, with a comment if desired:
+
+```yaml
+# Description of what the setting controls.
+# Supports MiniMessage formatting: https://docs.advntr.dev/minimessage/format.html
+my-message: "default"
+```
+
+Comments are preserved because `saveDefaultConfig()` writes this file once on first startup and never overwrites it. Schema migrations rewrite the file, but those are rare, and require custom code to handle.
+
 ### .github/dependabot.yml
 You will need to replace all instances of `leviem1`, such as the one below, with your GitHub
 username.
@@ -196,7 +247,7 @@ github: leviem1
 For more information see: [Displaying a sponsor button in your repository](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/displaying-a-sponsor-button-in-your-repository)
 
 ### CODE_OF_CONDUCT.md
-If you chose to adopt a Code of Conduct for your project, please update line 63 with your preferred
+If you chose to adopt the Code of Conduct for your project, please update line 63 with your preferred
 contact method.
 
 ## Creating a Release

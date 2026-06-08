@@ -17,7 +17,7 @@
 
 ### Example:
 ```text
-Create scoreboard for total points
+feat(core): Create scoreboard for total points
 
 ADDED - Scoreboard displayed in-game at game end  
 CHANGED - Updated `StorageManager` class to persist scoreboard data

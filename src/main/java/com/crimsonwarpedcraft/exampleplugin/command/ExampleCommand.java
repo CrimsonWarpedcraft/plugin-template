@@ -1,62 +1,46 @@
 package com.crimsonwarpedcraft.exampleplugin.command;
 
+import com.crimsonwarpedcraft.exampleplugin.config.PluginConfig;
 import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.arguments.EntitySelectorArgument;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.util.Objects;
-import org.bukkit.entity.Player;
 
 /**
  * Registers and handles the /example command.
  *
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
-public class ExampleCommand {
-
-  private CommandAPICommand command;
-
+public class ExampleCommand extends AbstractCommand {
   /**
-   * Creates an ExampleCommand backed by the given pre-built command tree.
-   *
-   * @param command the CommandAPICommand to use for registration
-   */
-  private ExampleCommand(CommandAPICommand command) {
-    this.command = Objects.requireNonNull(command);
-  }
-
-  /**
-   * Creates an ExampleCommand with the default /example command tree.
+   * Creates an ExampleCommand configured by the given plugin configuration.
    *
    * <p>Subcommands:
    *
    * <ul>
-   *   <li>/example ping — replies with "Pong!"
+   *   <li>/example ping — replies with the configured pong message
    *   <li>/example greet &lt;player&gt; — greets the named player
    * </ul>
+   *
+   * @param config the plugin configuration
    */
-  public ExampleCommand() {
-    this(
+  public ExampleCommand(PluginConfig config) {
+    super(
         new CommandAPICommand("example")
             .withPermission("example.use")
             .withSubcommand(
                 new CommandAPICommand("ping")
-                    .executes(new Ping())
+                    .executes(new Ping(config.getPongMessage()))
             )
             .withSubcommand(
                 new CommandAPICommand("greet")
                     .withArguments(new EntitySelectorArgument.OnePlayer("target"))
-                    .executes(new Greet())
+                    .executes(new Greet(config.getGreetMessage()))
             )
     );
   }
 
-  /**
-   * Registers the /example command with the server.
-   *
-   * @return this instance for chaining
-   */
+  @Override
   public ExampleCommand register() {
-    command.register();
+    super.register();
 
     return this;
   }
