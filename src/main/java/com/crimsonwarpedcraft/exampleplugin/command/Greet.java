@@ -14,6 +14,17 @@ import org.bukkit.entity.Player;
  */
 public class Greet implements CommandExecutor {
 
+  private final String template;
+
+  /**
+   * Creates a Greet executor with the given message template.
+   *
+   * @param template MiniMessage template; {player} is substituted with the target's name
+   */
+  public Greet(String template) {
+    this.template = template;
+  }
+
   @Override
   public void run(CommandSender sender, CommandArguments args)
       throws WrapperCommandSyntaxException {
@@ -23,6 +34,6 @@ public class Greet implements CommandExecutor {
       throw CommandAPI.failWithString("No target specified!");
     }
 
-    sender.sendMessage("Hello, " + target.getName() + "!");
+    sender.sendRichMessage(template.replace("{player}", target.getName()));
   }
 }

@@ -11,12 +11,12 @@ import org.junit.jupiter.api.Test;
 class PingTest {
 
   @Test
-  void sendsReply() throws WrapperCommandSyntaxException {
+  void sendsReply() {
     CommandSender sender = mock(CommandSender.class);
     CommandArguments args = mock(CommandArguments.class);
 
-    new Ping().run(sender, args);
+    new Ping("Pong!").run(sender, args);
 
-    verify(sender).sendMessage("Pong!");
+    verify(sender).sendRichMessage("Pong!");
   }
 }

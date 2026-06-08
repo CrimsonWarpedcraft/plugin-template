@@ -1,1 +1,8 @@
-# A journey of 1,000 lines starts with a single char
+# Response message for /example ping.
+# Supports MiniMessage formatting: https://docs.advntr.dev/minimessage/format.html
+pong-message: "Pong!"
+
+# Response message for /example greet <player>.
+# Use {player} as a placeholder for the target player's name.
+# Supports MiniMessage formatting: https://docs.advntr.dev/minimessage/format.html
+greet-message: "Hello, {player}!"
