@@ -72,7 +72,7 @@ dependencies {
     // https://commandapi.jorel.dev
     implementation 'dev.jorel:commandapi-paper-shade:11.2.0'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.22.0'
-    implementation 'org.hibernate.validator:hibernate-validator:8.0.2.Final'
+    implementation 'org.hibernate.validator:hibernate-validator:9.1.0.Final'
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0'
     testCompileOnly 'com.github.spotbugs:spotbugs-annotations:4.10.2'
     testImplementation 'io.papermc.paper:paper-api:26.1.2.build.69-stable'
