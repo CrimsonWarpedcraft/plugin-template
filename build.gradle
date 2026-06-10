@@ -66,7 +66,7 @@ repositories {
 
 dependencies {
     compileOnly 'io.papermc.paper:paper-api:26.1.2.build.69-stable'
-    compileOnly 'com.github.spotbugs:spotbugs-annotations:4.9.8'
+    compileOnly 'com.github.spotbugs:spotbugs-annotations:4.10.2'
     implementation 'io.papermc:paperlib:1.0.8'
     // Example command implementation via CommandAPI — remove if not needed
     // https://commandapi.jorel.dev
@@ -74,7 +74,7 @@ dependencies {
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.18.3'
     implementation 'org.hibernate.validator:hibernate-validator:8.0.2.Final'
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0'
-    testCompileOnly 'com.github.spotbugs:spotbugs-annotations:4.9.8'
+    testCompileOnly 'com.github.spotbugs:spotbugs-annotations:4.10.2'
     testImplementation 'io.papermc.paper:paper-api:26.1.2.build.69-stable'
     testImplementation 'org.junit.jupiter:junit-jupiter:6.1.0'
     testImplementation 'org.mockito:mockito-core:5.20.0'
