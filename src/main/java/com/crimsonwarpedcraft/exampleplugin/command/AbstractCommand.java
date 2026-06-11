@@ -12,6 +12,8 @@ import java.util.Objects;
  *
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
+@SuppressFBWarnings(value = "CT_CONSTRUCTOR_THROW",
+        justification = "Internal class; Checkstyle NoFinalizer blocks the final-finalize fix.")
 public class AbstractCommand implements Command {
 
   private final CommandAPICommand command;
