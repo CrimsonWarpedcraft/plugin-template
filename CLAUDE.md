@@ -35,6 +35,10 @@ This is a **PaperMC/Spigot Minecraft plugin template**. The intent is that users
 
 **JAR packaging**: The standard `jar` task is disabled. `shadowJar` is the sole output — it shades PaperLib (relocated to `shadow.io.papermc.paperlib`) and CommandAPI (relocated to `<group>.commandapi`). CommandAPI is excluded from `minimize()` because it loads classes via reflection. `assemble` depends on `shadowJar`.
 
+**cw-commons dependency**: `Command`/`BaseCommand` (command registration) and `Config`/`ConfigManager` (YAML config loading + Jakarta validation) come from [cw-commons](https://github.com/CrimsonWarpedcraft/cw-commons), not local code — consumed via JitPack (`com.github.CrimsonWarpedcraft:cw-commons`). `build.gradle` pins a tagged release (e.g. `v0.1.0`) rather than the unstable `main-SNAPSHOT`; bump that tag deliberately. Jackson and Hibernate Validator remain direct dependencies here because `PluginConfig` uses their annotations (`@JsonProperty`, `@NotBlank`) directly — cw-commons exposes them as `api` (transitive, unbundled) dependencies specifically so each consumer shades/relocates its own copy without classloader conflicts.
+
+**Commands are not declared in `plugin.yml`**: CommandAPI registers commands programmatically in `onEnable()` (see `ExampleCommand`/`BaseCommand`). Adding a matching entry under `commands:` in `plugin.yml` makes Bukkit register the same command a second time, which CommandAPI flags at startup with a "Plugin command ... is registered by Bukkit" warning. `permissions:` entries are unaffected and still required.
+
 **Versioning logic** (in `build.gradle`):
 - No `-Pver` supplied → `yyMMdd-HHmm-SNAPSHOT`
 - `-Pver=vX.Y.Z-RC-N` → `X.Y.Z-SNAPSHOT`

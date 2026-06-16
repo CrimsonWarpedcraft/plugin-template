@@ -1,7 +1,7 @@
 package com.crimsonwarpedcraft.exampleplugin;
 
+import com.crimsonwarpedcraft.cwcommons.config.ConfigManager;
 import com.crimsonwarpedcraft.exampleplugin.command.ExampleCommand;
-import com.crimsonwarpedcraft.exampleplugin.config.ConfigManager;
 import com.crimsonwarpedcraft.exampleplugin.config.PluginConfig;
 import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPIPaperConfig;
@@ -30,7 +30,8 @@ public class ExamplePlugin extends JavaPlugin {
     PluginConfig config;
 
     try {
-      config = new ConfigManager().loadPluginConfig(new File(getDataFolder(), "config.yml"));
+      config = new ConfigManager()
+          .load(new File(getDataFolder(), "config.yml"), PluginConfig.class);
     } catch (IOException | IllegalStateException e) {
       getLogger().severe("Failed to load config: " + e.getMessage());
       getServer().getPluginManager().disablePlugin(this);

@@ -1,5 +1,6 @@
 package com.crimsonwarpedcraft.exampleplugin.command;
 
+import com.crimsonwarpedcraft.cwcommons.command.BaseCommand;
 import com.crimsonwarpedcraft.exampleplugin.config.PluginConfig;
 import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.arguments.EntitySelectorArgument;
@@ -9,7 +10,7 @@ import dev.jorel.commandapi.arguments.EntitySelectorArgument;
  *
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
-public class ExampleCommand extends AbstractCommand {
+public class ExampleCommand extends BaseCommand {
   /**
    * Creates an ExampleCommand configured by the given plugin configuration.
    *

@@ -34,7 +34,7 @@ A template for building PaperMC/Spigot Minecraft server plugins!
 
 ### Example Plugin Code 🔌
 * `/example` command via [CommandAPI](https://commandapi.jorel.dev) demonstrating subcommands, tab completion, and permissions
-* Example config loading using [Jackson](https://github.com/fasterxml/jackson) and [Hibernate Validator](https://hibernate.org/validator/)
+* Example config loading and validation via [cw-commons](https://github.com/CrimsonWarpedcraft/cw-commons)' `ConfigManager`, backed by [Jackson](https://github.com/fasterxml/jackson) and [Hibernate Validator](https://hibernate.org/validator/)
 
 ### Config Files 📁
 * Sample plugin.yml with autofill name, version, and main class.
@@ -48,7 +48,7 @@ In order to use this template for yourself, there are a few things that you will
 ### Adding new top-level commands
 To add an entirely new command (e.g. `/fly`), follow the `ExampleCommand` pattern:
 
-1. Create a class extending `AbstractCommand`; build the full `CommandAPICommand` tree in the constructor and pass it to `super(...)`
+1. Create a class extending `BaseCommand` (from [cw-commons](https://github.com/CrimsonWarpedcraft/cw-commons)); build the full `CommandAPICommand` tree in the constructor and pass it to `super(...)`
 2. Call `.register()` on an instance of it in `ExamplePlugin.onEnable()`, alongside the existing `new ExampleCommand(config).register()`
 3. Add the command and its permissions to `plugin.yml`
 4. Write unit tests for each executor class following the `PingTest`/`GreetTest` pattern
@@ -146,6 +146,15 @@ repositories {
     }
 
     mavenCentral()
+
+    // JitPack — required for cw-commons, remove if you drop that dependency
+    maven {
+        name 'jitpack'
+        url 'https://jitpack.io'
+        content {
+            includeGroup("com.github.CrimsonWarpedcraft")
+        }
+    }
 }
 ```
 
@@ -155,10 +164,14 @@ Also, update your dependencies as needed (of course).
 dependencies {
     compileOnly 'io.papermc.paper:paper-api:26.1.2.build.69-stable'
     compileOnly 'com.github.spotbugs:spotbugs-annotations:4.9.8'
+    // cw-commons — shared Command/Config infrastructure (BaseCommand, Config, ConfigManager).
+    implementation 'com.github.CrimsonWarpedcraft:cw-commons:v0.1.0'
     implementation 'io.papermc:paperlib:1.0.8'
     // CommandAPI — remove if you don't need the example command
     implementation 'dev.jorel:commandapi-paper-shade:11.2.0'
-    // Jackson + Hibernate Validator for typed, validated config — remove if unused
+    // Jackson + Hibernate Validator — needed directly because PluginConfig uses their
+    // annotations (@JsonProperty, @NotBlank); cw-commons exposes them transitively too,
+    // but each consumer shades/relocates its own copy to avoid classloader conflicts.
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.18.3'
     implementation 'org.hibernate.validator:hibernate-validator:8.0.2.Final'
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0'
@@ -192,8 +205,13 @@ permissions:
       example.test: true
 ```
 
+Note there's no `commands:` section — CommandAPI registers commands programmatically in
+`onEnable()` (see `ExampleCommand`), not via `plugin.yml`. Declaring a command in both places
+causes Bukkit to register it a second time, which CommandAPI will warn about at startup.
+
 ### src/main/java/.../config/PluginConfig.java
-This project provides an example of loading config files using Jackson with Hibernate Validator.
+This project provides an example of loading config files using Jackson with Hibernate Validator,
+via cw-commons' `Config` interface and `ConfigManager` (`com.crimsonwarpedcraft.cwcommons.config`).
 
 To define your own config, add fields annotated with a Bean Validation constraint and a `@JsonProperty` YAML key:
 

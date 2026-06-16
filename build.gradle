@@ -62,6 +62,14 @@ repositories {
     }
 
     mavenCentral()
+
+    maven {
+        name = 'jitpack'
+        url = 'https://jitpack.io'
+        content {
+            includeGroup("com.github.CrimsonWarpedcraft")
+        }
+    }
 }
 
 configurations {
@@ -71,6 +79,7 @@ configurations {
 dependencies {
     compileOnly 'io.papermc.paper:paper-api:26.1.2.build.69-stable'
     compileOnly 'com.github.spotbugs:spotbugs-annotations:4.10.2'
+    implementation 'com.github.CrimsonWarpedcraft:cw-commons:v0.1.0'
     implementation 'io.papermc:paperlib:1.0.8'
     // Example command implementation via CommandAPI — remove if not needed
     // https://commandapi.jorel.dev

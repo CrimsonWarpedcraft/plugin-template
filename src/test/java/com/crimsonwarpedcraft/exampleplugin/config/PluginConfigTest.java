@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.io.File;
+import com.crimsonwarpedcraft.cwcommons.config.ConfigManager;
 import org.junit.jupiter.api.Test;
 
 class PluginConfigTest {
