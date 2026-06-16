@@ -117,27 +117,27 @@ For more information, see [Discord Message Notify](https://github.com/marketplac
 
 This file contains a badge for build status and one for Discord. Be sure to replace these.
 
-### settings.gradle
+### settings.gradle.kts
 Update the line below with the name of your plugin.
 
-```groovy
-rootProject.name = 'ExamplePlugin'
+```kotlin
+rootProject.name = "ExamplePlugin"
 ```
 
-### build.gradle
+### build.gradle.kts
 Make sure to update the `group` to your package's name in the following section.
 
-```groovy
+```kotlin
 group = "com.crimsonwarpedcraft.exampleplugin"
 ```
 
 Add any required repositories for your dependencies in the following section.
 
-```groovy
+```kotlin
 repositories {
     maven {
-        name 'papermc'
-        url 'https://papermc.io/repo/repository/maven-public/'
+        name = "papermc"
+        url = uri("https://repo.papermc.io/repository/maven-public/")
         content {
             includeModule("io.papermc.paper", "paper-api")
             includeModule("io.papermc", "paperlib")
@@ -149,8 +149,8 @@ repositories {
 
     // JitPack — required for cw-commons, remove if you drop that dependency
     maven {
-        name 'jitpack'
-        url 'https://jitpack.io'
+        name = "jitpack"
+        url = uri("https://jitpack.io")
         content {
             includeGroup("com.github.CrimsonWarpedcraft")
         }
@@ -160,26 +160,26 @@ repositories {
 
 Also, update your dependencies as needed (of course).
 
-```groovy
+```kotlin
 dependencies {
-    compileOnly 'io.papermc.paper:paper-api:26.1.2.build.69-stable'
-    compileOnly 'com.github.spotbugs:spotbugs-annotations:4.9.8'
+    compileOnly("io.papermc.paper:paper-api:26.1.2.build.69-stable")
+    compileOnly("com.github.spotbugs:spotbugs-annotations:4.10.2")
     // cw-commons — shared Command/Config infrastructure (BaseCommand, Config, ConfigManager).
-    implementation 'com.github.CrimsonWarpedcraft:cw-commons:v0.1.0'
-    implementation 'io.papermc:paperlib:1.0.8'
+    implementation("com.github.CrimsonWarpedcraft:cw-commons:v0.1.0")
+    implementation("io.papermc:paperlib:1.0.8")
     // CommandAPI — remove if you don't need the example command
-    implementation 'dev.jorel:commandapi-paper-shade:11.2.0'
+    implementation("dev.jorel:commandapi-paper-shade:11.2.0")
     // Jackson + Hibernate Validator — needed directly because PluginConfig uses their
     // annotations (@JsonProperty, @NotBlank); cw-commons exposes them transitively too,
     // but each consumer shades/relocates its own copy to avoid classloader conflicts.
-    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.18.3'
-    implementation 'org.hibernate.validator:hibernate-validator:8.0.2.Final'
-    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0'
-    testCompileOnly 'com.github.spotbugs:spotbugs-annotations:4.9.8'
-    testImplementation 'io.papermc.paper:paper-api:26.1.2.build.69-stable'
-    testImplementation 'org.junit.jupiter:junit-jupiter:6.1.0'
-    testImplementation 'org.mockito:mockito-core:5.20.0'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:6.1.0'
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.22.0")
+    implementation("org.hibernate.validator:hibernate-validator:9.1.0.Final")
+    spotbugsPlugins("com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0")
+    testCompileOnly("com.github.spotbugs:spotbugs-annotations:4.10.2")
+    testImplementation("io.papermc.paper:paper-api:26.1.2.build.69-stable")
+    testImplementation("org.junit.jupiter:junit-jupiter:6.1.0")
+    testImplementation("org.mockito:mockito-core:5.23.0")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.1.0")
 }
 ```
 
