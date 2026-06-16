@@ -4,10 +4,6 @@ version: "${VERSION}"
 api-version: "26.1.2"
 author: AUTHOR
 description: DESCRIPTION
-commands:
-  example:
-    description: Base command for EXAMPLE
-    usage: /example <ping|greet>
 permissions:
   example.use:
     description: Allows use of the /example command
