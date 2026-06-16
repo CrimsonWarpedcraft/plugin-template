@@ -178,14 +178,9 @@ author: AUTHOR
 description: DESCRIPTION
 ```
 
-Next, the `commands` and `permissions` sections below should be updated as needed.
+Next, the `permissions` section below should be updated as needed.
 
 ```yaml
-commands:
-  ex:
-    description: Base command for EXAMPLE
-    usage: "For a list of commands, type /ex help"
-    aliases: example
 permissions:
   example.test:
     description: DESCRIPTION
