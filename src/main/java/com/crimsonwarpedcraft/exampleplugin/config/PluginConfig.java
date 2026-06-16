@@ -1,5 +1,6 @@
 package com.crimsonwarpedcraft.exampleplugin.config;
 
+import com.crimsonwarpedcraft.cwcommons.config.Config;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
