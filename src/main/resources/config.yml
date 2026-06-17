@@ -6,3 +6,8 @@ pong-message: "Pong!"
 # Use {player} as a placeholder for the target player's name.
 # Supports MiniMessage formatting: https://docs.advntr.dev/minimessage/format.html
 greet-message: "Hello, {player}!"
+
+# Response message for /example creepersKilled.
+# Use {count} as a placeholder for the sender's creeper-kill count.
+# Supports MiniMessage formatting: https://docs.advntr.dev/minimessage/format.html
+creepers-killed-message: "You have killed {count} creeper(s)!"

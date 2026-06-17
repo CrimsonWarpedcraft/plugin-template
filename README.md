@@ -35,6 +35,7 @@ A template for building PaperMC/Spigot Minecraft server plugins!
 ### Example Plugin Code 🔌
 * `/example` command via [CommandAPI](https://commandapi.jorel.dev) demonstrating subcommands, tab completion, and permissions
 * Example config loading and validation via [cw-commons](https://github.com/CrimsonWarpedcraft/cw-commons)' `ConfigManager`, backed by [Jackson](https://github.com/fasterxml/jackson) and [Hibernate Validator](https://hibernate.org/validator/)
+* Example persistent per-player data storage via cw-commons' `Repository`/`PlayerDataManager`, demonstrated by `/example creepersKilled`: `CreeperKillListener` writes to it on each creeper kill, `CreepersKilled` reads it back
 
 ### Config Files 📁
 * Sample plugin.yml with autofill name, version, and main class.
@@ -61,9 +62,20 @@ To add a subcommand to `/example`, follow the `Ping`/`Greet` pattern:
 3. Write a unit test following `PingTest` or `GreetTest` — mock `CommandSender` and `CommandArguments`, call `run()`, verify `sendRichMessage()`
 4. If the subcommand needs a config value, add it to `PluginConfig` and `config.yml`
 
+### Adding persistent per-player data
+cw-commons' `Repository`/`PlayerDataManager` stores any JSON-shaped data per player, not just counters. To add a new field, follow the `PlayerData`/`CreeperKillListener` pattern:
+
+1. Add a field with a getter/setter to `PlayerData` (`data/PlayerData.java`)
+2. Reuse the existing `Repository<UUID, PlayerData>`/`PlayerDataManager<PlayerData>` pair built once in `ExamplePlugin.onEnable()` — one repository backs every field on `PlayerData`, so adding a field never requires a new repository
+3. Read and write it with `PlayerDataManager#get`/`#save`, e.g. from a `Listener` like `CreeperKillListener` or a command executor like `CreepersKilled`
+4. Write unit tests mocking `PlayerDataManager`, following `CreeperKillListenerTest`/`CreepersKilledTest`
+5. (Optional) Periodically flush data stores using `AutoFlushTask` to prevent session data loss from an unexpected shutdown.
+
+Note: `PlayerDataManager` is just a `Player`-keyed convenience wrapper. For data that isn't tied to a specific player, call `DataStore#repository` directly with a different `KeySerializer` (e.g. `KeySerializers.forString()`) to get a standalone `Repository` for that data.
+
 ### Release Info
-#### PaperMC Version Mapping
-Here's a list of the PaperMC versions and their respective compatible version.
+#### PaperMC Version Recommendation Mapping
+Here's a list of the recommended versions of this plugin for each PaperMC version.
 
 | PaperMC | ExamplePlugin |
 |---------|---------------|
@@ -75,10 +87,11 @@ Here's a list of the PaperMC versions and their respective compatible version.
 | 1.17.1  | 2.2.0         |
 | 1.16.5  | 2.1.2         |
 
-This chart would make more sense if this plugin actually did anything and people would have a reason
-to be looking for older releases to run on older servers.
+NOTE: You should be able to use an old version of this plugin on newer versions of PaperMC, but this is untested.
 
-To use this template for yourself, just use the latest tagged version of this project and update the PaperMC
+This chart would make more sense if people had a reason to use this plugin and are looking to run it on older servers.
+
+To use this template to make your own plugin, just use the latest tagged version of this project and update the PaperMC
 version as needed. See more info on release stability below.
 
 #### Release and Versioning Strategy
