@@ -67,23 +67,28 @@ val mockitoAgent by configurations.creating
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:26.1.2.build.69-stable")
-    compileOnly("com.github.spotbugs:spotbugs-annotations:4.10.2")
-    implementation("com.github.CrimsonWarpedcraft:cw-commons:v0.1.0")
     implementation("io.papermc:paperlib:1.0.8")
-    // Example command implementation via CommandAPI — remove if not needed
-    // https://commandapi.jorel.dev
-    implementation("dev.jorel:commandapi-paper-shade:11.2.0")
-    // Jackson + Hibernate Validator: also exposed transitively via cw-commons' `api` deps,
-    // but declared directly anyway since PluginConfig imports their annotations — don't
-    // rely on a transitive exposure decision made by another project for code we compile against.
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.22.0")
-    implementation("org.hibernate.validator:hibernate-validator:9.1.0.Final")
+
+    // The below dependencies relate to code quality and unit testing and can be remove if desired
+    compileOnly("com.github.spotbugs:spotbugs-annotations:4.10.2")
     spotbugsPlugins("com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0")
     testCompileOnly("com.github.spotbugs:spotbugs-annotations:4.10.2")
     testImplementation("io.papermc.paper:paper-api:26.1.2.build.69-stable")
     testImplementation("org.junit.jupiter:junit-jupiter:6.1.0")
-    testImplementation("org.mockito:mockito-core:5.23.0")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.1.0")
+
+
+    // The below dependencies relate to the provided example code and can be removed if desired
+    implementation("com.github.CrimsonWarpedcraft:cw-commons:v0.1.1")
+    // Jackson + Hibernate Validator: also exposed transitively via cw-commons' `api` deps,
+    // but declared directly anyway since PluginConfig imports their annotations — don't
+    // rely on a transitive exposure decision made by another project for code we compile against.
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.22.0")
+    // Example command implementation via CommandAPI
+    // https://commandapi.jorel.dev
+    implementation("dev.jorel:commandapi-paper-shade:11.2.0")
+    implementation("org.hibernate.validator:hibernate-validator:9.1.0.Final")
+    testImplementation("org.mockito:mockito-core:5.23.0")
     mockitoAgent("org.mockito:mockito-core:5.23.0") { isTransitive = false }
 }
 
@@ -147,6 +152,9 @@ tasks.named<ShadowJar>("shadowJar") {
         exclude(dependency("jakarta.validation:.*:.*"))
         exclude(dependency("org.yaml:snakeyaml:.*"))
         exclude(dependency("org.jboss.logging:.*:.*"))
+        // cw-commons bundles the SQLite JDBC driver (loaded via SPI) inside its own jar;
+        // it never appears as a separate resolvable dependency, so it must be excluded by name.
+        exclude(dependency("com.github.CrimsonWarpedcraft:cw-commons:.*"))
     }
 }
 

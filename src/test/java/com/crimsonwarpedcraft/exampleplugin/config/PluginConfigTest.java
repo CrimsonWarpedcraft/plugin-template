@@ -15,6 +15,7 @@ class PluginConfigTest {
 
     assertEquals("Pong!", config.getPongMessage());
     assertEquals("Hello, {player}!", config.getGreetMessage());
+    assertEquals("You have killed {count} creeper(s)!", config.getCreepersKilledMessage());
   }
 
   @Test
@@ -33,6 +34,13 @@ class PluginConfigTest {
   @Test
   void rejectsBlankGreetMessage() {
     PluginConfig config = new PluginConfig("Pong!", "");
+    assertThrows(IllegalStateException.class,
+        () -> new ConfigManager().validate(config));
+  }
+
+  @Test
+  void rejectsBlankCreepersKilledMessage() {
+    PluginConfig config = new PluginConfig("Pong!", "Hello, {player}!", "");
     assertThrows(IllegalStateException.class,
         () -> new ConfigManager().validate(config));
   }
