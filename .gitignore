@@ -12,10 +12,10 @@
 *.iws
 
 ## VS Code
-**/.vscode/
+.vscode/
 
 ## Zed
-**/.zed/
+.zed/
 
 ## Vim / Neovim
 *.swp
