@@ -1,2 +1,88 @@
-.gradle/
-build/
+# Editors
+## Eclipse
+.classpath
+.project
+.settings/
+*.launch
+
+## IntelliJ / JetBrains
+.idea/
+*.iml
+*.ipr
+*.iws
+
+## VS Code
+.vscode/
+
+## Zed
+.zed/
+
+## Vim / Neovim
+*.swp
+*.swo
+*~
+
+## Emacs
+\#*\#
+.\#*
+
+# Gradle
+/.gradle/
+/build/
+out/
+
+## Binary
+/bin/
+
+## Kotlin
+.kotlin/
+
+## Run task
+run/
+logs/
+
+## Java
+*.class
+hs_err_pid*
+replay_pid*
+
+# Maven
+target/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs and runtime artifacts
+*.log
+*.log.*
+*.tmp
+*.temp
+*.pid
+*.seed
+
+# Archives
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+
+# Environment files
+**/.env
+**/.env.local
+**/.env.*.local
+
+# Tools
+## Local cache
+.cache/
+.tmp/
+tmp/
+
+## Python
+**/__pycache__/
+*.pyc
+.venv/
+venv/
