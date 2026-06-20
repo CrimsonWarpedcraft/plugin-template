@@ -1,3 +1,6 @@
+# Claude non-standardized skills directory
+.claude/
+
 # Editors
 ## Eclipse
 .classpath
