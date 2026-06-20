@@ -38,7 +38,6 @@ repositories {
         url = uri("https://repo.papermc.io/repository/maven-public/")
         content {
             includeModule("io.papermc.paper", "paper-api")
-            includeModule("io.papermc", "paperlib")
             includeModule("net.md-5", "bungeecord-chat")
             includeGroup("io.papermc.adventure")
         }
@@ -67,7 +66,6 @@ val mockitoAgent by configurations.creating
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:26.1.2.build.70-stable")
-    implementation("io.papermc:paperlib:1.0.8")
 
     // The below dependencies relate to code quality and unit testing and can be remove if desired
     compileOnly("com.github.spotbugs:spotbugs-annotations:4.10.2")
@@ -134,7 +132,6 @@ tasks.withType<SpotBugsTask>().configureEach {
 tasks.named<ShadowJar>("shadowJar") {
     archiveClassifier.set("")
     mergeServiceFiles()
-    relocate("io.papermc.lib", "shadow.io.papermc.paperlib")
     // Update the destination package to match your group when renaming the plugin
     relocate("dev.jorel.commandapi", "com.crimsonwarpedcraft.exampleplugin.commandapi")
     relocate("com.fasterxml", "com.crimsonwarpedcraft.exampleplugin.fasterxml")
