@@ -12,7 +12,6 @@ import com.crimsonwarpedcraft.exampleplugin.data.PlayerData;
 import com.crimsonwarpedcraft.exampleplugin.listener.CreeperKillListener;
 import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPIPaperConfig;
-import io.papermc.lib.PaperLib;
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
@@ -37,7 +36,7 @@ public class ExamplePlugin extends JavaPlugin {
   @Override
   public void onEnable() {
     CommandAPI.onEnable();
-    PaperLib.suggestPaper(this);
+    suggestPaper();
     saveDefaultConfig();
     PluginConfig config;
 
@@ -90,5 +89,27 @@ public class ExamplePlugin extends JavaPlugin {
     }
 
     CommandAPI.onDisable();
+  }
+
+  private void suggestPaper() {
+    if (isPaper()) {
+      return;
+    }
+
+    getLogger().warning(getName() + " recommends using Paper.");
+  }
+
+  private boolean isPaper() {
+    return hasClass("com.destroystokyo.paper.PaperConfig")
+        || hasClass("io.papermc.paper.configuration.Configuration");
+  }
+
+  private boolean hasClass(String className) {
+    try {
+      Class.forName(className);
+      return true;
+    } catch (ClassNotFoundException e) {
+      return false;
+    }
   }
 }
