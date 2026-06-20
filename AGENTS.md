@@ -1,7 +1,3 @@
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
 ## Architecture
 
 This is a **PaperMC/Spigot Minecraft plugin template**. The intent is that users fork/copy it and replace the example scaffolding with their own plugin.
