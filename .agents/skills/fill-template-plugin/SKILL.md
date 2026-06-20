@@ -3,11 +3,9 @@ name: fill-template-plugin
 description: Customize this PaperMC/Spigot plugin template for a real plugin. Use when asked to fill in, adapt, rename, fork, or customize the template project.
 ---
 
-# Fill Template Plugin
-
 If information required in the checklist below is missing, end your turn and ask for it before editing.
 
-## Template Customization Checklist
+# Template Customization Checklist
 
 When adapting this template for a real plugin, update:
 1. `settings.gradle.kts` — `rootProject.name`
