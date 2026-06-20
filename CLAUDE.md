@@ -2,31 +2,6 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Commands
-
-**OneDrive locking**: If the project resides in OneDrive, the build fails with `Unable to delete directory '...\build\test-results\test\binary'`, delete that directory manually before retrying — OneDrive holds a sync lock on it.
-
-```bash
-# Build (runs Checkstyle, SpotBugs, and tests)
-./gradlew build
-
-# Run tests only
-./gradlew test
-
-# Run a single test class
-./gradlew test --tests "com.crimsonwarpedcraft.exampleplugin.command.PingTest"
-
-# Run a single test method
-./gradlew test --tests "com.crimsonwarpedcraft.exampleplugin.command.GreetTest.greetsTarget"
-
-# Build a release JAR (strips version from filename for stable tags)
-./gradlew -Pver="X.Y.Z" release
-
-# Output is in build/libs/
-```
-
-Checkstyle enforces Google Java style with `maxWarnings = 0` — the build fails on any warning. SpotBugs runs FindSecBugs. Both run as part of `build`; fix all findings before committing.
-
 ## Architecture
 
 This is a **PaperMC/Spigot Minecraft plugin template**. The intent is that users fork/copy it and replace the example scaffolding with their own plugin.
@@ -48,18 +23,3 @@ This is a **PaperMC/Spigot Minecraft plugin template**. The intent is that users
 - `pr.yml` — builds and tests on Ubuntu + Windows for PRs and merge queue
 - `main.yml` — builds, tests, and cuts a snapshot release on push to `main`
 - `tag.yml` / `release.yml` — handle tagged releases and Discord notifications
-
-## Testing
-
-Command executor unit tests (`Ping`, `Greet`, etc.) use Mockito directly — mock `CommandArguments` and `CommandSender`/`Player`, then call `run()`. No server or plugin lifecycle needed. Mockito must be declared explicitly as `testImplementation 'org.mockito:mockito-core:...'` — it is not provided transitively.
-
-## Template Customization Checklist
-
-When adapting this template for a real plugin, update:
-1. `settings.gradle.kts` — `rootProject.name`
-2. `build.gradle.kts` — `group` (Java package)
-3. `src/main/resources/plugin.yml` — `author`, `description`, `commands`, `permissions`
-4. Rename the Java package and source directory from `com.crimsonwarpedcraft.exampleplugin`
-5. `.github/dependabot.yml`, `.github/CODEOWNERS`, `.github/FUNDING.yml` — replace `leviem1`
-6. `CODE_OF_CONDUCT.md` line 63 — contact method
-7. README badges and Discord invite link
