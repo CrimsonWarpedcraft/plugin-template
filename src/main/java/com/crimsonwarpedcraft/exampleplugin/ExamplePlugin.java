@@ -100,13 +100,8 @@ public class ExamplePlugin extends JavaPlugin {
   }
 
   private boolean isPaper() {
-    return hasClass("com.destroystokyo.paper.PaperConfig")
-        || hasClass("io.papermc.paper.configuration.Configuration");
-  }
-
-  private boolean hasClass(String className) {
     try {
-      Class.forName(className);
+      Class.forName("io.papermc.paper.ServerBuildInfo");
       return true;
     } catch (ClassNotFoundException e) {
       return false;
