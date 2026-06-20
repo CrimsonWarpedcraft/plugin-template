@@ -41,7 +41,6 @@ repositories {
         url = uri("https://repo.papermc.io/repository/maven-public/")
         content {
             includeModule("io.papermc.paper", "paper-api")
-            includeModule("io.papermc", "paperlib")
             includeModule("net.md-5", "bungeecord-chat")
         }
     }
@@ -67,7 +66,6 @@ dependencies {
     compileOnly("com.github.spotbugs:spotbugs-annotations:4.10.2")
     // cw-commons — shared Command/Config infrastructure (BaseCommand, Config, ConfigManager).
     implementation("com.github.CrimsonWarpedcraft:cw-commons:v0.1.0")
-    implementation("io.papermc:paperlib:1.0.8")
     // CommandAPI — remove if you don't need the example command
     implementation("dev.jorel:commandapi-paper-shade:11.2.0")
     // Jackson + Hibernate Validator — needed directly because PluginConfig uses their

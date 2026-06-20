@@ -24,7 +24,7 @@ A template for building PaperMC/Spigot Minecraft server plugins!
 * Feature request template
 
 ### Gradle Builds 🏗
-* Shadowed [PaperLib](https://github.com/PaperMC/PaperLib) build
+* Shadowed plugin dependencies
 * [Checkstyle](https://checkstyle.org/) Google standard style check
 * [SpotBugs](https://spotbugs.github.io/) code analysis
 
