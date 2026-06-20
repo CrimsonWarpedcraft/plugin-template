@@ -1,11 +1,11 @@
 ---
-name: run-example-plugin
-description: Build, test, and release ExamplePlugin (this PaperMC/Spigot plugin template) from source. Use when asked to build the plugin, run its tests, run a single test class, or produce a release JAR.
+name: run-plugin
+description: Build, test, and release this PaperMC/Spigot plugin from source. Use when asked to build the plugin, run its tests, run a single test class, or produce a release JAR.
 ---
 
-`ExamplePlugin` is a PaperMC/Spigot plugin — "running" it means building from source,
-executing the test suite, and optionally producing the shaded JAR that gets dropped into a
-server's `plugins/` folder.
+This is a PaperMC/Spigot plugin — "running" it means building from source, executing the test
+suite, and optionally producing the shaded JAR that gets dropped into a server's `plugins/`
+folder.
 
 ## Build
 
@@ -26,20 +26,20 @@ and all tests. Fix every warning — the build fails on the first one.
 All tests pass. Subset by class:
 
 ```bash
-./gradlew test --tests "com.crimsonwarpedcraft.exampleplugin.command.PingTest"
+./gradlew test --tests "com.example.plugin.command.PingTest"
 ```
 
 Subset by method:
 
 ```bash
-./gradlew test --tests "com.crimsonwarpedcraft.exampleplugin.command.GreetTest.greetsTarget"
+./gradlew test --tests "com.example.plugin.command.GreetTest.greetsTarget"
 ```
 
 ## Release JAR
 
 ```bash
 ./gradlew -Pver="v1.0.0" release
-# → build/libs/ExamplePlugin.jar (version stripped from filename for stable tags)
+# → build/libs/<project-name>.jar (version stripped from filename for stable tags)
 ```
 
 Versioning logic (`build.gradle.kts`):
@@ -61,7 +61,7 @@ Keep these in sync with the current state of the project:
 - **`CLAUDE.md`** — architecture, versioning logic, customization checklist
 - **`README.md`**, **`docs/usage.md`**, **`docs/customization.md`**, **`docs/releases.md`** —
   feature list, extension recipes, fork checklist, PaperMC version mapping
-- **`.claude/skills/run-example-plugin/SKILL.md`** (this file) — build commands, release
+- **`.claude/skills/run-plugin/SKILL.md`** (this file) — build commands, release
   process, shaded package list
 
 ## Gotchas
