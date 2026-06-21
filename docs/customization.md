@@ -38,25 +38,7 @@ Add any required repositories for your dependencies:
 
 ```kotlin
 repositories {
-    maven {
-        name = "papermc"
-        url = uri("https://repo.papermc.io/repository/maven-public/")
-        content {
-            includeModule("io.papermc.paper", "paper-api")
-            includeModule("net.md-5", "bungeecord-chat")
-        }
-    }
-
-    mavenCentral()
-
-    // JitPack — required for cw-commons, remove if you drop that dependency
-    maven {
-        name = "jitpack"
-        url = uri("https://jitpack.io")
-        content {
-            includeGroup("com.github.CrimsonWarpedcraft")
-        }
-    }
+    // ...
 }
 ```
 
@@ -64,23 +46,7 @@ Also, update your dependencies as needed (of course).
 
 ```kotlin
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:26.1.2.build.69-stable")
-    compileOnly("com.github.spotbugs:spotbugs-annotations:4.10.2")
-    // cw-commons — shared Command/Config infrastructure (BaseCommand, Config, ConfigManager).
-    implementation("com.github.CrimsonWarpedcraft:cw-commons:v0.1.0")
-    // CommandAPI — remove if you don't need the example command
-    implementation("dev.jorel:commandapi-paper-shade:11.2.0")
-    // Jackson + Hibernate Validator — needed directly because PluginConfig uses their
-    // annotations (@JsonProperty, @NotBlank); cw-commons exposes them transitively too,
-    // but each consumer shades/relocates its own copy to avoid classloader conflicts.
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.22.0")
-    implementation("org.hibernate.validator:hibernate-validator:9.1.0.Final")
-    spotbugsPlugins("com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0")
-    testCompileOnly("com.github.spotbugs:spotbugs-annotations:4.10.2")
-    testImplementation("io.papermc.paper:paper-api:26.1.2.build.69-stable")
-    testImplementation("org.junit.jupiter:junit-jupiter:6.1.0")
-    testImplementation("org.mockito:mockito-core:5.23.0")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.1.0")
+    // ...
 }
 ```
 
