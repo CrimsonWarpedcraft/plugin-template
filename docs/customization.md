@@ -17,25 +17,24 @@ to send release announcements to a separate channel.
 
 For more information, see [Discord Message Notify](https://github.com/marketplace/actions/discord-message-notify).
 
-### README.md
-
+### `README.md`
 This file contains a badge for build status and one for Discord. Be sure to replace these.
 
-### settings.gradle.kts
-Update the line below with the name of your plugin.
+### `settings.gradle.kts`
+Replace `ExamplePlugin` with the name of your plugin.
 
 ```kotlin
 rootProject.name = "ExamplePlugin"
 ```
 
-### build.gradle.kts
-Make sure to update the `group` to your package's name in the following section.
+### `build.gradle.kts`
+Make sure to update `group` to your package's name in the following section.
 
 ```kotlin
 group = "com.crimsonwarpedcraft.exampleplugin"
 ```
 
-Add any required repositories for your dependencies in the following section.
+Add any required repositories for your dependencies:
 
 ```kotlin
 repositories {
@@ -85,7 +84,7 @@ dependencies {
 }
 ```
 
-### src/main/resources/plugin.yml
+### `src/main/resources/plugin.yml`
 First, update the following with your information.
 
 ```yaml
@@ -107,39 +106,16 @@ permissions:
       example.test: true
 ```
 
-Note there's no `commands:` section — CommandAPI registers commands programmatically in
-`onEnable()` (see `ExampleCommand`), not via `plugin.yml`. Declaring a command in both places
+Do NOT create a `commands:` section — CommandAPI registers commands programmatically in
+`onEnable()` (see `ExampleCommand`), not via `plugin.yml`.
+
+Declaring a command in both places
 causes Bukkit to register it a second time, which CommandAPI will warn about at startup.
 
-### .github/dependabot.yml
-You will need to replace all instances of `leviem1`, such as the one below, with your GitHub
-username.
+### `.github/`
+- `CODEOWNERS` -> Replace `leviem1` with your username.
+- `FUNDING.yml` -> Update or delete this file, [whatever applies to you.](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/displaying-a-sponsor-button-in-your-repository)
 
-```yaml
-reviewers:
-  - "leviem1"
-```
-
-### .github/CODEOWNERS
-You will need to replace `leviem1`, with your GitHub username.
-
-```text
-*   @leviem1
-```
-
-### .github/FUNDING.yml
-Update or delete this file, whatever applies to you.
-
-```yaml
-github: leviem1
-```
-
-For more information see: [Displaying a sponsor button in your repository](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/displaying-a-sponsor-button-in-your-repository)
-
-### CODE_OF_CONDUCT.md
-If you chose to adopt the Code of Conduct for your project, please update line 63 with your preferred
-contact method.
-
----
-
-I think that's all... phew! Oh, and update these docs! ;)
+### Code of Conduct
+If you choose to adopt the Code of Conduct for your project,
+please update line 63 of `CODE_OF_CONDUCT.md` with your preferred contact method.
