@@ -18,7 +18,9 @@ to send release announcements to a separate channel.
 For more information, see [Discord Message Notify](https://github.com/marketplace/actions/discord-message-notify).
 
 ### `README.md`
-This file contains a badge for build status and one for Discord. Be sure to replace these.
+Make this relevant to your project.
+
+Be sure to replace the badges for build status and Discord.
 
 ### `settings.gradle.kts`
 Replace `ExamplePlugin` with the name of your plugin.
