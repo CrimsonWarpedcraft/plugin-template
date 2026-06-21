@@ -1,7 +1,7 @@
 # Releases & Versioning
 
 #### PaperMC Version Recommendation Mapping
-Here's a list of the recommended versions of this plugin for each PaperMC version.
+Here's an example of what a version map for your plugin may look like.
 
 | PaperMC | ExamplePlugin |
 |---------|---------------|
@@ -12,10 +12,6 @@ Here's a list of the recommended versions of this plugin for each PaperMC versio
 | 1.18.2  | 3.0.2         |
 | 1.17.1  | 2.2.0         |
 | 1.16.5  | 2.1.2         |
-
-NOTE: You should be able to use an old version of this plugin on newer versions of PaperMC, but this is untested.
-
-This chart would make more sense if people had a reason to use this plugin and are looking to run it on older servers.
 
 To use this template to make your own plugin, just use the latest tagged version of this project and update the PaperMC
 version as needed. See more info on release stability below.
