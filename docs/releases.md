@@ -1,7 +1,7 @@
 # Releases & Versioning
 
 #### PaperMC Version Recommendation Mapping
-Here's a list of the recommended versions of this plugin for each PaperMC version.
+Here's an example of what a version map for your plugin may look like.
 
 | PaperMC | ExamplePlugin |
 |---------|---------------|
@@ -13,19 +13,15 @@ Here's a list of the recommended versions of this plugin for each PaperMC versio
 | 1.17.1  | 2.2.0         |
 | 1.16.5  | 2.1.2         |
 
-NOTE: You should be able to use an old version of this plugin on newer versions of PaperMC, but this is untested.
-
-This chart would make more sense if people had a reason to use this plugin and are looking to run it on older servers.
-
 To use this template to make your own plugin, just use the latest tagged version of this project and update the PaperMC
 version as needed. See more info on release stability below.
 
 #### Release and Versioning Strategy
-Stable versions of this repo are tagged `vX.Y.Z` and have an associated [release](https://github.com/CrimsonWarpedcraft/plugin-template/releases).
+Stable plugin versions are tagged `vX.Y.Z` and have an associated [release](https://github.com/CrimsonWarpedcraft/plugin-template/releases).
 
-Testing versions of this repo are tagged `vX.Y.Z-RC-N` and have an associated [pre-release](https://github.com/CrimsonWarpedcraft/plugin-template/releases).
+Testing plugin versions are tagged `vX.Y.Z-RC-N` and have an associated [pre-release](https://github.com/CrimsonWarpedcraft/plugin-template/releases).
 
-Development versions of this repo are pushed to the master branch and are **not** tagged.
+Development plugin versions are pushed to the master branch and are **not** tagged.
 
 | Event             | Plugin Version Format | CI Action                        | GitHub Release Draft? |
 |-------------------|-----------------------|----------------------------------|-----------------------|
