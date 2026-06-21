@@ -67,7 +67,7 @@ val mockitoAgent by configurations.creating
 dependencies {
     compileOnly("io.papermc.paper:paper-api:26.1.2.build.70-stable")
 
-    // The below dependencies relate to code quality and unit testing and can be remove if desired
+    // Code quality and unit testing. Not required for code functionality.
     compileOnly("com.github.spotbugs:spotbugs-annotations:4.10.2")
     spotbugsPlugins("com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0")
     testCompileOnly("com.github.spotbugs:spotbugs-annotations:4.10.2")
@@ -76,7 +76,7 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.1.0")
 
 
-    // The below dependencies relate to the provided example code and can be removed if desired
+    // Dependencies used by the example code. Not required for Paper plugins.
     implementation("com.github.CrimsonWarpedcraft:cw-commons:v0.1.1")
     // Jackson + Hibernate Validator: also exposed transitively via cw-commons' `api` deps,
     // but declared directly anyway since PluginConfig imports their annotations — don't
