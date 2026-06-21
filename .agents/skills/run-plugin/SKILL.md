@@ -7,33 +7,31 @@ This is a PaperMC/Spigot plugin — "running" it means building from source, exe
 suite, and optionally producing the shaded JAR that gets dropped into a server's `plugins/`
 folder.
 
-## Build
+## Commands
+
+**OneDrive locking**: If the project resides in OneDrive, the build fails with `Unable to delete directory '...\build\test-results\test\binary'`, delete that directory manually before retrying — OneDrive holds a sync lock on it.
 
 ```bash
-./gradlew build            # macOS / Linux / Git Bash
-gradlew.bat build           # Windows cmd/PowerShell
+# Build (runs Checkstyle, SpotBugs, and tests)
+./gradlew build
 ```
 
-Runs compilation, Checkstyle (Google Java Style, `maxWarnings = 0`), SpotBugs with FindSecBugs,
-and all tests. Fix every warning — the build fails on the first one.
-
-## Verify
+### Testing
 
 ```bash
+# Run tests only
 ./gradlew test
+
+# Run a single test class
+./gradlew test --tests "com.crimsonwarpedcraft.exampleplugin.command.PingTest"
+
+# Run a single test method
+./gradlew test --tests "com.crimsonwarpedcraft.exampleplugin.command.GreetTest.greetsTarget"
 ```
 
-All tests pass. Subset by class:
+Checkstyle enforces Google Java style with `maxWarnings = 0` — the build fails on any warning. SpotBugs runs FindSecBugs. Both run as part of `build`; fix all findings before committing.
 
-```bash
-./gradlew test --tests "com.example.plugin.command.PingTest"
-```
-
-Subset by method:
-
-```bash
-./gradlew test --tests "com.example.plugin.command.GreetTest.greetsTarget"
-```
+Command executor unit tests (`Ping`, `Greet`, etc.) use Mockito directly — mock `CommandArguments` and `CommandSender`/`Player`, then call `run()`. No server or plugin lifecycle needed. Mockito must be declared explicitly as `testImplementation 'org.mockito:mockito-core:...'` — it is not provided transitively.
 
 ## Release JAR
 
@@ -58,7 +56,8 @@ a `minimize { exclude(...) }` entry — see the first Gotcha below for why this 
 
 Keep these in sync with the current state of the project:
 
-- **`CLAUDE.md`** — architecture, versioning logic, customization checklist
+- **`CLAUDE.md`** — architecture, versioning logic
+- **`.claude/skills/fill-template-plugin/SKILL.md`** — customization checklist
 - **`README.md`**, **`docs/usage.md`**, **`docs/customization.md`**, **`docs/releases.md`** —
   feature list, extension recipes, fork checklist, PaperMC version mapping
 - **`.claude/skills/run-plugin/SKILL.md`** (this file) — build commands, release
