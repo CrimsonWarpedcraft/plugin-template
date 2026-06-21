@@ -17,11 +17,11 @@ To use this template to make your own plugin, just use the latest tagged version
 version as needed. See more info on release stability below.
 
 #### Release and Versioning Strategy
-Stable versions of this repo are tagged `vX.Y.Z` and have an associated [release](https://github.com/CrimsonWarpedcraft/plugin-template/releases).
+Stable plugin versions are tagged `vX.Y.Z` and have an associated [release](https://github.com/CrimsonWarpedcraft/plugin-template/releases).
 
-Testing versions of this repo are tagged `vX.Y.Z-RC-N` and have an associated [pre-release](https://github.com/CrimsonWarpedcraft/plugin-template/releases).
+Testing plugin versions are tagged `vX.Y.Z-RC-N` and have an associated [pre-release](https://github.com/CrimsonWarpedcraft/plugin-template/releases).
 
-Development versions of this repo are pushed to the master branch and are **not** tagged.
+Development plugin versions are pushed to the master branch and are **not** tagged.
 
 | Event             | Plugin Version Format | CI Action                        | GitHub Release Draft? |
 |-------------------|-----------------------|----------------------------------|-----------------------|
