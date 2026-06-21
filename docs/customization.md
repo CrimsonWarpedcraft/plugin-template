@@ -3,8 +3,11 @@
 When adapting this template for your own plugin, you'll need to update the following files.
 
 ### Discord Notifications
-In order to use Discord notifications, you will need to create two GitHub secrets. `DISCORD_WEBHOOK_ID`
-should be set to the id of your Discord webhook. `DISCORD_WEBHOOK_TOKEN` will be the token for the webhook.
+This repo allows automatically pushing releases to a Discord webhook.
+
+To use this Action, you will need to set two GitHub Actions secrets.
+- `DISCORD_WEBHOOK_ID`
+- `DISCORD_WEBHOOK_TOKEN`
 
 You can find these values by copying the Discord Webhook URL:
 `https://discord.com/api/webhooks/<DISCORD_WEBHOOK_ID>/<DISCORD_WEBHOOK_TOKEN>`
