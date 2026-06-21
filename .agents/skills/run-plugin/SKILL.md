@@ -23,10 +23,10 @@ folder.
 ./gradlew test
 
 # Run a single test class
-./gradlew test --tests "com.crimsonwarpedcraft.exampleplugin.command.PingTest"
+./gradlew test --tests "com.example.plugin.command.PingTest"
 
 # Run a single test method
-./gradlew test --tests "com.crimsonwarpedcraft.exampleplugin.command.GreetTest.greetsTarget"
+./gradlew test --tests "com.example.plugin.command.GreetTest.greetsTarget"
 ```
 
 Checkstyle enforces Google Java style with `maxWarnings = 0` — the build fails on any warning. SpotBugs runs FindSecBugs. Both run as part of `build`; fix all findings before committing.
@@ -56,11 +56,11 @@ a `minimize { exclude(...) }` entry — see the first Gotcha below for why this 
 
 Keep these in sync with the current state of the project:
 
-- **`CLAUDE.md`** — architecture, versioning logic
-- **`.claude/skills/fill-template-plugin/SKILL.md`** — customization checklist
+- **`AGENTS.md`** — architecture, versioning logic
+- **`.agents/skills/fill-template-plugin/SKILL.md`** — customization checklist
 - **`README.md`**, **`docs/usage.md`**, **`docs/customization.md`**, **`docs/releases.md`** —
   feature list, extension recipes, fork checklist, PaperMC version mapping
-- **`.claude/skills/run-plugin/SKILL.md`** (this file) — build commands, release
+- **`.agents/skills/run-plugin/SKILL.md`** (this file) — build commands, release
   process, shaded package list
 
 ## Gotchas
