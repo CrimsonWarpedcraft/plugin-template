@@ -19,3 +19,5 @@ This is a **PaperMC/Spigot Minecraft plugin template**. The intent is that users
 - `pr.yml` — builds and tests on Ubuntu + Windows for PRs and merge queue
 - `main.yml` — builds, tests, and cuts a snapshot release on push to `main`
 - `tag.yml` / `release.yml` — handle tagged releases and Discord notifications
+
+**Agent skills**: Canonical skills live in `.agents/skills/` (shared with other agents). `.claude/skills/` is a **generated, gitignored mirror** — Claude Code only discovers skills there. **Edit skills only in `.agents/skills/`; never edit the mirror.** The lone tracked exception is `.claude/skills/sync-skills/`, the Claude-only skill that documents and performs the sync. `.claude/hooks/sync-skills.sh` regenerates the mirror; `.claude/settings.json` runs it on `SessionStart` (with `reloadSkills` so new skills load in-session) and on `PostToolUse` after edits under `.agents/skills/**`. Run `/sync-skills` (or `sh .claude/hooks/sync-skills.sh`) to mirror manually.

@@ -86,3 +86,7 @@ tmp/
 *.pyc
 .venv/
 venv/
+
+# Generated Claude skill mirror (source of truth is .agents/skills/)
+/.claude/skills/*
+!/.claude/skills/sync-skills/

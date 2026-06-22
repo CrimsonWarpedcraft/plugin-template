@@ -1,0 +1,33 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh .claude/hooks/sync-skills.sh --reload",
+            "statusMessage": "Syncing skills from .agents/skills/"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Edit(.agents/skills/**)",
+            "command": "sh .claude/hooks/sync-skills.sh"
+          },
+          {
+            "type": "command",
+            "if": "Write(.agents/skills/**)",
+            "command": "sh .claude/hooks/sync-skills.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
