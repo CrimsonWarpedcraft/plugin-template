@@ -88,5 +88,7 @@ tmp/
 venv/
 
 # Generated Claude skill mirror (source of truth is .agents/skills/)
-/.claude/skills/*
-!/.claude/skills/sync-skills/
+/.claude/skills/
+
+# Generated CLAUDE.md (source of truth is AGENTS.md)
+/CLAUDE.md
