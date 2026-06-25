@@ -85,7 +85,7 @@ dependencies {
     // Example command implementation via CommandAPI
     // https://commandapi.jorel.dev
     implementation("dev.jorel:commandapi-paper-shade:11.2.0")
-    implementation("org.hibernate.validator:hibernate-validator:9.1.0.Final")
+    implementation("org.hibernate.validator:hibernate-validator:9.1.1.Final")
     testImplementation("org.mockito:mockito-core:5.23.0")
     mockitoAgent("org.mockito:mockito-core:5.23.0") { isTransitive = false }
 }
