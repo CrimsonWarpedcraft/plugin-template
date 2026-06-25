@@ -65,13 +65,13 @@ repositories {
 val mockitoAgent by configurations.creating
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:26.1.2.build.70-stable")
+    compileOnly("io.papermc.paper:paper-api:26.1.2.build.72-stable")
 
     // Code quality and unit testing. Not required for code functionality.
     compileOnly("com.github.spotbugs:spotbugs-annotations:4.10.2")
     spotbugsPlugins("com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0")
     testCompileOnly("com.github.spotbugs:spotbugs-annotations:4.10.2")
-    testImplementation("io.papermc.paper:paper-api:26.1.2.build.70-stable")
+    testImplementation("io.papermc.paper:paper-api:26.1.2.build.72-stable")
     testImplementation("org.junit.jupiter:junit-jupiter:6.1.0")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.1.0")
 
