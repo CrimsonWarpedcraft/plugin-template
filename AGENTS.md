@@ -19,3 +19,5 @@ This is a **PaperMC/Spigot Minecraft plugin template**. The intent is that users
 - `pr.yml` — builds and tests on Ubuntu + Windows for PRs and merge queue
 - `main.yml` — builds, tests, and cuts a snapshot release on push to `main`
 - `tag.yml` / `release.yml` — handle tagged releases and Discord notifications
+
+**Agent files (skills + `CLAUDE.md`)**: Two Claude-Code-facing outputs are generated from tracked sources and gitignored. (1) Canonical skills live in `.agents/skills/` (shared with other agents); `.claude/skills/` is a **generated mirror** — Claude Code only discovers skills there. **Edit skills only in `.agents/skills/`; never edit the mirror.** (2) `CLAUDE.md` is a **generated copy of this `AGENTS.md`** — `AGENTS.md` is the single source of truth for project instructions; **edit `AGENTS.md`, never `CLAUDE.md`.** `.claude/hooks/sync-agent-files.sh` regenerates both; `.claude/settings.json` runs it on `SessionStart` (with `reloadSkills` so new skills load in-session) and on `PostToolUse` after edits under `.agents/skills/**` or to `AGENTS.md`. Run `sh .claude/hooks/sync-agent-files.sh` to regenerate manually.

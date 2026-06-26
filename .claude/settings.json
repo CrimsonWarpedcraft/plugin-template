@@ -1,0 +1,43 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"${CLAUDE_PROJECT_DIR}/.claude/hooks/sync-agent-files.sh\" --reload",
+            "statusMessage": "Syncing agent files (skills + CLAUDE.md)"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Edit(.agents/skills/**)",
+            "command": "sh \"${CLAUDE_PROJECT_DIR}/.claude/hooks/sync-agent-files.sh\""
+          },
+          {
+            "type": "command",
+            "if": "Write(.agents/skills/**)",
+            "command": "sh \"${CLAUDE_PROJECT_DIR}/.claude/hooks/sync-agent-files.sh\""
+          },
+          {
+            "type": "command",
+            "if": "Edit(AGENTS.md)",
+            "command": "sh \"${CLAUDE_PROJECT_DIR}/.claude/hooks/sync-agent-files.sh\""
+          },
+          {
+            "type": "command",
+            "if": "Write(AGENTS.md)",
+            "command": "sh \"${CLAUDE_PROJECT_DIR}/.claude/hooks/sync-agent-files.sh\""
+          }
+        ]
+      }
+    ]
+  }
+}
