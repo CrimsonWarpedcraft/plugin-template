@@ -6,7 +6,7 @@ import java.util.TimeZone
 
 plugins {
     checkstyle
-    id("com.github.spotbugs") version "6.5.6"
+    id("com.github.spotbugs") version "6.5.8"
     id("com.gradleup.shadow") version "9.4.2"
     java
 }
@@ -65,13 +65,13 @@ repositories {
 val mockitoAgent by configurations.creating
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:26.1.2.build.70-stable")
+    compileOnly("io.papermc.paper:paper-api:26.1.2.build.72-stable")
 
     // Code quality and unit testing. Not required for code functionality.
     compileOnly("com.github.spotbugs:spotbugs-annotations:4.10.2")
     spotbugsPlugins("com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0")
     testCompileOnly("com.github.spotbugs:spotbugs-annotations:4.10.2")
-    testImplementation("io.papermc.paper:paper-api:26.1.2.build.70-stable")
+    testImplementation("io.papermc.paper:paper-api:26.1.2.build.72-stable")
     testImplementation("org.junit.jupiter:junit-jupiter:6.1.0")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.1.0")
 
@@ -85,7 +85,7 @@ dependencies {
     // Example command implementation via CommandAPI
     // https://commandapi.jorel.dev
     implementation("dev.jorel:commandapi-paper-shade:11.2.0")
-    implementation("org.hibernate.validator:hibernate-validator:9.1.0.Final")
+    implementation("org.hibernate.validator:hibernate-validator:9.1.1.Final")
     testImplementation("org.mockito:mockito-core:5.23.0")
     mockitoAgent("org.mockito:mockito-core:5.23.0") { isTransitive = false }
 }
