@@ -49,6 +49,7 @@ In order to use this template for yourself, there are a few things that you will
 - [Extending the example code](docs/usage.md) — add commands, subcommands, config fields, or persistent per-player data
 - [Customizing this template](docs/customization.md) — the one-time checklist for forking this repo (placeholders, secrets, etc.)
 - [Releases & versioning](docs/releases.md) — PaperMC compatibility, version format, and how to cut a release
+- [Agent instructions & skills](docs/skills.md) — agent guidance, Claude Code support, and available skills
 
 ## Building locally
 Thanks to [Gradle](https://gradle.org/), building locally is easy no matter what platform you're on. Simply run the following command:
