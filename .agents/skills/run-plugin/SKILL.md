@@ -26,7 +26,7 @@ folder.
 ./gradlew test --tests "com.example.plugin.command.PingTest"
 
 # Run a single test method
-./gradlew test --tests "com.example.plugin.command.GreetTest.greetsTarget"
+./gradlew test --tests "com.example.plugin.GreetTest.greetsTarget"
 ```
 
 Checkstyle enforces Google Java style with `maxWarnings = 0` — the build fails on any warning. SpotBugs runs FindSecBugs. Both run as part of `build`; fix all findings before committing.
@@ -42,8 +42,8 @@ Command executor unit tests (`Ping`, `Greet`, etc.) use Mockito directly — moc
 
 Versioning logic (`build.gradle.kts`):
 - No `-Pver` → `yyMMdd-HHmm-SNAPSHOT`
-- `-Pver=vX.Y.Z-RC-N` → `X.Y.Z-SNAPSHOT`
-- `-Pver=vX.Y.Z` → `X.Y.Z` (stable; the `release` task then renames the shadow jar to
+- `-Pver=vX.Y.Z-RC-N` -> `X.Y.Z-RC-N-SNAPSHOT`
+- `-Pver=vX.Y.Z` -> `X.Y.Z` (stable; the `release` task then renames the shadow jar to
   `${rootProject.name}.jar`)
 
 Quote the `-Pver` value to stop the shell/PowerShell from mangling the `=`.

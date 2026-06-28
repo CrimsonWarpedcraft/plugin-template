@@ -4,8 +4,8 @@
 To add an entirely new command (e.g. `/fly`), follow the `ExampleCommand` pattern:
 
 1. Create a class extending `BaseCommand` (from [cw-commons](https://github.com/CrimsonWarpedcraft/cw-commons)); build the full `CommandAPICommand` tree in the constructor and pass it to `super(...)`
-2. Call `.register()` on an instance of it in `ExamplePlugin.onEnable()`, alongside the existing `new ExampleCommand(config).register()`
-3. Add the command and its permissions to `plugin.yml`
+2. Call `.register()` on an instance of it in `ExamplePlugin.onEnable()`, alongside the existing `new ExampleCommand(config, creeperKillsManager, this).register()`
+3. Add its permissions to `plugin.yml`. Do not add the command itself. CommandAPI registers it programmatically
 4. Write unit tests for each executor class following the `PingTest`/`GreetTest` pattern
 
 ### Adding subcommands

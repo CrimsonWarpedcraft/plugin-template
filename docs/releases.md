@@ -1,10 +1,11 @@
-# Releases & Versioning
+# Releases and versioning
 
-#### PaperMC Version Recommendation Mapping
-Here's an example of what a version map for your plugin may look like.
+## PaperMC version mapping
 
-| PaperMC | ExamplePlugin |
-|---------|---------------|
+Replace this example with the Paper versions your plugin supports.
+
+| PaperMC | Plugin version |
+|---------|----------------|
 | 26.1.2  | 5.0.0+        |
 | 1.21.11 | 4.0.18        |
 | 1.20.6  | 3.11.0        |
@@ -13,26 +14,26 @@ Here's an example of what a version map for your plugin may look like.
 | 1.17.1  | 2.2.0         |
 | 1.16.5  | 2.1.2         |
 
-To use this template to make your own plugin, just use the latest tagged version of this project and update the PaperMC
-version as needed. See more info on release stability below.
+Start from the latest tagged template release, then set the Paper API and supported server versions
+for your plugin.
 
-#### Release and Versioning Strategy
-Stable plugin versions are tagged `vX.Y.Z` and have an associated [release](https://github.com/CrimsonWarpedcraft/plugin-template/releases).
+## Versioning strategy
 
-Testing plugin versions are tagged `vX.Y.Z-RC-N` and have an associated [pre-release](https://github.com/CrimsonWarpedcraft/plugin-template/releases).
+Stable plugin versions are tagged `vX.Y.Z` and have an associated GitHub release.
 
-Development plugin versions are pushed to the master branch and are **not** tagged.
+Testing plugin versions are tagged `vX.Y.Z-RC-N` and have an associated GitHub pre-release.
 
-| Event             | Plugin Version Format | CI Action                        | GitHub Release Draft? |
-|-------------------|-----------------------|----------------------------------|-----------------------|
-| PR                | yyMMdd-HHmm-SNAPSHOT  | Build and test                   | No                    |
-| Push to `main`    | 0.0.0-SNAPSHOT        | Build, test, release, and notify | No                    |
-| Tag `vX.Y.Z-RC-N` | X.Y.Z-SNAPSHOT        | Build, test, release, and notify | Pre-release           |
-| Tag `vX.Y.Z`      | X.Y.Z                 | Build, test, release, and notify | Release               |
+Development plugin versions are pushed to the `main` branch and are **not** tagged.
 
-## Creating a Release
-Below are the steps you should follow to create a release.
+| Event             | Plugin version        | CI action                      | Release type      |
+|-------------------|-----------------------|--------------------------------|-------------------|
+| PR                | yyMMdd-HHmm-SNAPSHOT  | Build and test                 | None              |
+| Push to `main`    | 0.0.0-RC-1-SNAPSHOT   | Build, upload, and notify      | None              |
+| Tag `vX.Y.Z-RC-N` | X.Y.Z-RC-N-SNAPSHOT   | Build, draft, and notify       | Pre-release draft |
+| Tag `vX.Y.Z`      | X.Y.Z                 | Build, draft, and notify       | Release draft     |
 
-1. Create a tag on `main` using semantic versioning (e.g. v0.1.0)
-2. Push the tag and get some coffee while the workflows run
-3. Publish the release draft once it's been automatically created
+## Creating a release
+
+1. Create a semantic version tag on `main`, such as `v0.1.0` or `v0.1.0-RC-1`.
+2. Push the tag and wait for the tag workflow to create a draft release.
+3. Review and publish the generated draft.

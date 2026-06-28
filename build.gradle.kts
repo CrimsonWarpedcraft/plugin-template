@@ -27,10 +27,7 @@ version = (if (!hasProperty("ver")) {
     if (ver.startsWith("v") && !ver.lowercase().contains("-rc-")) base else "$base-SNAPSHOT"
 }).uppercase()
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_25
-    targetCompatibility = JavaVersion.VERSION_25
-}
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
 repositories {
     maven {
@@ -62,7 +59,7 @@ repositories {
     }
 }
 
-val mockitoAgent by configurations.creating
+val mockitoAgent = configurations.create("mockitoAgent")
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:26.1.2.build.72-stable")
@@ -75,17 +72,13 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:6.1.0")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.1.0")
 
-
-    // Dependencies used by the example code. Not required for Paper plugins.
+    // Example dependencies. Paper plugins do not require these libraries.
     implementation("com.github.CrimsonWarpedcraft:cw-commons:v0.1.1")
-    // Jackson + Hibernate Validator: also exposed transitively via cw-commons' `api` deps,
-    // but declared directly anyway since PluginConfig imports their annotations — don't
-    // rely on a transitive exposure decision made by another project for code we compile against.
+    // PluginConfig imports annotations from Jackson and Hibernate Validator directly.
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.22.0")
-    // Example command implementation via CommandAPI
-    // https://commandapi.jorel.dev
     implementation("dev.jorel:commandapi-paper-shade:11.2.0")
     implementation("org.hibernate.validator:hibernate-validator:9.1.1.Final")
+
     testImplementation("org.mockito:mockito-core:5.23.0")
     mockitoAgent("org.mockito:mockito-core:5.23.0") { isTransitive = false }
 }
@@ -97,7 +90,7 @@ tasks.test {
 
 tasks.processResources {
     filesMatching("**/plugin.yml") {
-        expand(mapOf("NAME" to rootProject.name, "VERSION" to version, "PACKAGE" to rootProject.group.toString()))
+        expand(mapOf("NAME" to rootProject.name, "VERSION" to version, "PACKAGE" to project.group))
     }
 }
 
@@ -129,16 +122,15 @@ tasks.withType<SpotBugsTask>().configureEach {
     }
 }
 
-tasks.named<ShadowJar>("shadowJar") {
+val shadowJar = tasks.named<ShadowJar>("shadowJar") {
     archiveClassifier.set("")
     mergeServiceFiles()
-    // Update the destination package to match your group when renaming the plugin
-    relocate("dev.jorel.commandapi", "com.crimsonwarpedcraft.exampleplugin.commandapi")
-    relocate("com.fasterxml", "com.crimsonwarpedcraft.exampleplugin.fasterxml")
-    relocate("org.yaml.snakeyaml", "com.crimsonwarpedcraft.exampleplugin.snakeyaml")
-    relocate("org.hibernate.validator", "com.crimsonwarpedcraft.exampleplugin.hibernatevalidator")
-    relocate("jakarta.validation", "com.crimsonwarpedcraft.exampleplugin.jakartavalidation")
-    relocate("org.jboss.logging", "com.crimsonwarpedcraft.exampleplugin.jbosslogging")
+    relocate("dev.jorel.commandapi", "${project.group}.commandapi")
+    relocate("com.fasterxml", "${project.group}.fasterxml")
+    relocate("org.yaml.snakeyaml", "${project.group}.snakeyaml")
+    relocate("org.hibernate.validator", "${project.group}.hibernatevalidator")
+    relocate("jakarta.validation", "${project.group}.jakartavalidation")
+    relocate("org.jboss.logging", "${project.group}.jbosslogging")
     // These libs load classes via reflection or SPI and must not be minimized
     minimize {
         exclude(dependency("dev.jorel:commandapi-paper-shade:.*"))
@@ -160,7 +152,7 @@ tasks.jar {
 }
 
 tasks.assemble {
-    dependsOn(tasks.named("shadowJar"))
+    dependsOn(shadowJar)
 }
 
 tasks.register("printProjectName") {
@@ -170,13 +162,12 @@ tasks.register("printProjectName") {
 }
 
 tasks.register("release") {
-    dependsOn(tasks.named("build"))
+    dependsOn("build")
 
     doLast {
         if (!version.toString().endsWith("-SNAPSHOT")) {
-            // Rename final JAR to trim off version information
-            tasks.named<ShadowJar>("shadowJar").get().archiveFile.get().asFile
-                .renameTo(layout.buildDirectory.get().asFile.resolve("libs/${rootProject.name}.jar"))
+            val releaseJar = layout.buildDirectory.file("libs/${rootProject.name}.jar").get().asFile
+            shadowJar.get().archiveFile.get().asFile.renameTo(releaseJar)
         }
     }
 }

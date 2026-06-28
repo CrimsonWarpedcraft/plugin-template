@@ -40,7 +40,7 @@ jobs:
           files: ${{ github.workspace }}/build/libs/*
           generate_release_notes: true
           name: ${{ format('Release {0}', github.ref_name) }}
-          prerelease: ${{ contains(github.ref_name, '-rc-') }}
+          prerelease: ${{ contains(github.ref_name, '-RC-') }}
           fail_on_unmatched_files: true
           draft: true
     outputs:

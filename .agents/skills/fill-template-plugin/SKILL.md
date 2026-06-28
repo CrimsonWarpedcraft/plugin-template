@@ -3,15 +3,18 @@ name: fill-template-plugin
 description: Customize this PaperMC/Spigot plugin template for a real plugin. Use when asked to fill in, adapt, rename, fork, or customize the template project.
 ---
 
-If information required in the checklist below is missing, end your turn and ask for it before editing.
+Read `docs/customization.md` before editing. Ask for any missing plugin details before making
+changes.
 
-# Template Customization Checklist
+# Checklist
 
-When adapting this template for a real plugin, update:
-1. `settings.gradle.kts` — `rootProject.name`
-2. `build.gradle.kts` — `group` (Java package)
-3. `src/main/resources/plugin.yml` — `author`, `description`, `permissions`
-4. Rename the Java package and source directory from `com.crimsonwarpedcraft.exampleplugin`
-5. `.github/CODEOWNERS`, `.github/FUNDING.yml` — replace `leviem1`
-6. `CODE_OF_CONDUCT.md` line 63 — contact method
-7. README badges and Discord invite link
+1. Set `rootProject.name`; rename `ExamplePlugin.java` and all references to the example plugin.
+2. Set the Gradle `group`; rename main and test package paths, declarations, and imports.
+3. Replace or remove the example code.
+4. Update `plugin.yml` metadata and permissions. Do not declare commands there.
+5. Align the Paper API, `api-version`, Java toolchain, CI Java versions, dependencies, shading,
+   and supported-version docs.
+6. Update README content and links, project docs, `AGENTS.md`, and `.agents/skills/`.
+7. Update GitHub ownership, funding, conduct contact, templates, policies, workflows, variables,
+   and secrets as applicable.
+8. Search for template leftovers, then run `./gradlew clean build`.
