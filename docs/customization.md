@@ -1,89 +1,65 @@
 # Customizing This Template
 
-When adapting this template for your own plugin, you'll need to update the following files.
+Use this checklist when turning the template into a plugin.
 
-### Discord Notifications
-This repo allows automatically pushing releases to a Discord webhook.
+## Plugin identity
 
-To use this Action, you will need to set two GitHub Actions secrets.
-- `DISCORD_WEBHOOK_ID`
-- `DISCORD_WEBHOOK_TOKEN`
+1. Set `rootProject.name` in `settings.gradle.kts` to the Java entry point class name.
+2. Rename `ExamplePlugin.java`, the `ExamplePlugin` class, and all references to it. The current
+   `plugin.yml` build substitution requires this name to match `rootProject.name`.
+3. Set `group` in `build.gradle.kts` to the Java package.
+4. Rename the main and test package directories, declarations, and imports from
+   `com.crimsonwarpedcraft.exampleplugin`.
 
-You can find these values by copying the Discord Webhook URL:
-`https://discord.com/api/webhooks/<DISCORD_WEBHOOK_ID>/<DISCORD_WEBHOOK_TOKEN>`
+## Example code
 
-Optionally, you can also configure `DISCORD_RELEASE_WEBHOOK_ID` and `DISCORD_RELEASE_WEBHOOK_TOKEN`
-to send release announcements to a separate channel.
+Replace or remove the example command, permission, config, data store, listener, and tests. Keep
+these parts in sync:
 
-For more information, see [Discord Message Notify](https://github.com/marketplace/actions/discord-message-notify).
+- Command names and permission checks in Java
+- Permission declarations in `src/main/resources/plugin.yml`
+- Fields in `PluginConfig` and `src/main/resources/config.yml`
+- Main and test code
 
-### `README.md`
-Make this relevant to your project.
+CommandAPI registers commands in Java. Do not add matching entries under `commands:` in
+`plugin.yml`.
 
-Be sure to replace the badges for build status and Discord.
+## Metadata and build
 
-### `settings.gradle.kts`
-Replace `ExamplePlugin` with the name of your plugin.
+- Update `author`, `description`, `permissions`, and `api-version` in `plugin.yml`.
+- Keep the Paper API version, Java toolchain, CI Java versions, and documented server support in
+  sync.
+- Review repositories, dependencies, Shadow relocations, and `minimize` exclusions. Remove
+  example dependencies the plugin no longer uses.
 
-```kotlin
-rootProject.name = "ExamplePlugin"
-```
+## Project files
 
-### `build.gradle.kts`
-Make sure to update `group` to your package's name in the following section.
+- Rewrite `README.md` for the plugin. Replace the build badge, Discord link, commands, features,
+  and repository links.
+- Update `docs/usage.md`, `docs/releases.md`, `AGENTS.md`, and canonical skills under
+  `.agents/skills/` when their examples or architecture change.
+- Do not edit `CLAUDE.md` or `.claude/skills/`. They are generated mirrors.
+- Check source attribution and license terms before changing copyright notices.
 
-```kotlin
-group = "com.crimsonwarpedcraft.exampleplugin"
-```
+## GitHub
 
-Add any required repositories for your dependencies:
+- Update `.github/CODEOWNERS` and update or delete `.github/FUNDING.yml`.
+- Replace the enforcement contact in `CODE_OF_CONDUCT.md`.
+- Review issue templates, labels, the stale policy, Dependabot, branch protection, and workflows.
+  Update each `main` reference if the repository uses a different default branch.
 
-```kotlin
-repositories {
-    // ...
-}
-```
+Discord notifications use:
 
-Also, update your dependencies as needed (of course).
+- Repository variable `DISCORD_WEBHOOK_ID`
+- Actions secret `DISCORD_WEBHOOK_TOKEN`
+- Optional repository variable `DISCORD_RELEASE_WEBHOOK_ID`
+- Optional Actions secret `DISCORD_RELEASE_WEBHOOK_TOKEN`
 
-```kotlin
-dependencies {
-    // ...
-}
-```
+Remove the notification jobs if the plugin will not use Discord webhooks.
 
-### `src/main/resources/plugin.yml`
-First, update the following with your information.
+## Verify
 
-```yaml
-author: AUTHOR
-description: DESCRIPTION
-```
-
-Next, the `permissions` section below should be updated as needed.
-
-```yaml
-permissions:
-  example.test:
-    description: DESCRIPTION
-    default: true
-  example.*:
-    description: Grants all other permissions
-    default: false
-    children:
-      example.test: true
-```
-
-Do NOT create a `commands:` section — CommandAPI registers commands programmatically in
-`onEnable()` (see `ExampleCommand`), not via `plugin.yml`.
-
-Declaring a command in both places
-causes Bukkit to register it a second time, which CommandAPI will warn about at startup.
-
-### `.github/`
-- `CODEOWNERS` -> Replace `leviem1` with your username.
-- `FUNDING.yml` -> Update or delete this file, [whatever applies to you.](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/displaying-a-sponsor-button-in-your-repository)
-
-### Code of Conduct
-If you choose to adopt the Code of Conduct for your project,
-please update line 63 of `CODE_OF_CONDUCT.md` with your preferred contact method.
+1. Search for old names, packages, permissions, placeholders, attribution, and repository URLs.
+2. Run `./gradlew clean build`.
+3. Check the processed `plugin.yml` and shaded JAR for the correct main class.
+4. Start the JAR on the oldest supported Paper version.
