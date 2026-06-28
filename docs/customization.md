@@ -46,7 +46,7 @@ CommandAPI registers commands in Java. Do not add matching entries under `comman
 - Update `.github/CODEOWNERS` and update or delete `.github/FUNDING.yml`.
 - Replace the enforcement contact in `CODE_OF_CONDUCT.md`.
 - Review issue templates, labels, the stale policy, Dependabot, branch protection, and workflows.
-  Update each `main` reference if the repository uses a different default branch.
+- Update each `main` reference if the repository uses a different default branch.
 
 Discord notifications use:
 
