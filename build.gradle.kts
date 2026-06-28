@@ -27,10 +27,7 @@ version = (if (!hasProperty("ver")) {
     if (ver.startsWith("v") && !ver.lowercase().contains("-rc-")) base else "$base-SNAPSHOT"
 }).uppercase()
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_25
-    targetCompatibility = JavaVersion.VERSION_25
-}
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
 repositories {
     maven {
