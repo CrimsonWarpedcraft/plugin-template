@@ -122,7 +122,7 @@ tasks.withType<SpotBugsTask>().configureEach {
     }
 }
 
-tasks.named<ShadowJar>("shadowJar") {
+val shadowJar = tasks.named<ShadowJar>("shadowJar") {
     archiveClassifier.set("")
     mergeServiceFiles()
     relocate("dev.jorel.commandapi", "${project.group}.commandapi")
@@ -152,7 +152,7 @@ tasks.jar {
 }
 
 tasks.assemble {
-    dependsOn(tasks.named("shadowJar"))
+    dependsOn(shadowJar)
 }
 
 tasks.register("printProjectName") {
@@ -166,9 +166,8 @@ tasks.register("release") {
 
     doLast {
         if (!version.toString().endsWith("-SNAPSHOT")) {
-            // Rename final JAR to trim off version information
-            tasks.named<ShadowJar>("shadowJar").get().archiveFile.get().asFile
-                .renameTo(layout.buildDirectory.get().asFile.resolve("libs/${rootProject.name}.jar"))
+            val releaseJar = layout.buildDirectory.file("libs/${rootProject.name}.jar").get().asFile
+            shadowJar.get().archiveFile.get().asFile.renameTo(releaseJar)
         }
     }
 }
