@@ -23,10 +23,10 @@ folder.
 ./gradlew test
 
 # Run a single test class
-./gradlew test --tests "com.crimsonwarpedcraft.exampleplugin.command.PingTest"
+./gradlew test --tests "com.example.plugin.command.PingTest"
 
 # Run a single test method
-./gradlew test --tests "com.crimsonwarpedcraft.exampleplugin.command.GreetTest.greetsTarget"
+./gradlew test --tests "com.example.plugin.GreetTest.greetsTarget"
 ```
 
 Checkstyle enforces Google Java style with `maxWarnings = 0` — the build fails on any warning. SpotBugs runs FindSecBugs. Both run as part of `build`; fix all findings before committing.
