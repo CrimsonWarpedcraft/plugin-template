@@ -59,7 +59,7 @@ repositories {
     }
 }
 
-val mockitoAgent by configurations.create("mockitoAgent")
+val mockitoAgent = configurations.create("mockitoAgent")
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:26.1.2.build.72-stable")
