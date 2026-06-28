@@ -72,17 +72,13 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:6.1.0")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.1.0")
 
-
-    // Dependencies used by the example code. Not required for Paper plugins.
+    // Example dependencies. Paper plugins do not require these libraries.
     implementation("com.github.CrimsonWarpedcraft:cw-commons:v0.1.1")
-    // Jackson + Hibernate Validator: also exposed transitively via cw-commons' `api` deps,
-    // but declared directly anyway since PluginConfig imports their annotations — don't
-    // rely on a transitive exposure decision made by another project for code we compile against.
+    // PluginConfig imports annotations from Jackson and Hibernate Validator directly.
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.22.0")
-    // Example command implementation via CommandAPI
-    // https://commandapi.jorel.dev
     implementation("dev.jorel:commandapi-paper-shade:11.2.0")
     implementation("org.hibernate.validator:hibernate-validator:9.1.1.Final")
+
     testImplementation("org.mockito:mockito-core:5.23.0")
     mockitoAgent("org.mockito:mockito-core:5.23.0") { isTransitive = false }
 }
