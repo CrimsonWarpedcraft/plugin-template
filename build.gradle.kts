@@ -162,7 +162,7 @@ tasks.register("printProjectName") {
 }
 
 tasks.register("release") {
-    dependsOn(tasks.named("build"))
+    dependsOn("build")
 
     doLast {
         if (!version.toString().endsWith("-SNAPSHOT")) {
