@@ -132,13 +132,12 @@ tasks.withType<SpotBugsTask>().configureEach {
 tasks.named<ShadowJar>("shadowJar") {
     archiveClassifier.set("")
     mergeServiceFiles()
-    // Update the destination package to match your group when renaming the plugin
-    relocate("dev.jorel.commandapi", "com.crimsonwarpedcraft.exampleplugin.commandapi")
-    relocate("com.fasterxml", "com.crimsonwarpedcraft.exampleplugin.fasterxml")
-    relocate("org.yaml.snakeyaml", "com.crimsonwarpedcraft.exampleplugin.snakeyaml")
-    relocate("org.hibernate.validator", "com.crimsonwarpedcraft.exampleplugin.hibernatevalidator")
-    relocate("jakarta.validation", "com.crimsonwarpedcraft.exampleplugin.jakartavalidation")
-    relocate("org.jboss.logging", "com.crimsonwarpedcraft.exampleplugin.jbosslogging")
+    relocate("dev.jorel.commandapi", "${project.group}.commandapi")
+    relocate("com.fasterxml", "${project.group}.fasterxml")
+    relocate("org.yaml.snakeyaml", "${project.group}.snakeyaml")
+    relocate("org.hibernate.validator", "${project.group}.hibernatevalidator")
+    relocate("jakarta.validation", "${project.group}.jakartavalidation")
+    relocate("org.jboss.logging", "${project.group}.jbosslogging")
     // These libs load classes via reflection or SPI and must not be minimized
     minimize {
         exclude(dependency("dev.jorel:commandapi-paper-shade:.*"))
