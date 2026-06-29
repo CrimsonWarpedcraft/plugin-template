@@ -1,5 +1,5 @@
 name: 'Common Setup'
-description: 'Set up JDK and grant execute permissions for gradlew'
+description: 'Set up the JDK and Gradle'
 
 inputs:
   java-version:
