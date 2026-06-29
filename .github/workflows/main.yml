@@ -20,8 +20,6 @@ jobs:
         os: [ ubuntu-latest, windows-latest ]
         java: [ 25 ]
     runs-on: ${{ matrix.os }}
-    permissions:
-      contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
@@ -35,6 +33,7 @@ jobs:
         run: ./gradlew build --stacktrace
 
       - name: Upload build results
+        if: ${{ matrix.os == 'ubuntu-latest' }}
         uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.os }} Java ${{ matrix.java }} build results
