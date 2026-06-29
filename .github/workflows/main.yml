@@ -39,13 +39,17 @@ jobs:
         with:
           name: ${{ matrix.os }} Java ${{ matrix.java }} build results
           path: ${{ github.workspace }}/build/libs/
+          if-no-files-found: error
+          retention-days: 7
 
       - name: Upload test results
-        if: ${{ always() }}
+        if: ${{ failure() }}
         uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.os }} Java ${{ matrix.java }} test results
           path: ${{ github.workspace }}/build/reports/
+          if-no-files-found: ignore
+          retention-days: 7
 
   release:
     runs-on: ubuntu-latest
