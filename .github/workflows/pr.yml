@@ -23,8 +23,6 @@ jobs:
         os: [ ubuntu-latest, windows-latest ]
         java: [ 25 ]
     runs-on: ${{ matrix.os }}
-    permissions:
-      contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
@@ -35,17 +33,22 @@ jobs:
           java-version: ${{ matrix.java }}
 
       - name: Build with Gradle
-        run: ./gradlew build --info
+        run: ./gradlew build --stacktrace
 
       - name: Upload build results
+        if: ${{ matrix.os == 'ubuntu-latest' }}
         uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.os }} Java ${{ matrix.java }} build results
           path: ${{ github.workspace }}/build/libs/
+          if-no-files-found: error
+          retention-days: 7
 
       - name: Upload test results
-        if: ${{ always() }}
+        if: ${{ failure() }}
         uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.os }} Java ${{ matrix.java }} test results
           path: ${{ github.workspace }}/build/reports/
+          if-no-files-found: ignore
+          retention-days: 7
