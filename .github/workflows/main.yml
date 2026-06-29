@@ -72,6 +72,8 @@ jobs:
         with:
           name: Release Build
           path: ${{ github.workspace }}/build/libs/
+          if-no-files-found: error
+          retention-days: 14
 
   notify:
     name: Send job complete notification
