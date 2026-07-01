@@ -32,6 +32,8 @@ jobs:
         with:
           name: Release Build
           path: ${{ github.workspace }}/build/libs/
+          if-no-files-found: error
+          retention-days: 14
 
       - name: Create Release
         uses: softprops/action-gh-release@v3
