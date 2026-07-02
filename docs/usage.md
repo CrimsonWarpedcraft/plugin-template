@@ -18,7 +18,8 @@ To add a subcommand to `/example`, follow the `Ping`/`Greet` pattern:
 
 ### Adding new config fields
 This project provides an example of loading config files using Jackson with Hibernate Validator,
-via cw-commons' `Config` interface and `ConfigManager` (`com.crimsonwarpedcraft.cwcommons.config`).
+via cw-commons' `Config` interface and `BukkitConfigManagerBuilder`
+(`com.crimsonwarpedcraft.cwcommons.config.bukkit`).
 
 To define your own config, add fields annotated with a Bean Validation constraint and a `@JsonProperty` YAML key to `PluginConfig` (`config/PluginConfig.java`):
 
@@ -41,12 +42,12 @@ my-message: "default"
 Comments are preserved because `saveDefaultConfig()` writes this file once on first startup and never overwrites it. Schema migrations rewrite the file, but those are rare, and require custom code to handle.
 
 ### Adding persistent per-player data
-cw-commons' `Repository`/`PlayerDataManager` stores any JSON-shaped data per player, not just counters. To add a new field, follow the `PlayerData`/`CreeperKillListener` pattern:
+cw-commons' `BukkitDataStoreBuilder`/`Repository`/`PlayerDataManager` stores any JSON-shaped data per player, not just counters. To add a new field, follow the `PlayerData`/`CreeperKillListener` pattern:
 
 1. Add a field with a getter/setter to `PlayerData` (`data/PlayerData.java`)
-2. Reuse the existing `Repository<UUID, PlayerData>`/`PlayerDataManager<PlayerData>` pair built once in `ExamplePlugin.onEnable()` — one repository backs every field on `PlayerData`, so adding a field never requires a new repository
+2. Reuse the existing `Repository<UUID, PlayerData>`/`PlayerDataManager<PlayerData>` pair built once from the `BukkitDataStoreBuilder` store in `ExamplePlugin.onEnable()` — one repository backs every field on `PlayerData`, so adding a field never requires a new repository
 3. Read and write it with `PlayerDataManager#get`/`#save`, e.g. from a `Listener` like `CreeperKillListener` or a command executor like `CreepersKilled`
 4. Write unit tests mocking `PlayerDataManager`, following `CreeperKillListenerTest`/`CreepersKilledTest`
-5. (Optional) Periodically flush data stores using `AutoFlushTask` to prevent session data loss from an unexpected shutdown.
+5. (Optional) Periodically flush data stores using `AutoFlushTask.builder(...).build().start()` to prevent session data loss from an unexpected shutdown.
 
 Note: `PlayerDataManager` is just a `Player`-keyed convenience wrapper. For data that isn't tied to a specific player, call `DataStore#repository` directly with a different `KeySerializer` (e.g. `KeySerializers.forString()`) to get a standalone `Repository` for that data.

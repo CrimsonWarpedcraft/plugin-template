@@ -1,10 +1,11 @@
 package com.crimsonwarpedcraft.exampleplugin;
 
-import com.crimsonwarpedcraft.cwcommons.config.ConfigManager;
+import com.crimsonwarpedcraft.cwcommons.config.bukkit.BukkitConfigManagerBuilder;
 import com.crimsonwarpedcraft.cwcommons.store.DataStore;
 import com.crimsonwarpedcraft.cwcommons.store.KeySerializers;
 import com.crimsonwarpedcraft.cwcommons.store.Repository;
 import com.crimsonwarpedcraft.cwcommons.store.bukkit.AutoFlushTask;
+import com.crimsonwarpedcraft.cwcommons.store.bukkit.BukkitDataStoreBuilder;
 import com.crimsonwarpedcraft.cwcommons.store.bukkit.PlayerDataManager;
 import com.crimsonwarpedcraft.exampleplugin.command.ExampleCommand;
 import com.crimsonwarpedcraft.exampleplugin.config.PluginConfig;
@@ -42,7 +43,8 @@ public class ExamplePlugin extends JavaPlugin {
 
     // Load the configuration settings
     try {
-      config = new ConfigManager()
+      config = new BukkitConfigManagerBuilder()
+          .build()
           .load(new File(getDataFolder(), "config.yml"), PluginConfig.class);
     } catch (IOException | IllegalStateException e) {
       getLogger().severe("Failed to load config: " + e.getMessage());
@@ -52,14 +54,14 @@ public class ExamplePlugin extends JavaPlugin {
 
     // Setup persistent storage
     try {
-      store = DataStore.getLocalDataStore(getName(), getDataFolder());
+      store = new BukkitDataStoreBuilder(getName(), getDataFolder()).build();
     } catch (IOException e) {
       getLogger().severe("Failed to open data store: " + e.getMessage());
       getServer().getPluginManager().disablePlugin(this);
       return;
     }
 
-    autoFlushTask = new AutoFlushTask(store, this).start();
+    autoFlushTask = AutoFlushTask.builder(store, this).build().start();
 
     Repository<UUID, PlayerData> playerDataRepository =
         store.repository("player-data", PlayerData.class, KeySerializers.forUuid());
