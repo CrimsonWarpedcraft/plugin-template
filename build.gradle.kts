@@ -73,7 +73,7 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.1.1")
 
     // Example dependencies. Paper plugins do not require these libraries.
-    implementation("com.github.CrimsonWarpedcraft:cw-commons:v0.1.1")
+    implementation("com.github.CrimsonWarpedcraft:cw-commons:v0.3.0")
     // PluginConfig imports annotations from Jackson and Hibernate Validator directly.
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.22.0")
     implementation("dev.jorel:commandapi-paper-shade:11.2.0")

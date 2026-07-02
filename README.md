@@ -34,8 +34,8 @@ A template for building PaperMC/Spigot Minecraft server plugins!
 
 ### Example Plugin Code 🔌
 * `/example` command via [CommandAPI](https://commandapi.jorel.dev) demonstrating subcommands, tab completion, and permissions
-* Example config loading and validation via [cw-commons](https://github.com/CrimsonWarpedcraft/cw-commons)' `ConfigManager`, backed by [Jackson](https://github.com/fasterxml/jackson) and [Hibernate Validator](https://hibernate.org/validator/)
-* Example persistent per-player data storage via cw-commons' `Repository`/`PlayerDataManager`, demonstrated by `/example creepersKilled`: `CreeperKillListener` writes to it on each creeper kill, `CreepersKilled` reads it back
+* Example config loading and validation via [cw-commons](https://github.com/CrimsonWarpedcraft/cw-commons)' `BukkitConfigManagerBuilder`, backed by [Jackson](https://github.com/fasterxml/jackson) and [Hibernate Validator](https://hibernate.org/validator/)
+* Example persistent per-player data storage via cw-commons' `BukkitDataStoreBuilder`/`Repository`/`PlayerDataManager`, demonstrated by `/example creepersKilled`: `CreeperKillListener` writes to it on each creeper kill, `CreepersKilled` reads it back
 
 ### Config Files 📁
 * Sample plugin.yml with autofill name, version, and main class.
