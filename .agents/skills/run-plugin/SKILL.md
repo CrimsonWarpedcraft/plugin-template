@@ -22,6 +22,9 @@ folder.
 # Run tests only
 ./gradlew test
 
+# Run integration tests against real cw-commons implementations
+./gradlew integrationTest
+
 # Run a single test class
 ./gradlew test --tests "com.example.plugin.command.PingTest"
 
@@ -32,6 +35,10 @@ folder.
 Checkstyle enforces Google Java style with `maxWarnings = 0` — the build fails on any warning. SpotBugs runs FindSecBugs. Both run as part of `build`; fix all findings before committing.
 
 Command executor unit tests (`Ping`, `Greet`, etc.) use Mockito directly — mock `CommandArguments` and `CommandSender`/`Player`, then call `run()`. No server or plugin lifecycle needed. Mockito must be declared explicitly as `testImplementation 'org.mockito:mockito-core:...'` — it is not provided transitively.
+
+Integration tests live under `src/integrationTest` and use the pinned cw-commons dependency rather
+than mocking it. Use JUnit `@TempDir` for generated configuration and SQLite files so tests do not
+modify or leave data in the worktree. The `check` and `build` tasks run this suite automatically.
 
 ## Release JAR
 

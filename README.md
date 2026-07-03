@@ -31,6 +31,7 @@ A template for building PaperMC/Spigot Minecraft server plugins!
 ### Testing 🧪
 * [JUnit 5](https://junit.org/) unit tests
 * [Mockito](https://site.mockito.org/) for mocking dependencies in unit tests
+* Integration tests against real [cw-commons](https://github.com/CrimsonWarpedcraft/cw-commons)
 
 ### Example Plugin Code 🔌
 * `/example` command via [CommandAPI](https://commandapi.jorel.dev) demonstrating subcommands, tab completion, and permissions
@@ -59,6 +60,10 @@ Thanks to [Gradle](https://gradle.org/), building locally is easy no matter what
 ```
 
 This build step will also run all checks and tests, making sure your code is clean.
+
+Run `./gradlew test` for isolated unit tests or `./gradlew integrationTest` for tests that use
+real cw-commons configuration and storage implementations. Integration-test files are created in
+JUnit temporary directories and removed automatically.
 
 JARs can be found in `build/libs/`.
 
