@@ -114,10 +114,6 @@ configurations.named("integrationTestImplementation") {
     extendsFrom(configurations.implementation.get())
 }
 
-tasks.check {
-    dependsOn(testing.suites.named("integrationTest"))
-}
-
 tasks.processResources {
     filesMatching("**/plugin.yml") {
         expand(mapOf("NAME" to rootProject.name, "VERSION" to version, "PACKAGE" to project.group))

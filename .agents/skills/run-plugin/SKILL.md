@@ -38,7 +38,7 @@ Command executor unit tests (`Ping`, `Greet`, etc.) use Mockito directly — moc
 
 Integration tests live under `src/integrationTest` and use the pinned cw-commons dependency rather
 than mocking it. Use JUnit `@TempDir` for generated configuration and SQLite files so tests do not
-modify or leave data in the worktree. The `check` and `build` tasks run this suite automatically.
+modify or leave data in the worktree. Run this suite separately with `./gradlew integrationTest`.
 
 ## Release JAR
 

@@ -27,7 +27,7 @@ Jackson and Hibernate Validator remain direct dependencies because `PluginConfig
 **Test suites**: `test` contains isolated unit tests and may mock external boundaries.
 `integrationTest` exercises the pinned cw-commons dependency directly, including configuration
 loading and SQLite persistence. Integration tests use JUnit temporary directories for generated
-files. The `check` and `build` tasks run both suites.
+files. Run this suite separately with `./gradlew integrationTest`.
 
 ## Agent instructions
 
