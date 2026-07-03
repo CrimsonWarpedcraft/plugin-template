@@ -95,7 +95,7 @@ testing {
             useJUnitJupiter("6.1.1")
 
             dependencies {
-                implementation(project())
+                implementation(sourceSets.main.get().output)
             }
 
             targets {
@@ -107,6 +107,10 @@ testing {
             }
         }
     }
+}
+
+configurations.named("integrationTestImplementation") {
+    extendsFrom(configurations.implementation.get())
 }
 
 tasks.check {
