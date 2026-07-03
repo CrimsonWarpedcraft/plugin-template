@@ -1,5 +1,6 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import com.github.spotbugs.snom.SpotBugsTask
+import org.gradle.api.plugins.jvm.JvmTestSuite
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.TimeZone
@@ -86,6 +87,30 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
     jvmArgs("-javaagent:${mockitoAgent.asPath}")
+}
+
+testing {
+    suites {
+        register<JvmTestSuite>("integrationTest") {
+            useJUnitJupiter("6.1.1")
+
+            dependencies {
+                implementation(project())
+            }
+
+            targets {
+                all {
+                    testTask.configure {
+                        shouldRunAfter(tasks.test)
+                    }
+                }
+            }
+        }
+    }
+}
+
+tasks.check {
+    dependsOn(testing.suites.named("integrationTest"))
 }
 
 tasks.processResources {
