@@ -102,6 +102,7 @@ testing {
                 all {
                     testTask.configure {
                         shouldRunAfter(tasks.test)
+                        jvmArgs("--enable-native-access=ALL-UNNAMED")
                     }
                 }
             }
