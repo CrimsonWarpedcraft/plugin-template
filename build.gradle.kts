@@ -75,7 +75,7 @@ dependencies {
     // Example dependencies. Paper plugins do not require these libraries.
     implementation("com.github.CrimsonWarpedcraft:cw-commons:v0.1.1")
     // PluginConfig imports annotations from Jackson and Hibernate Validator directly.
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.22.0")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.22.1")
     implementation("dev.jorel:commandapi-paper-shade:11.2.0")
     implementation("org.hibernate.validator:hibernate-validator:9.1.1.Final")
 
