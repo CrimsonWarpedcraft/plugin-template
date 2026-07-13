@@ -8,7 +8,7 @@ import java.util.TimeZone
 plugins {
     checkstyle
     id("com.github.spotbugs") version "6.5.8"
-    id("com.gradleup.shadow") version "9.4.3"
+    id("com.gradleup.shadow") version "9.5.1"
     id("xyz.jpenilla.run-paper") version "2.3.1"
     java
 }
@@ -64,22 +64,22 @@ repositories {
 val mockitoAgent = configurations.create("mockitoAgent")
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:26.1.2.build.72-stable")
+    compileOnly("io.papermc.paper:paper-api:26.1.2.build.74-stable")
 
     // Code quality and unit testing. Not required for code functionality.
     compileOnly("com.github.spotbugs:spotbugs-annotations:4.10.2")
     spotbugsPlugins("com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0")
     testCompileOnly("com.github.spotbugs:spotbugs-annotations:4.10.2")
-    testImplementation("io.papermc.paper:paper-api:26.1.2.build.72-stable")
+    testImplementation("io.papermc.paper:paper-api:26.1.2.build.74-stable")
     testImplementation("org.junit.jupiter:junit-jupiter:6.1.1")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.1.1")
 
     // Example dependencies. Paper plugins do not require these libraries.
-    implementation("com.github.CrimsonWarpedcraft:cw-commons:v0.1.1")
+    implementation("com.github.CrimsonWarpedcraft:cw-commons:v0.3.0")
     // PluginConfig imports annotations from Jackson and Hibernate Validator directly.
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.22.0")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.22.1")
     implementation("dev.jorel:commandapi-paper-shade:11.2.0")
-    implementation("org.hibernate.validator:hibernate-validator:9.1.1.Final")
+    implementation("org.hibernate.validator:hibernate-validator:9.1.2.Final")
 
     testImplementation("org.mockito:mockito-core:5.23.0")
     mockitoAgent("org.mockito:mockito-core:5.23.0") { isTransitive = false }
@@ -101,6 +101,7 @@ testing {
 
             dependencies {
                 implementation(sourceSets.main.get().output)
+                implementation("io.papermc.paper:paper-api:26.1.2.build.74-stable")
             }
 
             targets {

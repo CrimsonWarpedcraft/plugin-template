@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.crimsonwarpedcraft.cwcommons.store.DataStore;
 import com.crimsonwarpedcraft.cwcommons.store.KeySerializers;
 import com.crimsonwarpedcraft.cwcommons.store.Repository;
+import com.crimsonwarpedcraft.cwcommons.store.bukkit.BukkitDataStoreBuilder;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.UUID;
@@ -39,7 +40,7 @@ class PlayerDataRepositoryIntegrationTest {
   }
 
   private DataStore openStore() throws Exception {
-    return DataStore.getLocalDataStore(STORE_NAME, tempDirectory.toFile());
+    return new BukkitDataStoreBuilder(STORE_NAME, tempDirectory.toFile()).build();
   }
 
   private Repository<UUID, PlayerData> repository(DataStore store) {
