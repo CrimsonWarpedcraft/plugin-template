@@ -9,6 +9,7 @@ plugins {
     checkstyle
     id("com.github.spotbugs") version "6.5.8"
     id("com.gradleup.shadow") version "9.4.3"
+    id("xyz.jpenilla.run-paper") version "2.3.1"
     java
 }
 
@@ -87,6 +88,10 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
     jvmArgs("-javaagent:${mockitoAgent.asPath}")
+}
+
+tasks.runServer {
+    minecraftVersion("26.1.2")
 }
 
 testing {
