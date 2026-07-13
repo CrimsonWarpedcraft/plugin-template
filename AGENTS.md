@@ -24,6 +24,11 @@ Jackson and Hibernate Validator remain direct dependencies because `PluginConfig
 - `main.yml`: builds, tests, and uploads a snapshot artifact on push to `main`
 - `tag.yml` / `release.yml`: handle tagged releases and Discord notifications
 
+**Test suites**: `test` contains isolated unit tests and may mock external boundaries.
+`integrationTest` exercises the pinned cw-commons dependency directly, including configuration
+loading and SQLite persistence. Integration tests use JUnit temporary directories for generated
+files. Run this suite separately with `./gradlew integrationTest`.
+
 ## Agent instructions
 
 1. Canonical skills live in `.agents/skills/`. The `.claude/skills/` directory is a generated mirror.

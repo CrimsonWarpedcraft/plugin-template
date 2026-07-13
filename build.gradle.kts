@@ -1,5 +1,6 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import com.github.spotbugs.snom.SpotBugsTask
+import org.gradle.api.plugins.jvm.JvmTestSuite
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.TimeZone
@@ -8,6 +9,7 @@ plugins {
     checkstyle
     id("com.github.spotbugs") version "6.5.8"
     id("com.gradleup.shadow") version "9.5.1"
+    id("xyz.jpenilla.run-paper") version "2.3.1"
     java
 }
 
@@ -86,6 +88,36 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
     jvmArgs("-javaagent:${mockitoAgent.asPath}")
+}
+
+tasks.runServer {
+    minecraftVersion("26.1.2")
+}
+
+testing {
+    suites {
+        register<JvmTestSuite>("integrationTest") {
+            useJUnitJupiter("6.1.1")
+
+            dependencies {
+                implementation(sourceSets.main.get().output)
+                implementation("io.papermc.paper:paper-api:26.1.2.build.74-stable")
+            }
+
+            targets {
+                all {
+                    testTask.configure {
+                        shouldRunAfter(tasks.test)
+                        jvmArgs("--enable-native-access=ALL-UNNAMED")
+                    }
+                }
+            }
+        }
+    }
+}
+
+configurations.named("integrationTestImplementation") {
+    extendsFrom(configurations.implementation.get())
 }
 
 tasks.processResources {
