@@ -156,6 +156,9 @@ tasks.withType<SpotBugsTask>().configureEach {
 
 val shadowJar = tasks.named<ShadowJar>("shadowJar") {
     archiveClassifier.set("")
+    filesMatching("META-INF/services/**") {
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    }
     mergeServiceFiles()
     relocate("dev.jorel.commandapi", "${project.group}.commandapi")
     relocate("com.fasterxml", "${project.group}.fasterxml")
