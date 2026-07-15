@@ -72,7 +72,7 @@ dependencies {
     testCompileOnly("com.github.spotbugs:spotbugs-annotations:4.10.2")
     testImplementation("io.papermc.paper:paper-api:26.1.2.build.74-stable")
     testImplementation("org.junit.jupiter:junit-jupiter:6.1.1")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.1.1")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.1.2")
 
     // Example dependencies. Paper plugins do not require these libraries.
     implementation("com.github.CrimsonWarpedcraft:cw-commons:v0.3.0")
