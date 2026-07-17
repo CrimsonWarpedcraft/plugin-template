@@ -7,7 +7,7 @@ import java.util.TimeZone
 
 plugins {
     checkstyle
-    id("com.github.spotbugs") version "6.5.8"
+    id("com.github.spotbugs") version "6.5.9"
     id("com.gradleup.shadow") version "9.5.1"
     id("xyz.jpenilla.run-paper") version "3.0.2"
     java
@@ -67,12 +67,12 @@ dependencies {
     compileOnly("io.papermc.paper:paper-api:26.1.2.build.74-stable")
 
     // Code quality and unit testing. Not required for code functionality.
-    compileOnly("com.github.spotbugs:spotbugs-annotations:4.10.2")
+    compileOnly("com.github.spotbugs:spotbugs-annotations:4.10.3")
     spotbugsPlugins("com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0")
-    testCompileOnly("com.github.spotbugs:spotbugs-annotations:4.10.2")
+    testCompileOnly("com.github.spotbugs:spotbugs-annotations:4.10.3")
     testImplementation("io.papermc.paper:paper-api:26.1.2.build.74-stable")
-    testImplementation("org.junit.jupiter:junit-jupiter:6.1.1")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.1.1")
+    testImplementation("org.junit.jupiter:junit-jupiter:6.1.2")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.1.2")
 
     // Example dependencies. Paper plugins do not require these libraries.
     implementation("com.github.CrimsonWarpedcraft:cw-commons:v0.3.0")
