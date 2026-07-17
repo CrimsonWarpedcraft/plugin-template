@@ -52,3 +52,27 @@ jobs:
           path: ${{ github.workspace }}/build/reports/
           if-no-files-found: ignore
           retention-days: 7
+
+  integration-test:
+    name: Run integration tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Common Setup
+        uses: ./.github/actions/common-setup
+        with:
+          java-version: 25
+
+      - name: Run integration tests
+        run: ./gradlew integrationTest --info
+
+      - name: Upload integration test results
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: Integration test results
+          path: ${{ github.workspace }}/build/reports/tests/integrationTest/
+          if-no-files-found: ignore
+          retention-days: 7
