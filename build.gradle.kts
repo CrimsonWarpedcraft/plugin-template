@@ -78,7 +78,7 @@ dependencies {
     implementation("com.github.CrimsonWarpedcraft:cw-commons:v0.3.0")
     // PluginConfig imports annotations from Jackson and Hibernate Validator directly.
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.22.1")
-    implementation("dev.jorel:commandapi-paper-shade:11.2.0")
+    implementation("dev.jorel:commandapi-paper-shade:12.0.0")
     implementation("org.hibernate.validator:hibernate-validator:9.1.2.Final")
 
     testImplementation("org.mockito:mockito-core:5.23.0")
