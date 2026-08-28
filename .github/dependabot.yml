@@ -11,6 +11,10 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    cooldown:
+      # Remove when dependabot/dependabot-core#16055 is fixed.
+      exclude:
+        - "com.github.CrimsonWarpedcraft:cw-commons"
     commit-message:
       prefix: "chore(deps):"
     target-branch: "main"
