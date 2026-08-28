@@ -67,9 +67,9 @@ dependencies {
     compileOnly("io.papermc.paper:paper-api:26.2.build.116-stable")
 
     // Code quality and unit testing. Not required for code functionality.
-    compileOnly("com.github.spotbugs:spotbugs-annotations:4.10.3")
+    compileOnly("com.github.spotbugs:spotbugs-annotations:4.10.4")
     spotbugsPlugins("com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0")
-    testCompileOnly("com.github.spotbugs:spotbugs-annotations:4.10.3")
+    testCompileOnly("com.github.spotbugs:spotbugs-annotations:4.10.4")
     testImplementation("io.papermc.paper:paper-api:26.2.build.116-stable")
     testImplementation("org.junit.jupiter:junit-jupiter:6.1.3")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.1.3")
