@@ -127,7 +127,7 @@ tasks.processResources {
 }
 
 checkstyle {
-    toolVersion = "13.6.0"
+    toolVersion = "14.0.0"
     maxWarnings = 0
 }
 
