@@ -79,7 +79,7 @@ dependencies {
     // PluginConfig imports annotations from Jackson and Hibernate Validator directly.
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.22.2")
     implementation("dev.jorel:commandapi-paper-shade:12.0.0")
-    implementation("org.hibernate.validator:hibernate-validator:9.1.3.Final")
+    implementation("org.hibernate.validator:hibernate-validator:9.1.4.Final")
 
     testImplementation("org.mockito:mockito-core:5.23.0")
     mockitoAgent("org.mockito:mockito-core:5.23.0") { isTransitive = false }
