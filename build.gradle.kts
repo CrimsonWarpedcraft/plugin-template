@@ -81,8 +81,8 @@ dependencies {
     implementation("dev.jorel:commandapi-paper-shade:12.0.0")
     implementation("org.hibernate.validator:hibernate-validator:9.1.4.Final")
 
-    testImplementation("org.mockito:mockito-core:5.23.0")
-    mockitoAgent("org.mockito:mockito-core:5.23.0") { isTransitive = false }
+    testImplementation("org.mockito:mockito-core:5.24.0")
+    mockitoAgent("org.mockito:mockito-core:5.24.0") { isTransitive = false }
 }
 
 tasks.test {
