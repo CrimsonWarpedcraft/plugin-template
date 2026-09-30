@@ -7,7 +7,7 @@ import java.util.TimeZone
 
 plugins {
     checkstyle
-    id("com.github.spotbugs") version "6.5.11"
+    id("com.github.spotbugs") version "6.5.12"
     id("com.gradleup.shadow") version "9.6.1"
     id("xyz.jpenilla.run-paper") version "3.1.0"
     java
