@@ -34,3 +34,4 @@ files. Run this suite separately with `./gradlew integrationTest`.
 1. Canonical skills live in `.agents/skills/`. The `.claude/skills/` directory is a generated mirror.
 2. `CLAUDE.md` is a generated copy of this `AGENTS.md`.
 3. Do not edit or create `CLAUDE.md` or files under `.claude/skills/`. Claude hooks configured in `.claude/settings.json` synchronize these mirrors on `SessionStart` and `PostToolUse`.
+4. On Windows, direct Gradle calls through the agent terminal have repeatedly hung, including after build completion. For **every Gradle invocation**, use the bounded, log-redirected procedure in `.agents/skills/run-plugin/SKILL.md`; do not run `gradlew.bat` directly in the foreground.

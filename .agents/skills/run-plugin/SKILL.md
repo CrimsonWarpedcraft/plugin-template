@@ -9,6 +9,39 @@ folder.
 
 ## Commands
 
+### Windows agent terminal: prevent recurring Gradle hangs
+
+Direct Gradle calls through the agent terminal have repeatedly hung, including after Gradle
+reports completion. Apply this procedure to **every Gradle invocation**, including diagnostic
+commands. Run a separate process with `--no-daemon --console=plain`, close stdin, redirect both
+output streams to a temporary log, and enforce a process deadline shorter than the tool timeout.
+Do not use an unbounded `-Wait` or `WaitForExit()`.
+
+PowerShell example (set the terminal tool timeout to at least 120 seconds):
+
+```powershell
+$workDir = (Get-Location).Path
+$logDir = Join-Path $env:TEMP "opencode"
+if (-not (Test-Path -LiteralPath $logDir)) { throw "Missing temporary log directory: $logDir" }
+$log = Join-Path $logDir ("gradle-" + [guid]::NewGuid().ToString("N") + ".log")
+# Replace integrationTest --info with the requested tasks and options.
+$arguments = '/d /s /c ""{0}\gradlew.bat" integrationTest --info --no-daemon --console=plain <NUL >"{1}" 2>&1"' -f $workDir, $log
+$process = Start-Process -FilePath $env:ComSpec -ArgumentList $arguments -WorkingDirectory $workDir -WindowStyle Hidden -PassThru
+if (-not $process.WaitForExit(90000)) {
+    taskkill.exe /PID $process.Id /T /F
+    throw "Gradle exceeded 90 seconds; inspect $log before retrying."
+}
+$process.Refresh()
+[pscustomobject]@{ ExitCode = $process.ExitCode; Log = $log }
+if ($process.ExitCode -ne 0) { throw "Gradle failed; inspect $log" }
+```
+
+Read the log with the file-reading tool and check the exit code before reporting success.
+Choose a longer bounded deadline in advance for cold builds/downloads, with a correspondingly
+longer tool timeout. After a timeout, inspect the log and any remaining child processes before
+retrying. The task commands below are task-selection examples; wrap them using this procedure
+when working through a Windows agent terminal.
+
 **OneDrive locking**: If the project resides in OneDrive, the build fails with `Unable to delete directory '...\build\test-results\test\binary'`, delete that directory manually before retrying — OneDrive holds a sync lock on it.
 
 ```bash
