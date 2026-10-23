@@ -83,7 +83,7 @@ dependencies {
         // https://github.com/CommandAPI/CommandAPI/issues/704
         isTransitive = false
     }
-    implementation("org.hibernate.validator:hibernate-validator:9.1.4.Final")
+    implementation("org.hibernate.validator:hibernate-validator:9.1.5.Final")
 
     testImplementation("org.mockito:mockito-core:5.24.0")
     mockitoAgent("org.mockito:mockito-core:5.24.0") { isTransitive = false }
