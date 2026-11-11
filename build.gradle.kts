@@ -77,7 +77,7 @@ dependencies {
     // Example dependencies. Paper plugins do not require these libraries.
     implementation("com.github.CrimsonWarpedcraft:cw-commons:v0.3.4")
     // PluginConfig imports annotations from Jackson and Hibernate Validator directly.
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.22.4")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.23.0")
     implementation("dev.jorel:commandapi-paper-shade:12.1.0") {
         // Upstream metadata references unpublished modules already bundled in this JAR.
         // https://github.com/CommandAPI/CommandAPI/issues/704
