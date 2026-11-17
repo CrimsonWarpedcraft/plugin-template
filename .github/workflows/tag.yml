@@ -61,7 +61,7 @@ jobs:
       - name: Common Setup
         uses: ./.github/actions/common-setup
         with:
-          java-version: 21
+          java-version: 25
 
       - name: Retrieve Project Name
         run: echo "PROJECT_NAME=$(${{github.workspace}}/gradlew -q printProjectName)" >> $GITHUB_ENV

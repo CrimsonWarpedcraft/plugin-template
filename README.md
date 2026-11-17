@@ -1,5 +1,8 @@
-# PaperMC/Spigot Minecraft Server Plugin Template
-A template for building PaperMC/Spigot Minecraft server plugins!
+# PaperMC Minecraft Server Plugin Template
+A template for building PaperMC Minecraft server plugins!
+
+The current source targets **Paper 26.3 and Java 25**. Spigot and Folia compatibility is not
+claimed. See [version mapping](docs/releases.md) for the scope of this support baseline.
 
 <!-- TODO: CHANGE ME -->
 [![](https://github.com/CrimsonWarpedcraft/plugin-template/actions/workflows/main.yml/badge.svg)](https://github.com/CrimsonWarpedcraft/plugin-template/actions/workflows/main.yml)
@@ -29,7 +32,7 @@ A template for building PaperMC/Spigot Minecraft server plugins!
 * [SpotBugs](https://spotbugs.github.io/) code analysis
 
 ### Testing 🧪
-* [JUnit 5](https://junit.org/) unit tests
+* [JUnit 6](https://junit.org/) unit and integration tests
 * [Mockito](https://site.mockito.org/) for mocking dependencies in unit tests
 * Integration tests against real [cw-commons](https://github.com/CrimsonWarpedcraft/cw-commons)
 
@@ -39,7 +42,7 @@ A template for building PaperMC/Spigot Minecraft server plugins!
 * Example persistent per-player data storage via cw-commons' `BukkitDataStoreBuilder`/`Repository`/`PlayerDataManager`, demonstrated by `/example creepersKilled`: `CreeperKillListener` writes to it on each creeper kill, `CreepersKilled` reads it back
 
 ### Config Files 📁
-* Sample plugin.yml with autofill name, version, and main class.
+* Sample plugin.yml with autofill name, version, main class, and minimum Paper API version.
 * Example config.yml
 * Gradle build config
 * Simple .gitignore for common Gradle files
@@ -53,17 +56,23 @@ In order to use this template for yourself, there are a few things that you will
 - [Agent instructions & skills](docs/skills.md) — agent guidance, Claude Code support, and available skills
 
 ## Building locally
+Install Java 25 (and point `JAVA_HOME` to it) before building.
+
 Thanks to [Gradle](https://gradle.org/), building locally is easy no matter what platform you're on. Simply run the following command:
 
 ```text
 ./gradlew build
 ```
 
-This build step will also run all checks and tests, making sure your code is clean.
+This build step also runs Checkstyle, SpotBugs, and unit tests.
 
 Run `./gradlew test` for isolated unit tests or `./gradlew integrationTest` for tests that use
 real cw-commons configuration and storage implementations. Integration-test files are created in
 JUnit temporary directories and removed automatically.
+
+Dependency and tooling versions live in `gradle/libs.versions.toml`. Its `minecraft` version
+drives both `runServer` and the processed `plugin.yml` API declaration; the full `paper` API pin
+is kept separately and reused for compilation, unit tests, and integration tests.
 
 JARs can be found in `build/libs/`.
 

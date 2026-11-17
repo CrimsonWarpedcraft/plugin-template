@@ -18,3 +18,6 @@ runs:
 
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v6
+      with:
+        # setup-gradle owns Gradle caching; do not also enable it in setup-java.
+        cache-provider: basic

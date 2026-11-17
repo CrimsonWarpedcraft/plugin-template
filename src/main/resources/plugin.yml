@@ -1,7 +1,7 @@
 main: ${PACKAGE}.${NAME}
 name: ${NAME}
 version: "${VERSION}"
-api-version: "26.1.2"
+api-version: "${MINECRAFT_VERSION}"
 author: AUTHOR
 description: DESCRIPTION
 permissions:
