@@ -1,0 +1,33 @@
+[versions]
+minecraft = "26.3"
+# Keep the full stable Paper API pin explicit for Dependabot.
+paper = "26.3.build.253-stable"
+checkstyle = "14.4.0"
+spotbugs = "6.5.13"
+spotbugs-annotations = "4.10.5"
+findsecbugs = "1.14.0"
+shadow = "9.6.1"
+run-paper = "3.1.0"
+junit = "6.1.3"
+mockito = "5.24.0"
+cw-commons = "v0.3.4"
+jackson = "2.23.0"
+commandapi = "12.1.0"
+hibernate-validator = "9.1.6.Final"
+
+[libraries]
+paper-api = { module = "io.papermc.paper:paper-api", version.ref = "paper" }
+spotbugs-annotations = { module = "com.github.spotbugs:spotbugs-annotations", version.ref = "spotbugs-annotations" }
+findsecbugs = { module = "com.h3xstream.findsecbugs:findsecbugs-plugin", version.ref = "findsecbugs" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junit" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
+cw-commons = { module = "com.github.CrimsonWarpedcraft:cw-commons", version.ref = "cw-commons" }
+jackson-yaml = { module = "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml", version.ref = "jackson" }
+commandapi = { module = "dev.jorel:commandapi-paper-shade", version.ref = "commandapi" }
+hibernate-validator = { module = "org.hibernate.validator:hibernate-validator", version.ref = "hibernate-validator" }
+
+[plugins]
+spotbugs = { id = "com.github.spotbugs", version.ref = "spotbugs" }
+shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
+run-paper = { id = "xyz.jpenilla.run-paper", version.ref = "run-paper" }

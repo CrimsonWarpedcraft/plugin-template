@@ -2,20 +2,17 @@
 
 ## PaperMC version mapping
 
-Replace this example with the Paper versions your plugin supports.
+| Template revision | PaperMC baseline | Java |
+|-------------------|------------------|------|
+| Current source    | 26.3             | 25   |
 
-| PaperMC | Plugin version |
-|---------|----------------|
-| 26.1.2  | 5.0.0+        |
-| 1.21.11 | 4.0.18        |
-| 1.20.6  | 3.11.0        |
-| 1.19.4  | 3.2.1         |
-| 1.18.2  | 3.0.2         |
-| 1.17.1  | 2.2.0         |
-| 1.16.5  | 2.1.2         |
+This is the current source's support baseline, not a claim that a particular template version has
+been released with it. For a tagged template release, consult the build and support documentation
+at that tag. Spigot and Folia compatibility is not claimed.
 
-Start from the latest tagged template release, then set the Paper API and supported server versions
-for your plugin.
+When forking, replace this table with versions you have tested. Set `minecraft` in
+`gradle/libs.versions.toml` for the dev server and declared minimum API, and keep the separate full
+stable `paper` API pin aligned. Compilation and both JUnit 6 suites share that API dependency.
 
 ## Versioning strategy
 

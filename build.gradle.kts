@@ -7,9 +7,9 @@ import java.util.TimeZone
 
 plugins {
     checkstyle
-    id("com.github.spotbugs") version "6.5.13"
-    id("com.gradleup.shadow") version "9.6.1"
-    id("xyz.jpenilla.run-paper") version "3.1.0"
+    alias(libs.plugins.spotbugs)
+    alias(libs.plugins.shadow)
+    alias(libs.plugins.run.paper)
     java
 }
 
@@ -30,6 +30,9 @@ version = (if (!hasProperty("ver")) {
 }).uppercase()
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(25)
+
+// Drives both the local development server and plugin.yml's declared minimum API.
+val supportedMinecraftVersion = libs.versions.minecraft.get()
 
 repositories {
     maven {
@@ -64,29 +67,29 @@ repositories {
 val mockitoAgent = configurations.create("mockitoAgent")
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:26.3.build.248-stable")
+    compileOnly(libs.paper.api)
 
     // Code quality and unit testing. Not required for code functionality.
-    compileOnly("com.github.spotbugs:spotbugs-annotations:4.10.5")
-    spotbugsPlugins("com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0")
-    testCompileOnly("com.github.spotbugs:spotbugs-annotations:4.10.5")
-    testImplementation("io.papermc.paper:paper-api:26.3.build.248-stable")
-    testImplementation("org.junit.jupiter:junit-jupiter:6.1.3")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.1.3")
+    compileOnly(libs.spotbugs.annotations)
+    spotbugsPlugins(libs.findsecbugs)
+    testCompileOnly(libs.spotbugs.annotations)
+    testImplementation(libs.paper.api)
+    testImplementation(libs.junit.jupiter)
+    testRuntimeOnly(libs.junit.platform.launcher)
 
     // Example dependencies. Paper plugins do not require these libraries.
-    implementation("com.github.CrimsonWarpedcraft:cw-commons:v0.3.4")
+    implementation(libs.cw.commons)
     // PluginConfig imports annotations from Jackson and Hibernate Validator directly.
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.23.0")
-    implementation("dev.jorel:commandapi-paper-shade:12.1.0") {
+    implementation(libs.jackson.yaml)
+    implementation(libs.commandapi) {
         // Upstream metadata references unpublished modules already bundled in this JAR.
         // https://github.com/CommandAPI/CommandAPI/issues/704
         isTransitive = false
     }
-    implementation("org.hibernate.validator:hibernate-validator:9.1.6.Final")
+    implementation(libs.hibernate.validator)
 
-    testImplementation("org.mockito:mockito-core:5.24.0")
-    mockitoAgent("org.mockito:mockito-core:5.24.0") { isTransitive = false }
+    testImplementation(libs.mockito.core)
+    mockitoAgent(libs.mockito.core) { isTransitive = false }
 }
 
 tasks.test {
@@ -95,17 +98,17 @@ tasks.test {
 }
 
 tasks.runServer {
-    minecraftVersion("26.1.2")
+    minecraftVersion(supportedMinecraftVersion)
 }
 
 testing {
     suites {
         register<JvmTestSuite>("integrationTest") {
-            useJUnitJupiter("6.1.1")
+            useJUnitJupiter(libs.versions.junit.get())
 
             dependencies {
                 implementation(sourceSets.main.get().output)
-                implementation("io.papermc.paper:paper-api:26.3.build.248-stable")
+                implementation(libs.paper.api)
             }
 
             targets {
@@ -125,13 +128,20 @@ configurations.named("integrationTestImplementation") {
 }
 
 tasks.processResources {
+    val pluginProperties = mapOf(
+        "NAME" to rootProject.name,
+        "VERSION" to project.version.toString(),
+        "PACKAGE" to project.group.toString(),
+        "MINECRAFT_VERSION" to supportedMinecraftVersion,
+    )
+    inputs.properties(pluginProperties)
     filesMatching("**/plugin.yml") {
-        expand(mapOf("NAME" to rootProject.name, "VERSION" to version, "PACKAGE" to project.group))
+        expand(pluginProperties)
     }
 }
 
 checkstyle {
-    toolVersion = "14.0.0"
+    toolVersion = libs.versions.checkstyle.get()
     maxWarnings = 0
 }
 

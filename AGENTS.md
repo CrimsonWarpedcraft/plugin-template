@@ -1,12 +1,14 @@
-This repository is a **PaperMC/Spigot Minecraft plugin template**. Users fork or copy it, then replace the example scaffolding with their own plugin.
+This repository is a **PaperMC Minecraft plugin template targeting Paper 26.3 and Java 25**. Users fork or copy it, then replace the example scaffolding with their own plugin. Spigot and Folia compatibility is not claimed.
 
 ## Architecture
 
 **Entry point**: `ExamplePlugin extends JavaPlugin`. Bukkit/Paper calls `onEnable()` and `onDisable()` during the plugin lifecycle. In `plugin.yml`, `${PACKAGE}.${NAME}` identifies the main class. The `processResources` task fills these placeholders at build time from `group` in `build.gradle.kts` and `rootProject.name` in `settings.gradle.kts`.
 
+**Support and dependency versions**: `gradle/libs.versions.toml` is the version source of truth. Its `minecraft` value supplies `supportedMinecraftVersion` in `build.gradle.kts`, driving `runServer` and the `${MINECRAFT_VERSION}` placeholder in `plugin.yml`. Keep the full stable `paper` API pin explicit and aligned with that baseline; compilation and both test suites use the same pin. Unit and integration tests share the catalog's JUnit 6 version. `processResources` declares all expansion values as task inputs so changing `-Pver` refreshes metadata without a clean build.
+
 **JAR packaging**: The standard `jar` task is disabled, and `shadowJar` is the sole output. It shades CommandAPI and relocates it to `<group>.commandapi`. CommandAPI is excluded from `minimize()` because it loads classes through reflection. `assemble` depends on `shadowJar`.
 
-**cw-commons dependency**: [cw-commons](https://github.com/CrimsonWarpedcraft/cw-commons) provides `Command`/`BaseCommand` for command registration, `Config`/`BukkitConfigManagerBuilder` for YAML loading and Jakarta validation, and `BukkitDataStoreBuilder`/`Repository`/`PlayerDataManager` for persistent player data. These classes are not defined locally. The project consumes cw-commons from JitPack as `com.github.CrimsonWarpedcraft:cw-commons`. `build.gradle.kts` pins a tagged release, such as `v0.3.0`, instead of the unstable `main-SNAPSHOT`. Update that tag deliberately.
+**cw-commons dependency**: [cw-commons](https://github.com/CrimsonWarpedcraft/cw-commons) provides `Command`/`BaseCommand` for command registration, `Config`/`BukkitConfigManagerBuilder` for YAML loading and Jakarta validation, and `BukkitDataStoreBuilder`/`Repository`/`PlayerDataManager` for persistent player data. These classes are not defined locally. The project consumes cw-commons from JitPack as `com.github.CrimsonWarpedcraft:cw-commons`. `gradle/libs.versions.toml` pins the tagged release `v0.3.4`, instead of the unstable `main-SNAPSHOT`. Update that tag deliberately.
 
 Jackson and Hibernate Validator remain direct dependencies because `PluginConfig` uses their `@JsonProperty` and `@NotBlank` annotations. cw-commons exposes these libraries as transitive, unbundled `api` dependencies so each consumer can shade and relocate its own copy without classloader conflicts. The direct declarations are redundant for dependency resolution, but they prevent this project from relying on another project's transitive exposure choices.
 
@@ -23,6 +25,9 @@ Jackson and Hibernate Validator remain direct dependencies because `PluginConfig
 - `pr.yml`: builds and tests on Ubuntu + Windows for PRs and merge queue
 - `main.yml`: builds, tests, and uploads a snapshot artifact on push to `main`
 - `tag.yml` / `release.yml`: handle tagged releases and Discord notifications
+
+The common setup action uses Java 25 and gives `setup-gradle@v6` sole ownership of Gradle caching
+with `cache-provider: basic`. Do not also enable Gradle caching in `setup-java`.
 
 **Test suites**: `test` contains isolated unit tests and may mock external boundaries.
 `integrationTest` exercises the pinned cw-commons dependency directly, including configuration

@@ -1,11 +1,11 @@
 ---
 name: run-plugin
-description: Build, test, and release this PaperMC/Spigot plugin from source. Use when asked to build the plugin, run its tests, run a single test class, or produce a release JAR.
+description: Build, test, and release this PaperMC plugin from source. Use when asked to build the plugin, run its tests, run a single test class, or produce a release JAR.
 ---
 
-This is a PaperMC/Spigot plugin — "running" it means building from source, executing the test
-suite, and optionally producing the shaded JAR that gets dropped into a server's `plugins/`
-folder.
+This is a PaperMC plugin targeting Paper 26.3 / Java 25 — "running" it means building from source,
+executing the test suite, and optionally producing the shaded JAR that gets dropped into a
+server's `plugins/` folder.
 
 ## Commands
 
@@ -25,7 +25,7 @@ $logDir = Join-Path $env:TEMP "opencode"
 if (-not (Test-Path -LiteralPath $logDir)) { throw "Missing temporary log directory: $logDir" }
 $log = Join-Path $logDir ("gradle-" + [guid]::NewGuid().ToString("N") + ".log")
 # Replace integrationTest --info with the requested tasks and options.
-$arguments = '/d /s /c ""{0}\gradlew.bat" integrationTest --info --no-daemon --console=plain <NUL >"{1}" 2>&1"' -f $workDir, $log
+$arguments = '/d /s /c ""{0}\gradlew.bat" integrationTest --info --no-daemon --console=plain --max-workers=2 <NUL >"{1}" 2>&1"' -f $workDir, $log
 $process = Start-Process -FilePath $env:ComSpec -ArgumentList $arguments -WorkingDirectory $workDir -WindowStyle Hidden -PassThru
 if (-not $process.WaitForExit(90000)) {
     taskkill.exe /PID $process.Id /T /F
@@ -67,7 +67,7 @@ when working through a Windows agent terminal.
 
 Checkstyle enforces Google Java style with `maxWarnings = 0` — the build fails on any warning. SpotBugs runs FindSecBugs. Both run as part of `build`; fix all findings before committing.
 
-Command executor unit tests (`Ping`, `Greet`, etc.) use Mockito directly — mock `CommandArguments` and `CommandSender`/`Player`, then call `run()`. No server or plugin lifecycle needed. Mockito must be declared explicitly as `testImplementation 'org.mockito:mockito-core:...'` — it is not provided transitively.
+Command executor unit tests (`Ping`, `Greet`, etc.) use Mockito directly — mock `CommandArguments` and `CommandSender`/`Player`, then call `run()`. No server or plugin lifecycle needed. Mockito must be declared explicitly as `testImplementation(libs.mockito.core)` — it is not provided transitively.
 
 Integration tests live under `src/integrationTest` and use the pinned cw-commons dependency rather
 than mocking it. Use JUnit `@TempDir` for generated configuration and SQLite files so tests do not
@@ -96,6 +96,9 @@ a `minimize { exclude(...) }` entry — see the first Gotcha below for why this 
 
 Keep these in sync with the current state of the project:
 
+- **`gradle/libs.versions.toml`** — dependency/tooling versions, shared unit/integration JUnit
+  version, full stable Paper API pin, and `minecraft` baseline. The latter supplies
+  `supportedMinecraftVersion` for `runServer` and `${MINECRAFT_VERSION}` in `plugin.yml`.
 - **`AGENTS.md`** — architecture, versioning logic
 - **`.agents/skills/fill-template-plugin/SKILL.md`** — customization checklist
 - **`README.md`**, **`docs/usage.md`**, **`docs/customization.md`**, **`docs/releases.md`** —
