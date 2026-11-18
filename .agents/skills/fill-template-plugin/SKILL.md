@@ -16,8 +16,9 @@ changes.
 5. Align `minecraft` and the full stable `paper` API pin in `gradle/libs.versions.toml`, Java
    toolchain, CI Java versions, dependencies, shading, and supported-version docs. The current
    baseline is Paper 26.3 / Java 25. `supportedMinecraftVersion` drives `runServer` and the
-   expanded `api-version`; keep unit/integration JUnit versions shared in the catalog.
+   expanded `api-version`; keep all suites' JUnit versions shared in the catalog.
 6. Update README content and links, project docs, `AGENTS.md`, and `.agents/skills/`.
 7. Update GitHub ownership, funding, conduct contact, templates, policies, workflows, variables,
    and secrets as applicable.
-8. Search for template leftovers, then run `./gradlew clean build`.
+8. Update `src/artifactTest` for your packaged config and player data. Search for template
+   leftovers, then run `./gradlew clean build integrationTest artifactTest`.

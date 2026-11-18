@@ -58,6 +58,9 @@ when working through a Windows agent terminal.
 # Run integration tests against real cw-commons implementations
 ./gradlew integrationTest
 
+# Verify the actual shaded plugin (service-free, separate from a live Paper smoke test)
+./gradlew artifactTest
+
 # Run a single test class
 ./gradlew test --tests "com.example.plugin.command.PingTest"
 
@@ -83,8 +86,10 @@ modify or leave data in the worktree. Run this suite separately with `./gradlew 
 Versioning logic (`build.gradle.kts`):
 - No `-Pver` → `yyMMdd-HHmm-SNAPSHOT`
 - `-Pver=vX.Y.Z-RC-N` -> `X.Y.Z-RC-N-SNAPSHOT`
-- `-Pver=vX.Y.Z` -> `X.Y.Z` (stable; the `release` task then renames the shadow jar to
-  `${rootProject.name}.jar`)
+- `-Pver=vX.Y.Z` -> `X.Y.Z` (stable; `shadowJar` produces `${rootProject.name}.jar` directly)
+
+`release` runs the build, integration suite and shaded-JAR suite. To test an existing tagged
+candidate, use `artifactTest` with its `-Pver` and `-PartifactUnderTest=<path-to-jar>`.
 
 Quote the `-Pver` value to stop the shell/PowerShell from mangling the `=`.
 

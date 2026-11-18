@@ -13,10 +13,12 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  release:
+  candidate:
+    name: Build and verify release candidate on Ubuntu
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    outputs:
+      artifact-id: ${{ steps.upload.outputs.artifact-id }}
+      jar-name: ${{ steps.jar.outputs.name }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
@@ -24,22 +26,70 @@ jobs:
       - name: Common Setup
         uses: ./.github/actions/common-setup
 
-      - name: Publish with Gradle
-        run: ./gradlew -Pver=${{ github.ref_name }} release
+      - name: Build, run integration tests and verify the shaded JAR
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: ./gradlew "-Pver=$RELEASE_TAG" release --stacktrace
 
-      - name: Upload build results
+      - name: Select the single release JAR
+        id: jar
+        run: |
+          shopt -s nullglob
+          jars=(build/libs/*.jar)
+          if [[ ${#jars[@]} -ne 1 ]]; then
+            echo "Expected one release JAR, found ${#jars[@]}" >&2
+            exit 1
+          fi
+          echo "name=$(basename "${jars[0]}")" >> "$GITHUB_OUTPUT"
+
+      - name: Upload verified candidate
+        id: upload
         uses: actions/upload-artifact@v7
         with:
           name: Release Build
-          path: ${{ github.workspace }}/build/libs/
+          path: build/libs/${{ steps.jar.outputs.name }}
           if-no-files-found: error
           retention-days: 14
+
+  verify-windows:
+    name: Verify the Ubuntu release JAR on Windows
+    needs: candidate
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/common-setup
+
+      - uses: actions/download-artifact@v8
+        with:
+          artifact-ids: ${{ needs.candidate.outputs.artifact-id }}
+          merge-multiple: true
+          digest-mismatch: error
+          path: candidate
+
+      - name: Test the downloaded JAR
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+          CANDIDATE: candidate/${{ needs.candidate.outputs.jar-name }}
+        run: ./gradlew "-Pver=$env:RELEASE_TAG" "-PartifactUnderTest=$env:CANDIDATE" artifactTest --stacktrace
+
+  release:
+    needs: [candidate, verify-windows]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          artifact-ids: ${{ needs.candidate.outputs.artifact-id }}
+          merge-multiple: true
+          digest-mismatch: error
+          path: candidate
 
       - name: Create Release
         uses: softprops/action-gh-release@v3
         id: release
         with:
-          files: ${{ github.workspace }}/build/libs/*
+          files: candidate/${{ needs.candidate.outputs.jar-name }}
           generate_release_notes: true
           name: ${{ format('Release {0}', github.ref_name) }}
           prerelease: ${{ contains(github.ref_name, '-RC-') }}
@@ -67,7 +117,7 @@ jobs:
         run: echo "PROJECT_NAME=$(${{github.workspace}}/gradlew -q printProjectName)" >> $GITHUB_ENV
 
       - name: Notify on success
-        if: success()
+        if: success() && needs.release.result == 'success'
         uses: appleboy/discord-action@v1.2.0
         with:
           webhook_id: ${{ vars.DISCORD_WEBHOOK_ID }}
@@ -79,7 +129,7 @@ jobs:
             ${{ needs.release.outputs.url }}
 
       - name: Notify on failure
-        if: failure()
+        if: ${{ !cancelled() && needs.release.result != 'success' }}
         uses: appleboy/discord-action@v1.2.0
         with:
           webhook_id: ${{ vars.DISCORD_WEBHOOK_ID }}

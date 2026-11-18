@@ -101,6 +101,14 @@ tasks.runServer {
     minecraftVersion(supportedMinecraftVersion)
 }
 
+// An explicitly supplied candidate must be tested as-is, without building a replacement.
+val candidatePath = providers.gradleProperty("artifactUnderTest")
+val artifactUnderTest = if (candidatePath.isPresent) {
+    files(candidatePath.map { file(it) })
+} else {
+    files(tasks.named<ShadowJar>("shadowJar").flatMap { it.archiveFile })
+}
+
 testing {
     suites {
         register<JvmTestSuite>("integrationTest") {
@@ -117,6 +125,25 @@ testing {
                         shouldRunAfter(tasks.test)
                         jvmArgs("--enable-native-access=ALL-UNNAMED")
                     }
+                }
+            }
+        }
+
+        register<JvmTestSuite>("artifactTest") {
+            useJUnitJupiter(libs.versions.junit.get())
+            // No main output, project dependency or inheritance from implementation/test.
+            dependencies {
+                implementation(artifactUnderTest)
+                implementation(libs.paper.api)
+            }
+            targets.all {
+                testTask.configure {
+                    jvmArgs("--enable-native-access=ALL-UNNAMED")
+                    systemProperty("artifact.jar", artifactUnderTest.singleFile.absolutePath)
+                    systemProperty("artifact.name", rootProject.name)
+                    systemProperty("artifact.package", project.group.toString())
+                    systemProperty("artifact.version", project.version.toString())
+                    systemProperty("artifact.api", supportedMinecraftVersion)
                 }
             }
         }
@@ -170,6 +197,9 @@ tasks.withType<SpotBugsTask>().configureEach {
 
 val shadowJar = tasks.named<ShadowJar>("shadowJar") {
     archiveClassifier.set("")
+    if (!project.version.toString().endsWith("-SNAPSHOT")) {
+        archiveVersion.set("") // Produce the stable release filename directly; verify this file.
+    }
     filesMatching("META-INF/services/**") {
         duplicatesStrategy = DuplicatesStrategy.INCLUDE
     }
@@ -180,6 +210,9 @@ val shadowJar = tasks.named<ShadowJar>("shadowJar") {
     relocate("org.hibernate.validator", "${project.group}.hibernatevalidator")
     relocate("jakarta.validation", "${project.group}.jakartavalidation")
     relocate("org.jboss.logging", "${project.group}.jbosslogging")
+    // Shadow otherwise scans every source set, making the JAR depend on its own tests and
+    // allowing test-only references to keep classes alive during minimization.
+    sourceSetsClassesDirs.setFrom(sourceSets.main.get().output.classesDirs)
     // These libs load classes via reflection or SPI and must not be minimized
     minimize {
         exclude(dependency("dev.jorel:commandapi-paper-shade:.*"))
@@ -211,12 +244,8 @@ tasks.register("printProjectName") {
 }
 
 tasks.register("release") {
-    dependsOn("build")
-
-    doLast {
-        if (!version.toString().endsWith("-SNAPSHOT")) {
-            val releaseJar = layout.buildDirectory.file("libs/${rootProject.name}.jar").get().asFile
-            shadowJar.get().archiveFile.get().asFile.renameTo(releaseJar)
-        }
+    dependsOn("build", "integrationTest", "artifactTest")
+    doFirst {
+        check(!candidatePath.isPresent) { "Use artifactTest to check an external candidate" }
     }
 }

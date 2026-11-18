@@ -32,8 +32,8 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
 
-      - name: Build with Gradle
-        run: ./gradlew build --stacktrace
+      - name: Build and verify shaded JAR
+        run: ./gradlew build artifactTest --stacktrace
 
       - name: Upload build results
         if: ${{ matrix.os == 'ubuntu-latest' }}

@@ -4,7 +4,7 @@ This repository is a **PaperMC Minecraft plugin template targeting Paper 26.3 an
 
 **Entry point**: `ExamplePlugin extends JavaPlugin`. Bukkit/Paper calls `onEnable()` and `onDisable()` during the plugin lifecycle. In `plugin.yml`, `${PACKAGE}.${NAME}` identifies the main class. The `processResources` task fills these placeholders at build time from `group` in `build.gradle.kts` and `rootProject.name` in `settings.gradle.kts`.
 
-**Support and dependency versions**: `gradle/libs.versions.toml` is the version source of truth. Its `minecraft` value supplies `supportedMinecraftVersion` in `build.gradle.kts`, driving `runServer` and the `${MINECRAFT_VERSION}` placeholder in `plugin.yml`. Keep the full stable `paper` API pin explicit and aligned with that baseline; compilation and both test suites use the same pin. Unit and integration tests share the catalog's JUnit 6 version. `processResources` declares all expansion values as task inputs so changing `-Pver` refreshes metadata without a clean build.
+**Support and dependency versions**: `gradle/libs.versions.toml` is the version source of truth. Its `minecraft` value supplies `supportedMinecraftVersion` in `build.gradle.kts`, driving `runServer` and the `${MINECRAFT_VERSION}` placeholder in `plugin.yml`. Keep the full stable `paper` API pin explicit and aligned with that baseline; compilation and all test suites use the same pin. All suites share the catalog's JUnit 6 version. `processResources` declares all expansion values as task inputs so changing `-Pver` refreshes metadata without a clean build.
 
 **JAR packaging**: The standard `jar` task is disabled, and `shadowJar` is the sole output. It shades CommandAPI and relocates it to `<group>.commandapi`. CommandAPI is excluded from `minimize()` because it loads classes through reflection. `assemble` depends on `shadowJar`.
 
@@ -33,6 +33,9 @@ with `cache-provider: basic`. Do not also enable Gradle caching in `setup-java`.
 `integrationTest` exercises the pinned cw-commons dependency directly, including configuration
 loading and SQLite persistence. Integration tests use JUnit temporary directories for generated
 files. Run this suite separately with `./gradlew integrationTest`.
+`artifactTest` compiles and runs against the actual shaded JAR, JUnit and Paper's API dependencies.
+Do not inherit implementation dependencies or add main output to it. Shadow's minimizer must use
+only main classes as roots. Tag CI verifies the same release artifact on Ubuntu and Windows.
 
 ## Agent instructions
 

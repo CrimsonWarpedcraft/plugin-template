@@ -70,9 +70,12 @@ Run `./gradlew test` for isolated unit tests or `./gradlew integrationTest` for 
 real cw-commons configuration and storage implementations. Integration-test files are created in
 JUnit temporary directories and removed automatically.
 
+Run `./gradlew artifactTest` to check the shaded JAR itself: packaged configuration and validation,
+SQLite persistence, metadata, service providers, and native libraries. It requires no running server.
+
 Dependency and tooling versions live in `gradle/libs.versions.toml`. Its `minecraft` version
 drives both `runServer` and the processed `plugin.yml` API declaration; the full `paper` API pin
-is kept separately and reused for compilation, unit tests, and integration tests.
+is kept separately and reused for compilation and all test suites.
 
 JARs can be found in `build/libs/`.
 
