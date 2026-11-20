@@ -31,6 +31,10 @@ private String myMessage = "default";
 
 Then add a getter. The config is validated upfront on every startup. If any constraint fails, the plugin logs the offending fields and disables itself cleanly.
 
+`ExamplePlugin` loads the config in a try-with-resources block. Closing the manager releases its
+validator factory; the loaded `PluginConfig` remains usable. If you add a reload command, create a
+new manager for each load or keep one until the last reload and close it in `onDisable()`.
+
 Add a matching entry to `src/main/resources/config.yml` for every field you add, with a comment if desired:
 
 ```yaml
@@ -46,8 +50,12 @@ cw-commons' `BukkitDataStoreBuilder`/`Repository`/`PlayerDataManager` stores any
 
 1. Add a field with a getter/setter to `PlayerData` (`data/PlayerData.java`)
 2. Reuse the existing `Repository<UUID, PlayerData>`/`PlayerDataManager<PlayerData>` pair built once from the `BukkitDataStoreBuilder` store in `ExamplePlugin.onEnable()` — one repository backs every field on `PlayerData`, so adding a field never requires a new repository
-3. Read and write it with `PlayerDataManager#get`/`#save`, e.g. from a `Listener` like `CreeperKillListener` or a command executor like `CreepersKilled`
+3. Use `get` for a read and `save` for an unconditional replacement. When a change depends on the old value, use `manager.update(player, transform)` as `CreeperKillListener` does. The transform receives an empty `Optional` for a new player and returns the non-null data to store. Keep Bukkit calls out of the transform.
 4. Write unit tests mocking `PlayerDataManager`, following `CreeperKillListenerTest`/`CreepersKilledTest`
-5. (Optional) Periodically flush data stores using `AutoFlushTask.builder(...).build().start()` to prevent session data loss from an unexpected shutdown.
+5. With the default buffered store, a successful update acknowledges the cached value. Periodic flushing limits the amount of unpersisted data; close the store in `onDisable()` to drain and flush outstanding writes. Updates are atomic within one store instance.
+
+Observe the futures returned by reads and writes. The example logs failures with the player UUID
+and cause. `/example creepersKilled` schedules both success and error replies on the Bukkit thread
+and checks that the plugin is enabled and the player is online before sending.
 
 Note: `PlayerDataManager` is just a `Player`-keyed convenience wrapper. For data that isn't tied to a specific player, call `DataStore#repository` directly with a different `KeySerializer` (e.g. `KeySerializers.forString()`) to get a standalone `Repository` for that data.

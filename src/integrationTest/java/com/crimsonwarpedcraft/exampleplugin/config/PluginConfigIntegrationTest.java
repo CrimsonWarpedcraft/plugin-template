@@ -21,7 +21,7 @@ class PluginConfigIntegrationTest {
   void loadsDefaultConfigWithCwCommons() throws IOException {
     File configFile = copyDefaultConfig();
 
-    PluginConfig config = manager().load(configFile, PluginConfig.class);
+    PluginConfig config = load(configFile);
 
     assertEquals("Pong!", config.getPongMessage());
     assertEquals("Hello, {player}!", config.getGreetMessage());
@@ -35,36 +35,35 @@ class PluginConfigIntegrationTest {
         + "greet-message: ''\n"
         + "creepers-killed-message: ''\n");
 
-    assertThrows(IllegalStateException.class,
-        () -> manager().load(configFile.toFile(), PluginConfig.class));
+    assertThrows(IllegalStateException.class, () -> load(configFile.toFile()));
   }
 
   @Test
   void acceptsValidConfigWithCwCommons() {
     PluginConfig config = new PluginConfig("Custom!", "Hello, {player}!");
 
-    assertDoesNotThrow(() -> manager().validate(config));
+    assertDoesNotThrow(() -> validate(config));
   }
 
   @Test
   void rejectsBlankPongMessageWithCwCommons() {
     PluginConfig config = new PluginConfig("", "Hello, {player}!");
 
-    assertThrows(IllegalStateException.class, () -> manager().validate(config));
+    assertThrows(IllegalStateException.class, () -> validate(config));
   }
 
   @Test
   void rejectsBlankGreetMessageWithCwCommons() {
     PluginConfig config = new PluginConfig("Pong!", "");
 
-    assertThrows(IllegalStateException.class, () -> manager().validate(config));
+    assertThrows(IllegalStateException.class, () -> validate(config));
   }
 
   @Test
   void rejectsBlankCreepersKilledMessageWithCwCommons() {
     PluginConfig config = new PluginConfig("Pong!", "Hello, {player}!", "");
 
-    assertThrows(IllegalStateException.class, () -> manager().validate(config));
+    assertThrows(IllegalStateException.class, () -> validate(config));
   }
 
   private File copyDefaultConfig() throws IOException {
@@ -78,7 +77,15 @@ class PluginConfigIntegrationTest {
     return configFile.toFile();
   }
 
-  private static com.crimsonwarpedcraft.cwcommons.config.ConfigManager manager() {
-    return new BukkitConfigManagerBuilder().build();
+  private static PluginConfig load(File file) throws IOException {
+    try (var manager = new BukkitConfigManagerBuilder().build()) {
+      return manager.load(file, PluginConfig.class);
+    }
+  }
+
+  private static void validate(PluginConfig config) {
+    try (var manager = new BukkitConfigManagerBuilder().build()) {
+      manager.validate(config);
+    }
   }
 }
