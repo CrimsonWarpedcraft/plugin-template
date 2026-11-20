@@ -22,7 +22,7 @@ class PlayerDataRepositoryIntegrationTest {
   private Path tempDirectory;
 
   @Test
-  void persistsPlayerDataAcrossStoreInstances() throws Exception {
+  void backToBackIncrementsPreserveExistingKillsAcrossReopen() throws Exception {
     UUID playerId = UUID.randomUUID();
     PlayerData playerData = new PlayerData();
     playerData.setCreeperKills(7);
@@ -32,10 +32,18 @@ class PlayerDataRepositoryIntegrationTest {
     }
 
     try (DataStore store = openStore()) {
+      var players = repository(store);
+      var first = players.update(playerId, PlayerData::creditCreeperKill);
+      var second = players.update(playerId, PlayerData::creditCreeperKill);
+      assertEquals(8, first.join().getCreeperKills());
+      assertEquals(9, second.join().getCreeperKills());
+    }
+
+    try (DataStore store = openStore()) {
       Optional<PlayerData> restored = repository(store).get(playerId).join();
 
       assertTrue(restored.isPresent());
-      assertEquals(7, restored.orElseThrow().getCreeperKills());
+      assertEquals(9, restored.orElseThrow().getCreeperKills());
     }
   }
 

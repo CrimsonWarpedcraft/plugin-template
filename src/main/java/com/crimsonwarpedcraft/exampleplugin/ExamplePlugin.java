@@ -42,10 +42,8 @@ public class ExamplePlugin extends JavaPlugin {
     PluginConfig config;
 
     // Load the configuration settings
-    try {
-      config = new BukkitConfigManagerBuilder()
-          .build()
-          .load(new File(getDataFolder(), "config.yml"), PluginConfig.class);
+    try (var manager = new BukkitConfigManagerBuilder().build()) {
+      config = manager.load(new File(getDataFolder(), "config.yml"), PluginConfig.class);
     } catch (IOException | IllegalStateException e) {
       getLogger().severe("Failed to load config: " + e.getMessage());
       getServer().getPluginManager().disablePlugin(this);
@@ -70,7 +68,7 @@ public class ExamplePlugin extends JavaPlugin {
 
     // Register event listener for creeper kills
     getServer().getPluginManager()
-        .registerEvents(new CreeperKillListener(creeperKillsManager), this);
+        .registerEvents(new CreeperKillListener(creeperKillsManager, getLogger()), this);
 
     // Set up in-game /example command
     new ExampleCommand(config, creeperKillsManager, this).register();

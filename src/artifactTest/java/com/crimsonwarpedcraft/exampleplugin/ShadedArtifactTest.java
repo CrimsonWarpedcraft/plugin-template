@@ -80,12 +80,13 @@ class ShadedArtifactTest {
         InputStream yaml = openEntry(jar, "config.yml")) {
       Files.copy(yaml, file);
     }
-    var manager = new BukkitConfigManagerBuilder().build();
-    assertEquals("Pong!", manager.load(file.toFile(), PluginConfig.class).getPongMessage());
-    Files.writeString(file, "pong-message: '   '\n");
-    var failure = assertThrows(IllegalStateException.class,
-        () -> manager.load(file.toFile(), PluginConfig.class));
-    assertTrue(failure.getMessage().contains("pongMessage"), failure::getMessage);
+    try (var manager = new BukkitConfigManagerBuilder().build()) {
+      assertEquals("Pong!", manager.load(file.toFile(), PluginConfig.class).getPongMessage());
+      Files.writeString(file, "pong-message: '   '\n");
+      var failure = assertThrows(IllegalStateException.class,
+          () -> manager.load(file.toFile(), PluginConfig.class));
+      assertTrue(failure.getMessage().contains("pongMessage"), failure::getMessage);
+    }
   }
 
   @Test
@@ -94,12 +95,10 @@ class ShadedArtifactTest {
     classFromArtifact(PlayerData.class.getName());
     UUID player = UUID.randomUUID();
     try (DataStore store = new BukkitDataStoreBuilder("artifact", dir.toFile()).build()) {
-      var data = new PlayerData();
-      data.setCreeperKills(17);
-      players(store).put(player, data).get();
+      players(store).update(player, PlayerData::creditCreeperKill).get();
     }
     try (DataStore store = new BukkitDataStoreBuilder("artifact", dir.toFile()).build()) {
-      assertEquals(17, players(store).get(player).get().orElseThrow().getCreeperKills());
+      assertEquals(1, players(store).get(player).get().orElseThrow().getCreeperKills());
     }
   }
 

@@ -38,8 +38,8 @@ claimed. See [version mapping](docs/releases.md) for the scope of this support b
 
 ### Example Plugin Code 🔌
 * `/example` command via [CommandAPI](https://commandapi.jorel.dev) demonstrating subcommands, tab completion, and permissions
-* Example config loading and validation via [cw-commons](https://github.com/CrimsonWarpedcraft/cw-commons)' `BukkitConfigManagerBuilder`, backed by [Jackson](https://github.com/fasterxml/jackson) and [Hibernate Validator](https://hibernate.org/validator/)
-* Example persistent per-player data storage via cw-commons' `BukkitDataStoreBuilder`/`Repository`/`PlayerDataManager`, demonstrated by `/example creepersKilled`: `CreeperKillListener` writes to it on each creeper kill, `CreepersKilled` reads it back
+* Startup config loading and validation via [cw-commons](https://github.com/CrimsonWarpedcraft/cw-commons)' `BukkitConfigManagerBuilder`, backed by [Jackson](https://github.com/fasterxml/jackson) and [Hibernate Validator](https://hibernate.org/validator/). The manager closes after loading.
+* `CreeperKillListener` credits each kill with an atomic `PlayerDataManager.update`. `/example creepersKilled` reads the player's SQLite-backed count and reports read failures instead of displaying a misleading zero.
 
 ### Config Files 📁
 * Sample plugin.yml with autofill name, version, main class, and minimum Paper API version.
