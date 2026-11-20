@@ -69,7 +69,7 @@ Remove the notification jobs if the plugin will not use Discord webhooks.
 
 1. Search for old names, packages, permissions, placeholders, attribution, and repository URLs.
 2. Run `./gradlew clean build`.
-3. Run `./gradlew integrationTest`. Check the processed `plugin.yml` and shaded JAR for the correct
-   main class and API version. Check version expansion with consecutive stable, RC, and snapshot
-   `-Pver` builds without `clean`.
+3. Update the artifact checks when replacing the example config and player data. Run
+   `./gradlew integrationTest artifactTest` to check metadata, shading and persistence. Check
+   version expansion with consecutive stable, RC, and snapshot `-Pver` builds without `clean`.
 4. Start the JAR on the oldest supported Paper version.
