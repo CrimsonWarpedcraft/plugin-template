@@ -14,7 +14,8 @@ Jackson and Hibernate Validator remain direct dependencies because `PluginConfig
 
 **Command declaration**: CommandAPI registers commands programmatically in `onEnable()` (see `ExampleCommand`/`BaseCommand`). Adding a matching entry under `commands:` in `plugin.yml` makes Bukkit register the same command a second time, which CommandAPI flags at startup with a "Plugin command ... is registered by Bukkit" warning. `permissions:` entries are unaffected and still required.
 
-**Versioning logic** (in `build.gradle.kts`):
+**Versioning logic** (in `build.gradle.kts`): tags version this template. The tag workflow passes
+the tag as `-Pver` to set the example JAR's `plugin.yml` version. Forks choose their own tags.
 
 - No `-Pver` supplied -> `yyMMdd-HHmm-SNAPSHOT`
 - `-Pver=vX.Y.Z-RC-N` -> `X.Y.Z-RC-N-SNAPSHOT`

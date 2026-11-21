@@ -1,8 +1,10 @@
 # PaperMC Minecraft Server Plugin Template
 A template for building PaperMC Minecraft server plugins!
 
-The current source targets **Paper 26.3 and Java 25**. Spigot and Folia compatibility is not
-claimed. See [version mapping](docs/releases.md) for the scope of this support baseline.
+This template targets **Paper 26.3 and Java 25**. For an older server, use the
+[Paper-to-template version table](docs/releases.md#papermc-version-mapping) to find the latest
+compatible template source. Release notes are on [GitHub Releases](https://github.com/CrimsonWarpedcraft/plugin-template/releases).
+Spigot and Folia compatibility is not claimed.
 
 <!-- TODO: CHANGE ME -->
 [![](https://github.com/CrimsonWarpedcraft/plugin-template/actions/workflows/main.yml/badge.svg)](https://github.com/CrimsonWarpedcraft/plugin-template/actions/workflows/main.yml)
@@ -13,7 +15,7 @@ claimed. See [version mapping](docs/releases.md) for the scope of this support b
 ## Features
 ### Github Actions 🎬
 * Automated builds, testing, and release drafting
-* [Discord notifcations](https://github.com/marketplace/actions/discord-message-notify) for snapshots and releases
+* [Optional Discord notifications](docs/customization.md#github) for snapshots and releases
 
 ### Bots 🤖
 * **Probot: Stale**
@@ -32,7 +34,7 @@ claimed. See [version mapping](docs/releases.md) for the scope of this support b
 * [SpotBugs](https://spotbugs.github.io/) code analysis
 
 ### Testing 🧪
-* [JUnit 6](https://junit.org/) unit and integration tests
+* [JUnit 6](https://junit.org/) unit, integration, and shaded-JAR tests
 * [Mockito](https://site.mockito.org/) for mocking dependencies in unit tests
 * Integration tests against real [cw-commons](https://github.com/CrimsonWarpedcraft/cw-commons)
 
