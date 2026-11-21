@@ -1,9 +1,10 @@
 # PaperMC Minecraft Server Plugin Template
 A template for building PaperMC Minecraft server plugins!
 
-This template targets **Paper 26.3 and Java 25**. See the [version mapping](docs/releases.md#papermc-version-mapping)
-for older template revisions and [GitHub Releases](https://github.com/CrimsonWarpedcraft/plugin-template/releases)
-for release notes. Spigot and Folia compatibility is not claimed.
+This template targets **Paper 26.3 and Java 25**. For an older server, use the
+[Paper-to-template version table](docs/releases.md#papermc-version-mapping) to find the latest
+compatible template source. Release notes are on [GitHub Releases](https://github.com/CrimsonWarpedcraft/plugin-template/releases).
+Spigot and Folia compatibility is not claimed.
 
 <!-- TODO: CHANGE ME -->
 [![](https://github.com/CrimsonWarpedcraft/plugin-template/actions/workflows/main.yml/badge.svg)](https://github.com/CrimsonWarpedcraft/plugin-template/actions/workflows/main.yml)
