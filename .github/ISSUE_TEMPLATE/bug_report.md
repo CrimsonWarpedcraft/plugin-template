@@ -24,9 +24,10 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots to help explain your problem.
 
 **Version information:**
- - Vanilla version: [e.g. 1.16.1]
- - Server version: [e.g. paper-123]
- - Plugin version [e.g. v0.1.0]
+ - Template revision: [tag or commit]
+ - Paper and Minecraft versions: [paste `/version` output]
+ - Java version: [paste `java -version` output]
+ - Plugin version (if reporting from a fork):
 
 **Additional context**
 Add any other context about the problem here including console errors.
