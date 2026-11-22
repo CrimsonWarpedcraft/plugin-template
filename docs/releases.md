@@ -4,18 +4,18 @@
 
 Choose the template source for your server's Paper version. An exact template version is the
 last release that supports that baseline. A `+` includes that version and later releases until
-the baseline changes.
+the baseline changes. Java is the template's build target.
 
-| Paper version | Template version |
-|---------------|------------------|
-| 26.3          | 7.6.0+           |
-| 26.1.2        | 7.5.2            |
-| 1.21.11       | 4.0.18           |
-| 1.20.6        | 3.11.0           |
-| 1.19.4        | 3.2.1            |
-| 1.18.2        | 3.0.2            |
-| 1.17.1        | 2.2.0            |
-| 1.16.5        | 2.1.2            |
+| Template version | Paper version | Java |
+|------------------|---------------|------|
+| 7.6.0+           | 26.3          | 25   |
+| 7.5.2            | 26.1.2        | 25   |
+| 4.0.18           | 1.21.11       | 21   |
+| 3.11.0           | 1.20.6        | 21   |
+| 3.2.1            | 1.19.4        | 17   |
+| 3.0.2            | 1.18.2        | 17   |
+| 2.2.0            | 1.17.1        | 17   |
+| 2.1.2            | 1.16.5        | 11   |
 
 Update the table only when `plugin.yml`'s declared `api-version` increases. Set the previous row
 to the last template release that supports it, then add the new baseline with its first release
