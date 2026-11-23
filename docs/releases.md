@@ -6,7 +6,7 @@ Choose the template source for your server's Paper version. An exact template ve
 last release that supports that baseline. A `+` includes that version and later releases until
 the baseline changes. Java is the template's build target.
 
-| Template version | Paper version | Java |
+| Template version | Paper baseline | Java |
 |------------------|---------------|------|
 | 7.6.0+           | 26.3          | 25   |
 | 7.5.2            | 26.1.2        | 25   |
