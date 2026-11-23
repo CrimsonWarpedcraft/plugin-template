@@ -2,32 +2,45 @@
 
 ## PaperMC version mapping
 
-| Template revision | PaperMC baseline | Java |
-|-------------------|------------------|------|
-| Current source    | 26.3             | 25   |
+Choose the template source for your server's Paper version. An exact template version is the
+last release that supports that baseline. A `+` includes that version and later releases until
+the baseline changes. Java is the template's build target.
 
-This is the current source's support baseline, not a claim that a particular template version has
-been released with it. For a tagged template release, consult the build and support documentation
-at that tag. Spigot and Folia compatibility is not claimed.
+| Template version | Paper baseline | Java |
+|------------------|---------------|------|
+| 7.6.0+           | 26.3          | 25   |
+| 7.5.2            | 26.1.2        | 25   |
+| 4.0.18           | 1.21.11       | 21   |
+| 3.11.0           | 1.20.6        | 21   |
+| 3.2.1            | 1.19.4        | 17   |
+| 3.0.2            | 1.18.2        | 17   |
+| 2.2.0            | 1.17.1        | 17   |
+| 2.1.2            | 1.16.5        | 11   |
 
-When forking, replace this table with versions you have tested. Set `minecraft` in
-`gradle/libs.versions.toml` for the dev server and declared minimum API, and keep the separate full
-stable `paper` API pin aligned. Compilation and all JUnit 6 suites share that API dependency.
+Update the table only when `plugin.yml`'s declared `api-version` increases. Set the previous row
+to the last template release that supports it, then add the new baseline with its first release
+followed by `+`. The `minecraft` entry in `gradle/libs.versions.toml` supplies `api-version`.
+
+When forking, document the Paper versions your plugin supports. See
+[GitHub Releases](https://github.com/CrimsonWarpedcraft/plugin-template/releases) for template tags
+and release notes.
 
 ## Versioning strategy
 
-Stable plugin versions are tagged `vX.Y.Z` and have an associated GitHub release.
+Tags in this repository version the **template**: the scaffold, build, and CI that a fork starts
+with. Choose the bump for the change to that template: a dependency refresh can be a patch; an
+added test suite is a minor feature. A fork chooses its own plugin versions and tags.
 
-Testing plugin versions are tagged `vX.Y.Z-RC-N` and have an associated GitHub pre-release.
+For a tagged build, CI passes the tag to Gradle as `-Pver`. For example, `v1.2.3` produces
+`ExamplePlugin.jar` with `version: "1.2.3"` in `plugin.yml`. The separate `api-version` field
+declares the Paper baseline.
 
-Development plugin versions are pushed to the `main` branch and are **not** tagged.
-
-| Event             | Plugin version        | CI action                      | Release type      |
-|-------------------|-----------------------|--------------------------------|-------------------|
-| PR                | yyMMdd-HHmm-SNAPSHOT  | Build and test                 | None              |
-| Push to `main`    | 0.0.0-RC-1-SNAPSHOT   | Build, upload, and notify      | None              |
-| Tag `vX.Y.Z-RC-N` | X.Y.Z-RC-N-SNAPSHOT   | Build, draft, and notify       | Pre-release draft |
-| Tag `vX.Y.Z`      | X.Y.Z                 | Build, draft, and notify       | Release draft     |
+| Event                       | Version in `plugin.yml` | CI action                 | Release type      |
+|-----------------------------|-------------------------|---------------------------|-------------------|
+| PR                          | `yyMMdd-HHmm-SNAPSHOT`  | Build and test            | None              |
+| `main` release artifact     | `0.0.0-RC-1-SNAPSHOT`   | Build, upload, and notify | None              |
+| Tag `vX.Y.Z-RC-N`           | `X.Y.Z-RC-N-SNAPSHOT`   | Build, draft, and notify  | Pre-release draft |
+| Tag `vX.Y.Z`                | `X.Y.Z`                 | Build, draft, and notify  | Release draft     |
 
 ## What is verified
 
@@ -49,6 +62,9 @@ To verify a prebuilt stable or RC JAR yourself, pass its original version and pa
 
 ## Creating a release
 
-1. Create a semantic version tag on `main`, such as `v0.1.0` or `v0.1.0-RC-1`.
-2. Push the tag and wait for the tag workflow to create a draft release.
-3. Review and publish the generated draft.
+1. Verify the intended version locally, e.g. `./gradlew clean release "-Pver=v1.2.3"`. This builds
+   and tests the release JAR. The version comes from the command line; there is no version file to bump.
+2. Once the checks on the intended `main` commit pass, tag that commit (`vX.Y.Z` for a stable
+   release or `vX.Y.Z-RC-N` for a release candidate) and push the tag.
+3. Review the generated GitHub draft, add the changes that matter to template users since the
+   previous tag, and publish it.

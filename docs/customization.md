@@ -28,13 +28,16 @@ CommandAPI registers commands in Java. Do not add matching entries under `comman
 
 - Update `author`, `description`, and `permissions` in `plugin.yml`. Keep its build placeholders:
   `${NAME}`, `${VERSION}`, `${PACKAGE}`, and `${MINECRAFT_VERSION}`.
+- Choose your own plugin release numbering. Your repository's tags supply `${VERSION}` in tagged
+  builds. See [versioning strategy](releases.md#versioning-strategy).
 - Set `minecraft` in `gradle/libs.versions.toml` to the minimum supported Paper version. This
   supplies `supportedMinecraftVersion` in `build.gradle.kts` for both `runServer` and the expanded
   `api-version` in `plugin.yml`; do not replace that placeholder with a separate literal.
 - Keep the catalog's full stable `paper` API pin, Java toolchain, CI Java versions, and documented
   server support in sync. The current baseline is Paper 26.3 / Java 25, not Spigot or Folia.
-- Use the catalog for dependency/tooling versions, including the shared JUnit version for both
-  test suites. Keep direct Jackson and Hibernate Validator declarations for config annotations.
+- Use the catalog for dependency/tooling versions, including the JUnit version shared by `test`,
+  `integrationTest`, and `artifactTest`. Keep the direct Jackson and Hibernate Validator declarations
+  for config annotations.
 - Review repositories, dependencies, Shadow relocations, and `minimize` exclusions. Remove
   example dependencies the plugin no longer uses.
 

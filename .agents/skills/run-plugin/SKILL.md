@@ -80,7 +80,7 @@ modify or leave data in the worktree. Run this suite separately with `./gradlew 
 
 ```bash
 ./gradlew -Pver="v1.0.0" release
-# → build/libs/<project-name>.jar (version stripped from filename for stable tags)
+# → build/libs/<project-name>.jar (stable filename; plugin.yml contains the version)
 ```
 
 Versioning logic (`build.gradle.kts`):
@@ -101,8 +101,8 @@ a `minimize { exclude(...) }` entry — see the first Gotcha below for why this 
 
 Keep these in sync with the current state of the project:
 
-- **`gradle/libs.versions.toml`** — dependency/tooling versions, shared unit/integration JUnit
-  version, full stable Paper API pin, and `minecraft` baseline. The latter supplies
+- **`gradle/libs.versions.toml`** — dependency/tooling versions, the JUnit version shared by all
+  test suites, the full stable Paper API pin, and the `minecraft` baseline. The latter supplies
   `supportedMinecraftVersion` for `runServer` and `${MINECRAFT_VERSION}` in `plugin.yml`.
 - **`AGENTS.md`** — architecture, versioning logic
 - **`.agents/skills/fill-template-plugin/SKILL.md`** — customization checklist
