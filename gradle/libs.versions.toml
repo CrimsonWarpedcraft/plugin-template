@@ -1,7 +1,7 @@
 [versions]
 minecraft = "26.3"
 # Keep the full stable Paper API pin explicit for Dependabot.
-paper = "26.3.build.255-stable"
+paper = "26.3.build.262-stable"
 checkstyle = "14.4.0"
 spotbugs = "6.5.13"
 spotbugs-annotations = "4.10.5"
