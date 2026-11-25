@@ -13,7 +13,7 @@ mockito = "5.24.0"
 cw-commons = "v0.4.0"
 jackson = "2.23.0"
 commandapi = "12.1.0"
-hibernate-validator = "9.1.6.Final"
+hibernate-validator = "9.2.0.Final"
 
 [libraries]
 paper-api = { module = "io.papermc.paper:paper-api", version.ref = "paper" }
